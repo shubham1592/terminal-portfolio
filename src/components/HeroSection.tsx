@@ -1,0 +1,140 @@
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Download, Send } from "lucide-react";
+
+interface HeroSectionProps {
+  onContactClick?: () => void;
+}
+
+const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
+  const [bootingComplete, setBootingComplete] = useState(false);
+  const [typingComplete, setTypingComplete] = useState(false);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+
+  const textLines = [
+    "Hi, I'm ",
+    "Shubham Kumar",
+    "Former Senior Data Engineer",
+    "MS Computer Science Student at Northeastern University, Boston",
+    "AI & Machine Learning Enthusiast",
+  ];
+
+  // Boot animation
+  useEffect(() => {
+    const bootTimer = setTimeout(() => {
+      setBootingComplete(true);
+    }, 2000);
+
+    return () => clearTimeout(bootTimer);
+  }, []);
+
+  // Typewriter effect
+  useEffect(() => {
+    if (!bootingComplete) return;
+
+    if (currentTextIndex < textLines.length) {
+      const timer = setTimeout(() => {
+        setCurrentTextIndex((prev) => prev + 1);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    } else {
+      setTypingComplete(true);
+    }
+  }, [bootingComplete, currentTextIndex]);
+
+  const downloadResume = () => {
+    // Placeholder for resume download functionality
+    console.log("Downloading resume...");
+    // In a real implementation, this would trigger a file download
+  };
+
+  return (
+    <section className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-black text-white font-mono relative">
+      {/* Background scanline effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="w-full h-full bg-[linear-gradient(transparent_50%,rgba(0,255,0,0.02)_50%)] bg-[length:100%_4px]"></div>
+      </div>
+
+      <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
+        {!bootingComplete ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-green-500"
+          >
+            <p className="text-xl">Authenticating...</p>
+            <p className="mt-2">Booting Portfolio System...</p>
+            <div className="mt-4 h-1 w-full bg-gray-800 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-green-500"
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 2 }}
+              />
+            </div>
+          </motion.div>
+        ) : (
+          <div className="space-y-4 text-left ml-0 sm:ml-8 md:ml-12">
+            <div className="space-y-1">
+              {textLines.map((line, index) => {
+                if (index <= currentTextIndex) {
+                  return (
+                    <motion.p
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className={`text-xl md:text-2xl ${index === 1 ? "text-green-500 font-bold" : "text-white"}`}
+                    >
+                      {index === 0 ? "> " : ""}
+                      {line}
+                    </motion.p>
+                  );
+                }
+                return null;
+              })}
+
+              {/* Blinking cursor */}
+              {!typingComplete && currentTextIndex < textLines.length && (
+                <motion.span
+                  className="inline-block w-3 h-5 bg-green-500"
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ repeat: Infinity, duration: 1 }}
+                />
+              )}
+            </div>
+
+            {typingComplete && (
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 mt-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <Button
+                  onClick={downloadResume}
+                  className="bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  <span>&gt; download-resume</span>
+                </Button>
+
+                <Button
+                  onClick={onContactClick}
+                  className="bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300"
+                >
+                  <Send className="mr-2 h-4 w-4" />
+                  <span>&gt; contact-shubham</span>
+                </Button>
+              </motion.div>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
