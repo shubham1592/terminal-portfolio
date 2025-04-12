@@ -74,6 +74,6 @@ Feel free to connect with me:
 
 ## 📄 License
 
-This project is not open-source. All rights reserved © 2025 Shubham Kumar.
+- This project is not open-source. All rights reserved © 2025 Shubham Kumar.
 
-## Thanks for visiting!
+Thanks for visiting!
