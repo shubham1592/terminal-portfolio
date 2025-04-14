@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Download, Send } from "lucide-react";
+import { Download, Send, ChevronDown } from "lucide-react";
 
 interface HeroSectionProps {
   onContactClick?: () => void;
@@ -133,6 +133,23 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
           </div>
         )}
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        className="absolute bottom-24 left-1/2 transform -translate-x-1/2 text-green-500"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ 
+          opacity: [0, 1, 1, 0],
+          y: [-10, 0, 0, 10]
+        }}
+        transition={{ 
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <ChevronDown className="h-6 w-6" />
+      </motion.div>
     </section>
   );
 };
