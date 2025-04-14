@@ -12,6 +12,7 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 - Retro-styled code animations and typewriter text
 - Fully responsive layout
 - Embedded Spotify playlist
+- Interactive contact form with email functionality
 - Easter egg section ("Beyond Code") highlighting interests beyond tech
 
 ## 🚀 Features
@@ -21,19 +22,19 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 - **Projects**: Clickable project cards with animations
 - **Tech Stack**: Icons and categories styled in a retro grid
 - **Beyond Code**: Music, blog, hackathon, and personal fun facts
-- **Contact**: Interactive form with reasons for contacting and hover-animated icons
+- **Contact**: Interactive form with email functionality and hover-animated icons
 - **Smooth scrolling**: All navigation is smooth and fluid
 - **Fully responsive**: Optimized for all screen sizes
 
 ## 🛠️ Tech Stack
 
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-- [Your framework if used: React / Next.js / Vue / etc.]
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
 - Framer Motion (for animations)
-- Scroll APIs and modern JavaScript utilities
-- Spotify Embed API
+- Nodemailer (for email functionality)
+- Lucide Icons
 - Terminal-inspired custom CSS
 
 ## 🖥️ Live Demo
@@ -55,15 +56,38 @@ You can view the live version of this portfolio at:
 
 1. Clone the repository  
    ```bash
-   git clone https://github.com/yourusername/your-portfolio.git
-   
-2. Navigate to the project folder
-    ```bash
-    cd your-portfolio
-3. Open index.html in your browser (for static version)
-   Or run the dev server if you're using a JS framework.
+   git clone https://github.com/shubham1592/terminal-portfolio.git
+   ```
 
-4. Customize content under /sections/, /assets/, and /styles/ as needed
+2. Navigate to the project folder
+   ```bash
+   cd terminal-portfolio
+   ```
+
+3. Install dependencies
+   ```bash
+   npm install
+   ```
+
+4. Create a .env file in the root directory with your Gmail credentials:
+   ```
+   GMAIL_USER="your-email@gmail.com"
+   GMAIL_APP_PASSWORD="your-app-password"
+   ```
+
+5. Start the development server
+   ```bash
+   npm run dev
+   ```
+
+6. Start the email server (in a separate terminal)
+   ```bash
+   node server.js
+   ```
+
+7. Open your browser and visit:
+   - Local: http://localhost:5176
+   - Network: http://your-local-ip:5176 (for testing on other devices)
 
 ## 🙋‍♂️ Contact
 Feel free to connect with me:

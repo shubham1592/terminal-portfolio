@@ -1,0 +1,10 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left bracket -->
+  <path d="M10 8L6 16L10 24" stroke="#48BB78" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Forward slash -->
+  <path d="M16 8L16 24" stroke="#48BB78" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Right bracket -->
+  <path d="M22 8L26 16L22 24" stroke="#48BB78" stroke-width="3" stroke-linecap="round"/>
+</svg> 
