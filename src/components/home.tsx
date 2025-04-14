@@ -312,7 +312,7 @@ const Home = () => {
       <div className="h-16"></div>
 
       {/* Fixed Navigation */}
-      <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-900 border border-green-500 rounded-full px-2 sm:px-4 py-2 z-50 hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 max-w-[90vw] overflow-x-auto">
+      <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-900 border border-green-500 rounded-full px-2 sm:px-4 py-2 z-50 hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 max-w-[90vw] overflow-x-auto group hover:scale-105 hover:py-3">
         <ul className="flex space-x-2 sm:space-x-4 text-xs sm:text-sm whitespace-nowrap">
           <li>
             <a
@@ -323,7 +323,7 @@ const Home = () => {
                   .getElementById("hero")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-110 inline-block px-1 rounded cursor-pointer"
+              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
             >
               Home
             </a>
@@ -337,7 +337,7 @@ const Home = () => {
                   .getElementById("about")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-110 inline-block px-1 rounded cursor-pointer"
+              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
             >
               About
             </a>
@@ -351,7 +351,7 @@ const Home = () => {
                   .getElementById("projects")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-110 inline-block px-1 rounded cursor-pointer"
+              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
             >
               Projects
             </a>
@@ -365,7 +365,7 @@ const Home = () => {
                   .getElementById("tech-stack")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-110 inline-block px-1 rounded cursor-pointer"
+              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
             >
               Tech
             </a>
@@ -379,7 +379,7 @@ const Home = () => {
                   .getElementById("beyond-code")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-110 inline-block px-1 rounded cursor-pointer"
+              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
             >
               Beyond
             </a>
@@ -393,7 +393,7 @@ const Home = () => {
                   .getElementById("contact")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-110 inline-block px-1 rounded cursor-pointer"
+              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
             >
               Contact
             </a>
