@@ -8,6 +8,10 @@ import { Switch } from './ui/switch';
 import { Label } from './ui/label';
 import { Button } from './ui/button';
 
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://terminal-portfolio.onrender.com/api/send-email'
+  : 'http://localhost:3000/api/send-email';
+
 const ContactSection = () => {
   const [formState, setFormState] = useState({
     name: '',
@@ -74,7 +78,7 @@ const ContactSection = () => {
     try {
       console.log('Sending form data:', formState);
       
-      const response = await fetch('http://192.168.1.21:3000/api/send-email', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -11,11 +12,14 @@ const __dirname = dirname(__filename);
 dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the dist directory
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Create a transporter using Gmail SMTP
 const transporter = nodemailer.createTransport({
@@ -119,7 +123,11 @@ Shubham Kumar`;
   }
 });
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Server running at http://localhost:${port}`);
-  console.log(`Accessible from other devices at: http://${process.env.HOST || '192.168.1.21'}:${port}`);
+// Serve the index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 }); 

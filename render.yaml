@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: terminal-portfolio
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_APP_PASSWORD
+        sync: false
+    healthCheckPath: /
+    autoDeploy: true 

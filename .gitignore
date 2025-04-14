@@ -23,6 +23,20 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Sensitive data
+*.pem
+*.key
+*.cert
+credentials.json
+token.json
+
 !node_modules/.vite
 
 **/tempobook/dynamic/
