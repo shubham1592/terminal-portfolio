@@ -27,8 +27,6 @@ interface Project {
   description: string;
   techStack: string[];
   icon: React.ReactNode;
-  githubLink?: string;
-  demoLink?: string;
   type: "academic" | "professional";
 }
 
@@ -36,59 +34,55 @@ const ProjectsSection = () => {
   const projects: Project[] = [
     {
       id: 1,
-      name: "Chess Engine with Parallel Computing",
+      name: "Deep Level Chess Engine",
       description:
-        "AI engine using Minimax, MCTS, and parallel processing with OpenMP & Python",
-      techStack: ["Python", "OpenMP", "AI", "Minimax", "MCTS"],
+        "Chess engine made using Minimax, pruning, MCTS, and parallel processing with OpenMP that is able to go as deep as 8 parallel evaluation states.",
+      techStack: ["Python", "OpenMP", "Futures", "Pruning", "MCTS", "MiniMax"],
       icon: <Code className="h-6 w-6 text-green-400" />,
-      githubLink: "https://github.com/username/chess-engine",
       type: "academic",
     },
     {
       id: 2,
       name: "My Music Kart",
       description:
-        "Full-stack e-commerce web app for music academy with PayUmoney integration",
-      techStack: ["React", "Node.js", "MongoDB", "PayUmoney"],
+        "Full-stack e-commerce web app for my music academy with PayUmoney integration that helps with selling music instruments and enrolling new admits to the academy",
+      techStack: ["React", "Node.js", "MongoDB", "PayUmoney", "HTML", "CSS"],
       icon: <ShoppingCart className="h-6 w-6 text-green-400" />,
-      githubLink: "https://github.com/username/music-kart",
-      demoLink: "https://music-kart-demo.com",
       type: "academic",
     },
     {
       id: 3,
       name: "ShoutOut",
       description:
-        "Android social media app with ChatGPT-based content suggestions",
-      techStack: ["Kotlin", "Firebase", "OpenAI API", "Android"],
+        "Android social media app with ChatGPT-based content and comment suggestions, enables like, share, follow other users and chat with them within the app.",
+      techStack: ["Android Studio", "Kotlin", "Firebase", "GPT-4o-mini"],
       icon: <MessageSquare className="h-6 w-6 text-green-400" />,
-      githubLink: "https://github.com/username/shoutout",
       type: "academic",
     },
     {
       id: 4,
-      name: "Sensei – AI Onboarding Assistant",
+      name: "Sensei",
       description:
-        "An AI-powered tool to automate knowledge transfer for new joiners. Built using GPT-4o and LangChain. Finalist in BFL's internal Shark Tank.",
-      techStack: ["LangChain", "GPT-4o Mini API", "Vector DB", "PDF Parser"],
+        "An AI-powered framework to automate knowledge transfer for new joiners, powered by GPT-4o-mini api. Finalist in BFL Shark Tank - 2025.",
+      techStack: ["Python", "Databricks", "ChromaDB", "LangChain", "Hive Metastore", "Vector DB", "React", "Node.js"],
       icon: <Database className="h-6 w-6 text-green-400" />,
       type: "professional",
     },
     {
       id: 5,
-      name: "Data Lake Green Room Optimization",
+      name: "Green Room",
       description:
-        "Cost-saving framework using Spark, vacuum/merge, and automation",
-      techStack: ["Apache Spark", "Azure", "Data Lake", "Python"],
+        "Cost-saving framework using Spark, vacuum/merge, and automation along with PII and Non-PII user seclusion in unity catalog to maintain secure compliance with personal user information among shared tables.",
+      techStack: ["Databricks", "Python", "Azure", "Apache Spark", "ADLS", "ADF"],
       icon: <Server className="h-6 w-6 text-green-400" />,
       type: "professional",
     },
     {
       id: 6,
-      name: "Oracle Reconciliation + Alert Framework",
+      name: "Reconciliation Framework",
       description:
-        "Automated alert system using Databricks, SMTP, and pyMsTeams",
-      techStack: ["Databricks", "Oracle", "SMTP", "Python", "pyMsTeams"],
+        "Robust framework for reconciliation of data lake with oracle sources in real time for both quantitative and qualitative matching along with alert system.",
+      techStack: ["Databricks", "Python", "SQL", "ADF", "ADLS", "SMTP", "Oracle", "pymsteams", "PowerBI"],
       icon: <Database className="h-6 w-6 text-green-400" />,
       type: "professional",
     },
@@ -196,7 +190,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, variants }: ProjectCardProps) => {
   return (
     <motion.div variants={variants}>
-      <Card className="h-full bg-black border border-green-900 hover:border-green-400 transition-all duration-300 overflow-hidden group relative hover:scale-[1.03] hover:shadow-[0_0_15px_rgba(74,222,128,0.2)] cursor-pointer">
+      <Card className="h-full bg-black border border-green-900 hover:border-green-400 transition-all duration-300 overflow-hidden group relative hover:scale-[1.03] hover:shadow-[0_0_15px_rgba(74,222,128,0.2)] cursor-pointer flex flex-col">
         <div className="absolute inset-0 bg-gradient-to-r from-green-900/10 to-green-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         <CardHeader className="bg-green-900/20 border-b border-green-900 pb-2">
@@ -215,12 +209,12 @@ const ProjectCard = ({ project, variants }: ProjectCardProps) => {
           </div>
         </CardHeader>
 
-        <CardContent className="pt-4 pb-2 font-mono">
-          <CardDescription className="text-gray-400 mb-4 min-h-[60px]">
+        <CardContent className="flex-1 flex flex-col pt-4 pb-4 font-mono">
+          <CardDescription className="text-gray-400 mb-4 min-h-[60px] flex-grow">
             {project.description}
           </CardDescription>
 
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap gap-2 mt-auto">
             {project.techStack.map((tech, index) => (
               <Badge
                 key={index}
@@ -232,44 +226,6 @@ const ProjectCard = ({ project, variants }: ProjectCardProps) => {
             ))}
           </div>
         </CardContent>
-
-        <CardFooter className="flex justify-end space-x-2 pt-2 pb-4">
-          {project.githubLink && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-black border-green-700 text-green-400 hover:bg-green-900/20 hover:text-green-300 font-mono text-xs group"
-              asChild
-            >
-              <a
-                href={project.githubLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github className="mr-1 h-4 w-4" />
-                <span>GitHub</span>
-              </a>
-            </Button>
-          )}
-
-          {project.demoLink && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-black border-green-700 text-green-400 hover:bg-green-900/20 hover:text-green-300 font-mono text-xs group"
-              asChild
-            >
-              <a
-                href={project.demoLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ExternalLink className="mr-1 h-4 w-4" />
-                <span>Demo</span>
-              </a>
-            </Button>
-          )}
-        </CardFooter>
       </Card>
     </motion.div>
   );
