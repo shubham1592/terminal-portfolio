@@ -57,15 +57,15 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
         <div className="w-full h-full bg-[linear-gradient(transparent_50%,rgba(0,255,0,0.02)_50%)] bg-[length:100%_4px]"></div>
       </div>
 
-      <div className="w-[800px] max-w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[800px] px-4 sm:px-6 lg:px-8">
         {!bootingComplete ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center text-green-500"
           >
-            <p className="text-xl">Authenticating...</p>
-            <p className="mt-2">Booting Portfolio System...</p>
+            <p className="text-lg sm:text-xl">Authenticating...</p>
+            <p className="mt-2 text-sm sm:text-base">Booting Portfolio System...</p>
             <div className="mt-4 h-1 w-full bg-gray-800 rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-green-500"
@@ -86,7 +86,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5 }}
-                      className={`text-xl md:text-2xl ${index === 1 ? "text-green-500 font-bold" : "text-white"}`}
+                      className={`text-base sm:text-lg md:text-xl ${index === 1 ? "text-green-500 font-bold" : "text-white"}`}
                     >
                       {index === 0 ? "> " : ""}
                       {line}
@@ -99,7 +99,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
               {/* Blinking cursor */}
               {!typingComplete && currentTextIndex < textLines.length && (
                 <motion.span
-                  className="inline-block w-3 h-5 bg-green-500"
+                  className="inline-block w-2 h-4 sm:w-3 sm:h-5 bg-green-500"
                   animate={{ opacity: [1, 0, 1] }}
                   transition={{ repeat: Infinity, duration: 1 }}
                 />
@@ -115,7 +115,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
               >
                 <Button
                   onClick={downloadResume}
-                  className="bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300"
+                  className="w-full sm:w-auto bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300 text-sm sm:text-base"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   <span>&gt; download-resume</span>
@@ -123,7 +123,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
 
                 <Button
                   onClick={onContactClick}
-                  className="bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300"
+                  className="w-full sm:w-auto bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300 text-sm sm:text-base"
                 >
                   <Send className="mr-2 h-4 w-4" />
                   <span>&gt; contact-shubham</span>

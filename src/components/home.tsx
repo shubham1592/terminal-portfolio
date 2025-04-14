@@ -306,31 +306,10 @@ const Home = () => {
         <p className="mt-2">
           Built with React, Tailwind CSS, and Framer Motion
         </p>
-        <div className="mt-4 flex justify-center space-x-4">
-          <a
-            href="https://github.com/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-green-300 hover:scale-110 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)] transition-all duration-300 px-2 py-1 rounded"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/yourusername"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-green-300 hover:scale-110 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)] transition-all duration-300 px-2 py-1 rounded"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="mailto:pi.shubham1592@gmail.com"
-            className="hover:text-green-300 hover:scale-110 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)] transition-all duration-300 px-2 py-1 rounded"
-          >
-            Email
-          </a>
-        </div>
       </footer>
+
+      {/* Spacer to prevent dock from covering footer */}
+      <div className="h-16"></div>
 
       {/* Fixed Navigation */}
       <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-900 border border-green-500 rounded-full px-2 sm:px-4 py-2 z-50 hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 max-w-[90vw] overflow-x-auto">
