@@ -7,11 +7,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Card, CardContent } from "@/components/ui/card";
+import "devicon/devicon.min.css";
+import { Database, Cloud, Server, BarChart3, Library, Code2 } from "lucide-react";
 
 interface TechItem {
   name: string;
   command: string;
-  icon?: string;
+  icon: string | React.ReactNode;
 }
 
 interface TechCategory {
@@ -19,67 +21,53 @@ interface TechCategory {
   items: TechItem[];
 }
 
+const vibrantBlue = "text-[#0078D7]"; // Microsoft's vibrant blue color
+
 const TechStackSection = () => {
   const techCategories: TechCategory[] = [
     {
       title: "Languages",
       items: [
-        { name: "Python", command: "pip install python3", icon: "🐍" },
-        { name: "C++", command: "g++ -std=c++17 main.cpp", icon: "⚙️" },
-        { name: "JavaScript", command: "npm init", icon: "📜" },
-        { name: "Kotlin", command: "kotlinc file.kt", icon: "📱" },
-        { name: "Dart", command: "flutter create myapp", icon: "🎯" },
-        { name: "Rust", command: "cargo new project", icon: "🦀" },
-        { name: "Java", command: "javac Main.java", icon: "☕" },
-        { name: "Go", command: "go build", icon: "🐹" },
-        { name: "Scala", command: "sbt compile", icon: "📊" },
-        { name: "C#", command: "dotnet new console", icon: "🔷" },
+        { name: "Python", command: "pip install python3", icon: "devicon-python-plain colored" },
+        { name: "C++", command: "g++ main.cpp -o app", icon: "devicon-cplusplus-plain colored" },
+        { name: "SQL", command: "SELECT * FROM users;", icon: "devicon-mysql-plain colored" },
+        { name: "Scala", command: "sbt compile", icon: "devicon-scala-plain colored" },
+        { name: "Java", command: "javac Main.java", icon: "devicon-java-plain colored" },
+        { name: "JavaScript", command: "node app.js", icon: <Code2 className="h-6 w-6 text-yellow-400" /> },
+        { name: "Kotlin", command: "kotlinc hello.kt -include-runtime -d hello.jar", icon: "devicon-kotlin-plain colored" },
+        { name: "Dart", command: "flutter create myapp", icon: "devicon-dart-plain colored" },
+        { name: "Rust", command: "cargo run", icon: <Database className="h-6 w-6 text-orange-500" /> },
+        { name: "Go", command: "go run main.go", icon: "devicon-go-plain colored" },
       ],
     },
     {
       title: "Frameworks/Tools",
       items: [
-        { name: "Node.js", command: "node server.js", icon: "🟢" },
-        { name: "Firebase", command: "firebase deploy", icon: "🔥" },
-        { name: "OpenAI API", command: "pip install openai", icon: "🤖" },
-        {
-          name: "Git",
-          command: 'git commit -m "feat: add new feature"',
-          icon: "📂",
-        },
-        { name: "JWT", command: "npm install jsonwebtoken", icon: "🔑" },
-        { name: "SQL", command: "SELECT * FROM users", icon: "📊" },
+        { name: "Apache Spark", command: "spark-submit app.py", icon: "devicon-apache-plain colored" },
+        { name: "Delta Lake", command: "LOAD DATA delta.`/path/to/table`", icon: <Database className="h-6 w-6 text-blue-500" /> },
+        { name: "Git", command: 'git commit -m "init project"', icon: "devicon-git-plain colored" },
+        { name: "Postman", command: "newman run collection.json", icon: "devicon-postman-plain colored" },
+        { name: "Jupyter", command: "jupyter notebook", icon: "devicon-jupyter-plain colored" },
+        { name: "VS Code", command: "code .", icon: "devicon-vscode-plain colored" },
+        { name: "Anaconda", command: "conda create --name myenv", icon: "devicon-anaconda-plain colored" },
+        { name: "Firebase", command: "firebase deploy", icon: "devicon-firebase-plain colored" },
+        { name: "MongoDB", command: "mongod --dbpath /data/db", icon: "devicon-mongodb-plain colored" },
+        { name: "OpenAI", command: "pip install openai", icon: <Cloud className="h-6 w-6 text-blue-400" /> },
       ],
     },
     {
       title: "Cloud & Data",
       items: [
-        { name: "Apache Spark", command: "spark-submit app.py", icon: "⚡" },
-        {
-          name: "PySpark",
-          command: "pyspark --packages org.apache.spark:spark-sql-kafka",
-          icon: "🐍⚡",
-        },
-        { name: "Azure", command: "az login", icon: "☁️" },
-        { name: "ADF", command: "az datafactory pipeline create", icon: "🏭" },
-        {
-          name: "Databricks",
-          command: "databricks workspace import",
-          icon: "📊",
-        },
-        {
-          name: "Data Lake",
-          command: "az storage fs directory create",
-          icon: "💾",
-        },
-        {
-          name: "Unity Catalog",
-          command: "databricks unity-catalog create",
-          icon: "📚",
-        },
-        { name: "Oracle GoldenGate", command: "ggsci", icon: "🔄" },
-        { name: "Power BI", command: "powerbi publish", icon: "📈" },
-        { name: "Postman", command: "newman run collection.json", icon: "📬" },
+        { name: "ADF", command: "az datafactory pipeline create", icon: <Server className="h-6 w-6 text-blue-500" /> },
+        { name: "ADLS", command: "az storage fs create", icon: <Database className="h-6 w-6 text-blue-500" /> },
+        { name: "Databricks", command: "databricks workspace import", icon: <Server className="h-6 w-6 text-blue-400" /> },
+        { name: "GoldenGate", command: "ggsci", icon: <Database className="h-6 w-6 text-red-500" /> },
+        { name: "Event Hubs", command: "az eventhubs eventhub create", icon: <Cloud className="h-6 w-6 text-blue-500" /> },
+        { name: "Power BI", command: "powerbi publish", icon: <BarChart3 className="h-6 w-6 text-yellow-500" /> },
+        { name: "Unity Catalog", command: "databricks unity-catalog create", icon: <Library className="h-6 w-6 text-blue-400" /> },
+        { name: "Azure DevOps", command: "az pipelines run", icon: <Server className="h-6 w-6 text-blue-500" /> },
+        { name: "Azure Synapse", command: "az synapse workspace create", icon: <Database className="h-6 w-6 text-blue-500" /> },
+        { name: "Oracle", command: "sqlplus user/password@DB", icon: "devicon-oracle-plain colored" },
       ],
     },
   ];
@@ -148,7 +136,13 @@ const TechStackSection = () => {
                       <TooltipTrigger asChild>
                         <Card className="bg-black border border-[#39FF14]/20 hover:border-[#39FF14] transition-all duration-300 cursor-pointer h-full">
                           <CardContent className="p-4 flex flex-col items-center justify-center h-full">
-                            <div className="text-2xl mb-2">{tech.icon}</div>
+                            {typeof tech.icon === 'string' ? (
+                              <i className={`${tech.icon} text-4xl mb-2`}></i>
+                            ) : (
+                              <div className="mb-2">
+                                {tech.icon}
+                              </div>
+                            )}
                             <div className="font-mono text-sm text-white text-center">
                               {tech.name}
                             </div>
