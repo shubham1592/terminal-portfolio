@@ -92,7 +92,7 @@ You can view the live version of this portfolio at:
 ## 🙋‍♂️ Contact
 Feel free to connect with me:
 
-- Email: pi.shubham1592@gmail.com
+- Email: contact@example.com
 - LinkedIn: https://www.linkedin.com/in/shubhamkumar1592/
 - GitHub: https://github.com/shubham1592
 
