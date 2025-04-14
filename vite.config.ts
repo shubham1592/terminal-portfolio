@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
   server: {
-    // @ts-ignore
-    allowedHosts: true,
+    host: '0.0.0.0',
+    port: 5176,
   }
 });

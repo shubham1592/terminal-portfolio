@@ -18,6 +18,8 @@ const ContactSection = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -32,15 +34,79 @@ const ContactSection = () => {
     setFormState(prev => ({ ...prev, wantReply: checked }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form submission logic would go here
-    console.log('Form submitted:', formState);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
+    setIsLoading(true);
+    setError('');
+
+    // Client-side validation
+    if (!formState.name.trim()) {
+      setError('Please enter your name');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!formState.email.trim()) {
+      setError('Please enter your email');
+      setIsLoading(false);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formState.email)) {
+      setError('Please enter a valid email address');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!formState.reason) {
+      setError('Please select a reason for contact');
+      setIsLoading(false);
+      return;
+    }
+
+    if (!formState.message.trim()) {
+      setError('Please enter your message');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      console.log('Sending form data:', formState);
+      
+      const response = await fetch('http://192.168.1.21:3000/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      console.log('Response status:', response.status);
+      const responseText = await response.text();
+      console.log('Raw response:', responseText);
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+        console.log('Parsed response:', data);
+      } catch (parseError) {
+        console.error('Error parsing response:', parseError);
+        throw new Error(`Invalid response from server: ${responseText}`);
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      setIsSubmitted(true);
+      setError('');
+      
+      // Reset form after successful submission
       setFormState({
         name: '',
         email: '',
@@ -48,7 +114,12 @@ const ContactSection = () => {
         reason: '',
         wantReply: true,
       });
-    }, 3000);
+    } catch (err) {
+      console.error('Error in form submission:', err);
+      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -71,7 +142,7 @@ const ContactSection = () => {
             className="p-6 border border-green-500 rounded-md text-center mb-8 bg-black"
           >
             <p className="font-mono text-xl">
-              <span className="text-green-400">></span> Message transmitted successfully.
+              <span className="text-green-400">&gt;</span> Message transmitted successfully.
             </p>
             <p className="font-mono mt-2 text-green-300 opacity-80">
               <span className="inline-block animate-pulse">_</span>
@@ -79,9 +150,15 @@ const ContactSection = () => {
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="p-4 border border-red-500 rounded-md text-red-400 text-sm">
+                {error}
+              </div>
+            )}
+            
             <div className="space-y-2">
               <Label htmlFor="name" className="font-mono text-green-400">
-                <span className="text-green-400">></span> name:
+                <span className="text-green-400">&gt;</span> name:
               </Label>
               <Input
                 id="name"
@@ -96,7 +173,7 @@ const ContactSection = () => {
             
             <div className="space-y-2">
               <Label htmlFor="email" className="font-mono text-green-400">
-                <span className="text-green-400">></span> email:
+                <span className="text-green-400">&gt;</span> email:
               </Label>
               <Input
                 id="email"
@@ -112,7 +189,7 @@ const ContactSection = () => {
             
             <div className="space-y-2">
               <Label htmlFor="reason" className="font-mono text-green-400">
-                <span className="text-green-400">></span> reason-for-contact:
+                <span className="text-green-400">&gt;</span> reason-for-contact:
               </Label>
               <Select onValueChange={handleSelectChange} value={formState.reason}>
                 <SelectTrigger className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-green-500 focus:border-green-500 focus:ring-2">
@@ -130,7 +207,7 @@ const ContactSection = () => {
             
             <div className="space-y-2">
               <Label htmlFor="message" className="font-mono text-green-400">
-                <span className="text-green-400">></span> message:
+                <span className="text-green-400">&gt;</span> message:
               </Label>
               <Textarea
                 id="message"
@@ -157,16 +234,26 @@ const ContactSection = () => {
             
             <Button 
               type="submit" 
-              className="w-full bg-green-500 text-black font-bold py-2 px-4 rounded-md hover:bg-green-600 transition-colors duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,0,0.3)] hover:shadow-[0_0_15px_rgba(0,255,0,0.5)]"
+              disabled={isLoading}
+              className="w-full bg-green-500 text-black font-bold py-2 px-4 rounded-md hover:bg-green-600 transition-colors duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,0,0.3)] hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span className="mr-2">></span> Send Message
+              {isLoading ? (
+                <span className="flex items-center justify-center">
+                  <span className="animate-spin mr-2">⟳</span>
+                  Sending...
+                </span>
+              ) : (
+                <>
+                  <span className="mr-2">&gt;</span> Send Message
+                </>
+              )}
             </Button>
           </form>
         )}
         
         <div className="mt-12 flex justify-center space-x-6">
           <a 
-            href="https://linkedin.com" 
+            href="https://linkedin.com/in/shubhamkumar1592" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)]"
@@ -175,7 +262,7 @@ const ContactSection = () => {
             <Linkedin className="h-8 w-8" />
           </a>
           <a 
-            href="https://github.com" 
+            href="https://github.com/shubham1592" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)]"
