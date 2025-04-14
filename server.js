@@ -14,8 +14,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Configure CORS
+const corsOptions = {
+  origin: ['https://terminal-portfolio-9xqw.onrender.com', 'http://localhost:5176'],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Serve static files from the dist directory
@@ -131,6 +139,12 @@ ${process.env.NAME || 'Your Name'}`;
 // Serve the index.html for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something broke!' });
 });
 
 app.listen(port, () => {

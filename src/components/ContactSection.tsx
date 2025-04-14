@@ -9,7 +9,7 @@ import { Label } from './ui/label';
 import { Button } from './ui/button';
 
 const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://terminal-portfolio.onrender.com/api/send-email'
+  ? 'https://terminal-portfolio-9xqw.onrender.com/api/send-email'
   : 'http://localhost:3000/api/send-email';
 
 const MAX_RETRIES = 3;
@@ -88,6 +88,7 @@ const ContactSection = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify(formState),
         });
 
