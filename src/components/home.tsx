@@ -165,16 +165,16 @@ const Home = () => {
               <span>$ Music Taste</span>
               <span>♫</span>
             </div>
-            <div className="p-4 h-64 flex flex-col justify-between">
-              <p className="text-green-400">
-                Embedded Spotify playlist showcasing my music taste
+            <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
+              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+                From Rock to Lo-fi, I vibe with guitar, Indie, and everything in between
               </p>
-              <div className="mt-4 bg-black p-3 rounded-md">
-                <p className="text-green-300">
+              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+                <p className="text-green-300 text-xs md:text-sm">
                   $ spotify --play-list="Shubham's Favorites"
                 </p>
-                <p className="text-gray-400 mt-2">
-                  Rock, Alternative, Indie, Classical Guitar
+                <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+                  Linkin Park, Pink Floyd, The Beatles, Green Day, Twentyone Pilots, Radiohead and more.
                 </p>
               </div>
             </div>
@@ -186,15 +186,20 @@ const Home = () => {
               <span>$ Chess Achievements</span>
               <span>♟</span>
             </div>
-            <div className="p-4 h-64 flex flex-col justify-between">
-              <p className="text-green-400">
-                3rd place at Bajaj Office Olympics
+            <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
+              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+                I play chess for almost two hours daily (Rated 1600+ on Lichess)
               </p>
-              <div className="mt-4 bg-black p-3 rounded-md">
-                <p className="text-green-300">
-                  $ chess --tournament="Office Olympics"
+              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+                <p className="text-green-300 text-xs md:text-sm">
+                  $ chess --tournament-stats
                 </p>
-                <p className="text-gray-400 mt-2">Result: Bronze Medal 🥉</p>
+                <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+                  Bronze medal at Bajaj Office Olympics
+                </p>
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  Participation in Pune SPF Chess Tournament
+                </p>
               </div>
             </div>
           </div>
@@ -205,14 +210,22 @@ const Home = () => {
               <span>$ Guitar Performances</span>
               <span>🎸</span>
             </div>
-            <div className="p-4 h-64 flex flex-col justify-between">
-              <p className="text-green-400">
-                Performed at Symbiosis and Riviera festivals
+            <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
+              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+                Music is to life what autoplay is to YouTube — suddenly, it's 3 AM
               </p>
-              <div className="mt-4 bg-black p-3 rounded-md">
-                <p className="text-green-300">$ guitar --venues</p>
-                <p className="text-gray-400 mt-2">
-                  Symbiosis Cultural Festival, VIT Riviera
+              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+                <p className="text-green-300 text-xs md:text-sm">
+                  $ guitar --venues
+                </p>
+                <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+                  Symbiosis Cultural Fest x2 (2023, 2024)
+                </p>
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  VIT Riviera Fest
+                </p>
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  Gigs at local cafes
                 </p>
               </div>
             </div>
@@ -224,18 +237,23 @@ const Home = () => {
               <span>$ Hackathon Recognition</span>
               <span>🏆</span>
             </div>
-            <div className="p-4 h-64 flex flex-col justify-between">
-              <p className="text-green-400">
-                Microsoft ChatGPT Hackathon, ACM-VIT
+            <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
+              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+                Overnight = (Caffeine + Code + Mild Panic) &gt; Wild Ideas &gt; Debugging &gt; Innovation (maybe)
               </p>
-              <div className="mt-4 bg-black p-3 rounded-md">
-                <p className="text-green-300">
+              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+                <p className="text-green-300 text-xs md:text-sm">
                   $ hackathon --list-achievements
                 </p>
-                <p className="text-gray-400 mt-2">
+                <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
                   Microsoft ChatGPT Hackathon Recognition
                 </p>
-                <p className="text-gray-400">ACM-VIT Participant</p>
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  ACM-VIT Top 10 Teams
+                </p>
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  Venture-city Technical Head
+                </p>
               </div>
             </div>
           </div>
@@ -246,14 +264,20 @@ const Home = () => {
               <span>$ Blogs</span>
               <span>✍️</span>
             </div>
-            <div className="p-4 h-64 flex flex-col justify-between">
-              <p className="text-green-400">
-                20k+ Medium views, Blog-a-thon award
+            <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
+              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+                This is where my thoughts go from whispers to headlines, one word at a time
               </p>
-              <div className="mt-4 bg-black p-3 rounded-md">
-                <p className="text-green-300">$ blog --stats</p>
-                <p className="text-gray-400 mt-2">Medium: 20,000+ views</p>
-                <p className="text-gray-400">Blog-a-thon: 2nd Place</p>
+              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+                <p className="text-green-300 text-xs md:text-sm">
+                  $ blog --stats
+                </p>
+                <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+                  Medium: 20,000+ views, 200+ followers
+                </p>
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  BFL Blog-a-thon: 2nd Place
+                </p>
               </div>
             </div>
           </div>
@@ -264,20 +288,22 @@ const Home = () => {
               <span>$ Certifications</span>
               <span>🎓</span>
             </div>
-            <div className="p-4 h-64 flex flex-col justify-between">
-              <p className="text-green-400">
-                Professional certifications and courses
+            <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
+              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+                Took tests, earned badges, and still google things — but now I do it with authority
               </p>
-              <div className="mt-4 bg-black p-3 rounded-md">
-                <p className="text-green-300">$ cert --list-all</p>
-                <p className="text-gray-400 mt-2">
-                  Azure Data Engineer Associate (2024)
+              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+                <p className="text-green-300 text-xs md:text-sm">
+                  $ cert --list-all
                 </p>
-                <p className="text-gray-400">
-                  Databricks Data Engineer Associate (2024)
+                <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+                  Azure Data Engineer Associate
                 </p>
-                <p className="text-gray-400">
-                  ML Specialization - Andrew Ng (2021)
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  ML Specialization
+                </p>
+                <p className="text-gray-400 text-xs md:text-sm break-words">
+                  Google Cloud ML Engineer
                 </p>
               </div>
             </div>
