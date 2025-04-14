@@ -68,38 +68,44 @@ Timestamp: ${new Date().toISOString()}
 
     // Email to the sender (acknowledgement)
     if (wantReply) {
-      await transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: email,
-        subject: 'Thanks for reaching out!',
-        text: `Hey ${name},
+      const textContent = `Hey ${name},
 
 Thanks for your message! I've received it and will get back to you soon.
 
 While you wait, feel free to:
-- Check out my GitHub (github.com/shubham1592)
-- Connect on LinkedIn (https://www.linkedin.com/in/shubhamkumar1592/)
+- Check out my GitHub: https://github.com/shubham1592
+- Connect on LinkedIn: https://linkedin.com/in/shubhamkumar1592
 - Or explore the rest of my portfolio
 
 Looking forward to our conversation!
 
 Best,
-Shubham`,
-        html: `
-          <h2>Hey ${name},</h2>
-          <p>Thanks for your message! I've received it and will get back to you soon.</p>
+Shubham Kumar`;
+
+      const htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #333;">Hey ${name},</h2>
+          <p style="color: #555; line-height: 1.6;">Thanks for your message! I've received it and will get back to you soon.</p>
           
-          <p>While you wait, feel free to:</p>
-          <ul>
-            <li>Check out my <a href="https://github.com/shubham1592">GitHub</a></li>
-            <li>Connect on <a href="https://linkedin.com/in/shubhamkumar1592">LinkedIn</a></li>
+          <p style="color: #555; line-height: 1.6;">While you wait, feel free to:</p>
+          <ul style="color: #555; line-height: 1.6;">
+            <li>Check out my <a href="https://github.com/shubham1592" style="color: #0078D7; text-decoration: none;">GitHub</a></li>
+            <li>Connect on <a href="https://linkedin.com/in/shubhamkumar1592" style="color: #0078D7; text-decoration: none;">LinkedIn</a></li>
             <li>Or explore the rest of my portfolio</li>
           </ul>
           
-          <p>Looking forward to our conversation!</p>
+          <p style="color: #555; line-height: 1.6;">Looking forward to our conversation!</p>
           
-          <p>Best,<br>Shubham Kumar</p>
-        `,
+          <p style="color: #333; margin-top: 20px;">Best,<br>Shubham Kumar</p>
+        </div>
+      `;
+
+      await transporter.sendMail({
+        from: process.env.GMAIL_USER,
+        to: email,
+        subject: 'Thanks for reaching out!',
+        text: textContent,
+        html: htmlContent,
       });
     }
 
