@@ -12,6 +12,9 @@ const API_URL = process.env.NODE_ENV === 'production'
   ? 'https://terminal-portfolio.onrender.com/api/send-email'
   : 'http://localhost:3000/api/send-email';
 
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 1000; // 1 second
+
 const ContactSection = () => {
   const [formState, setFormState] = useState({
     name: '',
@@ -75,54 +78,68 @@ const ContactSection = () => {
       return;
     }
 
-    try {
-      console.log('Sending form data:', formState);
-      
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formState),
-      });
-
-      console.log('Response status:', response.status);
-      const responseText = await response.text();
-      console.log('Raw response:', responseText);
-
-      let data;
+    let retries = 0;
+    while (retries < MAX_RETRIES) {
       try {
-        data = JSON.parse(responseText);
-        console.log('Parsed response:', data);
-      } catch (parseError) {
-        console.error('Error parsing response:', parseError);
-        throw new Error(`Invalid response from server: ${responseText}`);
-      }
+        console.log('Sending form data:', formState);
+        
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formState),
+        });
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message');
-      }
+        console.log('Response status:', response.status);
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
 
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to send message');
-      }
+        let data;
+        try {
+          data = JSON.parse(responseText);
+          console.log('Parsed response:', data);
+        } catch (parseError) {
+          console.error('Error parsing response:', parseError);
+          throw new Error(`Invalid response from server: ${responseText}`);
+        }
 
-      setIsSubmitted(true);
-      setError('');
-      
-      // Reset form after successful submission
-      setFormState({
-        name: '',
-        email: '',
-        message: '',
-        reason: '',
-        wantReply: true,
-      });
-    } catch (err) {
-      console.error('Error in form submission:', err);
-      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
-    } finally {
-      setIsLoading(false);
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to send message');
+        }
+
+        if (!data.success) {
+          throw new Error(data.error || 'Failed to send message');
+        }
+
+        setIsSubmitted(true);
+        setError('');
+        
+        // Reset form after successful submission
+        setFormState({
+          name: '',
+          email: '',
+          message: '',
+          reason: '',
+          wantReply: true,
+        });
+        break;
+      } catch (err) {
+        console.error('Error in form submission:', err);
+        retries++;
+        
+        if (retries === MAX_RETRIES) {
+          setError(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
+        } else {
+          // Wait before retrying
+          await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+          continue;
+        }
+      } finally {
+        if (retries === MAX_RETRIES) {
+          setIsLoading(false);
+        }
+      }
     }
   };
 

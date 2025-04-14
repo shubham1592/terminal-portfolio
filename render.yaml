@@ -7,15 +7,17 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 10000
       - key: GMAIL_USER
         sync: false
       - key: GMAIL_APP_PASSWORD
         sync: false
-      - key: NAME
-        sync: false
       - key: GITHUB_URL
         sync: false
       - key: LINKEDIN_URL
+        sync: false
+      - key: NAME
         sync: false
     healthCheckPath: /
     autoDeploy: true 

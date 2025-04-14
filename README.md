@@ -73,6 +73,9 @@ You can view the live version of this portfolio at:
    ```
    GMAIL_USER="your-email@gmail.com"
    GMAIL_APP_PASSWORD="your-app-password"
+   GITHUB_URL="your-github-profile-url"
+   LINKEDIN_URL="your-linkedin-profile-url"
+   NAME="Your Name"
    ```
 
 5. Start the development server
@@ -88,6 +91,23 @@ You can view the live version of this portfolio at:
 7. Open your browser and visit:
    - Local: http://localhost:5176
    - Network: http://your-local-ip:5176 (for testing on other devices)
+
+## 🚀 Deployment
+
+This project is configured for deployment on Render. To deploy:
+
+1. Push your code to GitHub
+2. Create a new Web Service on Render
+3. Connect your GitHub repository
+4. Configure the following environment variables in Render:
+   - `GMAIL_USER`: Your Gmail address
+   - `GMAIL_APP_PASSWORD`: Your Gmail app password
+   - `GITHUB_URL`: Your GitHub profile URL
+   - `LINKEDIN_URL`: Your LinkedIn profile URL
+   - `NAME`: Your name
+5. Deploy!
+
+The `render.yaml` file is already configured with the necessary settings.
 
 ## 🙋‍♂️ Contact
 Feel free to connect with me:
