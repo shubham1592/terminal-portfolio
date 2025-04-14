@@ -11,5 +11,11 @@ services:
         sync: false
       - key: GMAIL_APP_PASSWORD
         sync: false
+      - key: NAME
+        sync: false
+      - key: GITHUB_URL
+        sync: false
+      - key: LINKEDIN_URL
+        sync: false
     healthCheckPath: /
     autoDeploy: true 
