@@ -160,7 +160,7 @@ const Home = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Spotify Playlist Card */}
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all duration-300">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Music Taste</span>
               <span>♫</span>
@@ -181,7 +181,7 @@ const Home = () => {
           </div>
 
           {/* Chess Achievements Card */}
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all duration-300">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Chess Achievements</span>
               <span>♟</span>
@@ -200,7 +200,7 @@ const Home = () => {
           </div>
 
           {/* Guitar Performances Card */}
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all duration-300">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Guitar Performances</span>
               <span>🎸</span>
@@ -219,7 +219,7 @@ const Home = () => {
           </div>
 
           {/* Hackathon Recognition Card */}
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all duration-300">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Hackathon Recognition</span>
               <span>🏆</span>
@@ -241,7 +241,7 @@ const Home = () => {
           </div>
 
           {/* Blogs Card */}
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all duration-300">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Blogs</span>
               <span>✍️</span>
@@ -259,7 +259,7 @@ const Home = () => {
           </div>
 
           {/* Certifications Card */}
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_10px_rgba(0,255,0,0.3)] transition-all duration-300">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Certifications</span>
               <span>🎓</span>
