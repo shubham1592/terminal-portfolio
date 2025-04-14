@@ -1,0 +1,5 @@
+[33mc919789[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m checkpoint - added card features for beyond code cards
+[33m1c670f6[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m checkpoint - changed dock scaling based on relative screen size
+[33m311cecc[m added an empty div at the bottom to resolve bottom dock cover up bug
+[33mc78e1b6[m checkpoint - made the dock responsive, hero section left aligned
+[33md886367[m checkpoint before bg changes
