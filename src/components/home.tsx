@@ -333,8 +333,8 @@ const Home = () => {
       </footer>
 
       {/* Fixed Navigation */}
-      <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-900 border border-green-500 rounded-full px-4 py-2 z-50 hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300">
-        <ul className="flex space-x-4 text-sm">
+      <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-900 border border-green-500 rounded-full px-2 sm:px-4 py-2 z-50 hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 max-w-[90vw] overflow-x-auto">
+        <ul className="flex space-x-2 sm:space-x-4 text-xs sm:text-sm whitespace-nowrap">
           <li>
             <a
               href="#hero"

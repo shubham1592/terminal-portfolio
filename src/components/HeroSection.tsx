@@ -57,7 +57,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
         <div className="w-full h-full bg-[linear-gradient(transparent_50%,rgba(0,255,0,0.02)_50%)] bg-[length:100%_4px]"></div>
       </div>
 
-      <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
+      <div className="w-[800px] max-w-full px-4 sm:px-6 lg:px-8">
         {!bootingComplete ? (
           <motion.div
             initial={{ opacity: 0 }}
@@ -76,7 +76,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
             </div>
           </motion.div>
         ) : (
-          <div className="space-y-4 text-left ml-0 sm:ml-8 md:ml-12">
+          <div className="space-y-4 text-left">
             <div className="space-y-1">
               {textLines.map((line, index) => {
                 if (index <= currentTextIndex) {

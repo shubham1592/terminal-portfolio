@@ -157,11 +157,9 @@ const ContactSection = () => {
             
             <Button 
               type="submit" 
-              className="w-full bg-black border border-green-500 text-green-400 hover:bg-green-900/20 hover:text-green-300 font-mono py-2 transition-all duration-300 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)] group"
+              className="w-full bg-green-500 text-black font-bold py-2 px-4 rounded-md hover:bg-green-600 transition-colors duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,0,0.3)] hover:shadow-[0_0_15px_rgba(0,255,0,0.5)]"
             >
-              <span className="mr-2 text-green-400 group-hover:text-green-300">></span> 
-              send-message
-              <Send className="ml-2 h-4 w-4 inline" />
+              <span className="mr-2">></span> Send Message
             </Button>
           </form>
         )}
