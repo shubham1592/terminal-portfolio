@@ -114,7 +114,7 @@ const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="py-16 px-4 md:px-8 bg-black min-h-screen flex flex-col items-center justify-center"
+      className="py-1 px-4 md:px-8 bg-black min-h-screen flex flex-col items-center justify-center"
     >
       <motion.div
         initial={{ opacity: 0, y: -20 }}

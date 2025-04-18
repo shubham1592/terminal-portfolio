@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const BeyondCodeSection = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       {/* Spotify Playlist Card */}
       <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
         <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">

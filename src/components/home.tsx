@@ -126,7 +126,7 @@ const Home = () => {
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
+        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-0 inline-block">
           $ ls -la projects/ --grep "featured"
         </h2>
         <ProjectsSection />

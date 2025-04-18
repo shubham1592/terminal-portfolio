@@ -97,7 +97,7 @@ const TechStackSection = () => {
   return (
     <section
       id="tech-stack"
-      className="py-20 bg-black min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8"
+      className="pt-4 sm:pt-6 lg:pt-8 pb-2 bg-black min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
