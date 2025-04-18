@@ -153,9 +153,9 @@ const ContactSection = () => {
         viewport={{ once: true }}
         className="w-full max-w-3xl"
       >
-        <h2 className="text-3xl md:text-4xl font-mono font-bold mb-8 text-center">
+        {/* <h2 className="text-3xl md:text-4xl font-mono font-bold mb-8 text-center">
           <span className="text-green-400">$</span> contact-me
-        </h2>
+        </h2> */}
         
         {isSubmitted ? (
           <motion.div 
