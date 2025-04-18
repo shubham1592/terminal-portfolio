@@ -27,7 +27,7 @@ interface Project {
   description: string;
   techStack: string[];
   icon: React.ReactNode;
-  type: "academic" | "professional";
+  type: "personal" | "professional";
 }
 
 const ProjectsSection = () => {
@@ -39,7 +39,7 @@ const ProjectsSection = () => {
         "Chess engine made using Minimax, pruning, MCTS, and parallel processing with OpenMP that is able to go as deep as 8 parallel evaluation states.",
       techStack: ["Python", "OpenMP", "Futures", "Pruning", "MCTS", "MiniMax"],
       icon: <Code className="h-6 w-6 text-green-400" />,
-      type: "academic",
+      type: "personal",
     },
     {
       id: 2,
@@ -48,7 +48,7 @@ const ProjectsSection = () => {
         "Full-stack e-commerce web app for my music academy with PayUmoney integration that helps with selling music instruments and enrolling new admits to the academy",
       techStack: ["React", "Node.js", "MongoDB", "PayUmoney", "HTML", "CSS"],
       icon: <ShoppingCart className="h-6 w-6 text-green-400" />,
-      type: "academic",
+      type: "personal",
     },
     {
       id: 3,
@@ -57,7 +57,7 @@ const ProjectsSection = () => {
         "Android social media app with ChatGPT-based content and comment suggestions, enables like, share, follow other users and chat with them within the app.",
       techStack: ["Android Studio", "Kotlin", "Firebase", "GPT-4o-mini"],
       icon: <MessageSquare className="h-6 w-6 text-green-400" />,
-      type: "academic",
+      type: "personal",
     },
     {
       id: 4,
@@ -122,10 +122,13 @@ const ProjectsSection = () => {
         transition={{ duration: 0.5 }}
         className="w-full max-w-6xl mx-auto text-center mb-12"
       >
-        <h2 className="text-3xl md:text-4xl font-mono font-bold text-green-400 mb-4">
+        {/* <h2 className="text-3xl md:text-4xl font-mono font-bold text-green-400 mb-4">
           <span className="text-green-400 mr-2">$</span>
-          <span className="typing-cursor">ls -la ~/projects | grep "featured"</span>
+          <span className="typing-cursor">projects</span>
         </h2>
+        <p className="text-gray-400 font-mono max-w-2xl mx-auto">
+          &gt; ls -la ~/projects | grep "featured"
+        </p> */}
       </motion.div>
 
       <div className="w-full max-w-6xl mx-auto">
@@ -141,7 +144,7 @@ const ProjectsSection = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {projects
-              .filter((project) => project.type === "academic")
+              .filter((project) => project.type === "personal")
               .map((project) => (
                 <ProjectCard
                   key={project.id}

@@ -127,7 +127,7 @@ const Home = () => {
         variants={sectionVariants}
       >
         <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
-          $ ls -la projects/
+          $ ls -la projects/ --grep "featured"
         </h2>
         <ProjectsSection />
       </motion.section>
@@ -142,7 +142,7 @@ const Home = () => {
         variants={sectionVariants}
       >
         <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
-          $ Major Tech Stack
+          $ major-tech-stack --list-all
         </h2>
         <TechStackSection />
       </motion.section>
@@ -157,7 +157,7 @@ const Home = () => {
         variants={sectionVariants}
       >
         <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
-          $ cat /dev/life | grep "fun"
+          $ cat beyond-code/life | grep "fun"
         </h2>
         <BeyondCodeSection />
       </motion.section>
@@ -172,7 +172,7 @@ const Home = () => {
         variants={sectionVariants}
       >
         <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
-          $ contact --send-message
+          $ contact-me --send-message
         </h2>
         <ContactSection />
       </motion.section>
