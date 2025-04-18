@@ -124,18 +124,15 @@ const ProjectsSection = () => {
       >
         <h2 className="text-3xl md:text-4xl font-mono font-bold text-green-400 mb-4">
           <span className="text-green-400 mr-2">$</span>
-          <span className="typing-cursor">projects</span>
+          <span className="typing-cursor">ls -la ~/projects | grep "featured"</span>
         </h2>
-        <p className="text-gray-400 font-mono max-w-2xl mx-auto">
-          &gt; ls -la ~/projects | grep "featured"
-        </p>
       </motion.div>
 
       <div className="w-full max-w-6xl mx-auto">
         <div className="mb-8">
           <h3 className="text-xl font-mono text-green-400 mb-4">
             <span className="text-green-400 mr-2">&gt;</span>
-            Academic Projects
+            Personal Projects
           </h3>
           <motion.div
             variants={containerVariants}
