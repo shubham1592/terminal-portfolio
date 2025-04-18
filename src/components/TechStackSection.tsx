@@ -104,11 +104,8 @@ const TechStackSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-center mb-8"
       >
-        {/* <h2 className="text-3xl md:text-4xl font-mono font-bold text-[#39FF14] mb-4">
-          <span className="text-white">$</span> major-tech-stack --list-all
-        </h2> */}
       </motion.div>
 
       <div className="w-full max-w-6xl">

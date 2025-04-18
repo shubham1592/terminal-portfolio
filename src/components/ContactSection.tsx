@@ -145,7 +145,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="min-h-screen flex flex-col items-center justify-center py-16 px-4 sm:px-6 lg:px-8 bg-black text-green-500">
+    <section id="contact" className="min-h-[80vh] flex flex-col items-center justify-center pt-4 pb-16 px-4 sm:px-6 lg:px-8 bg-black text-green-500">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -153,10 +153,6 @@ const ContactSection = () => {
         viewport={{ once: true }}
         className="w-full max-w-3xl"
       >
-        {/* <h2 className="text-3xl md:text-4xl font-mono font-bold mb-8 text-center">
-          <span className="text-green-400">$</span> contact-me
-        </h2> */}
-        
         {isSubmitted ? (
           <motion.div 
             initial={{ opacity: 0 }}

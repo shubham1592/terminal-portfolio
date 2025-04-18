@@ -33,13 +33,13 @@ const Home = () => {
       {/* About Me Section */}
       <motion.section
         id="about"
-        className="py-20 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
+        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
           $ cat about-me.txt
         </h2>
         <div className="space-y-4 text-lg text-gray-200">
@@ -120,13 +120,13 @@ const Home = () => {
       {/* Projects Section */}
       <motion.section
         id="projects"
-        className="py-20 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
+        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
           $ ls -la projects/ --grep "featured"
         </h2>
         <ProjectsSection />
@@ -135,13 +135,13 @@ const Home = () => {
       {/* Tech Stack Section */}
       <motion.section
         id="tech-stack"
-        className="py-20 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
+        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
           $ major-tech-stack --list-all
         </h2>
         <TechStackSection />
@@ -150,13 +150,13 @@ const Home = () => {
       {/* Beyond the Code Section */}
       <motion.section
         id="beyond-code"
-        className="py-20 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
+        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
           $ cat beyond-code/life | grep "fun"
         </h2>
         <BeyondCodeSection />
@@ -165,20 +165,20 @@ const Home = () => {
       {/* Contact Section */}
       <motion.section
         id="contact"
-        className="py-20 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-8 border-b border-green-500 pb-2 inline-block">
+        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
           $ contact-me --send-message
         </h2>
         <ContactSection />
       </motion.section>
 
       {/* Footer */}
-      <footer className="py-8 px-4 text-center text-sm text-green-400 border-t border-green-900">
+      <footer className="py-6 px-4 text-center text-sm text-green-400 border-t border-green-900">
         <p>© {new Date().getFullYear()} Shubham Kumar. All rights reserved.</p>
         <p className="mt-2">
           Built with React, Tailwind CSS, and Framer Motion

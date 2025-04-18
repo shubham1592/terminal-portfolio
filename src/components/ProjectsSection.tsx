@@ -120,15 +120,8 @@ const ProjectsSection = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-6xl mx-auto text-center mb-12"
+        className="w-full max-w-6xl mx-auto text-center mb-8"
       >
-        {/* <h2 className="text-3xl md:text-4xl font-mono font-bold text-green-400 mb-4">
-          <span className="text-green-400 mr-2">$</span>
-          <span className="typing-cursor">projects</span>
-        </h2>
-        <p className="text-gray-400 font-mono max-w-2xl mx-auto">
-          &gt; ls -la ~/projects | grep "featured"
-        </p> */}
       </motion.div>
 
       <div className="w-full max-w-6xl mx-auto">
