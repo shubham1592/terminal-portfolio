@@ -33,7 +33,7 @@ const Home = () => {
       {/* About Me Section */}
       <motion.section
         id="about"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto" // Updated to match other sections
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -42,7 +42,7 @@ const Home = () => {
         <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
           $ cat about-me.txt
         </h2>
-        <div className="space-y-4 text-lg text-gray-200">
+        <div className="space-y-4 text-lg text-gray-200 pl-8 pt-10"> {/* Added pl-8 for indentation */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

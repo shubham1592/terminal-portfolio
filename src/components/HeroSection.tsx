@@ -16,7 +16,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
     "Hi, I'm ",
     "Shubham Kumar",
     "Former Senior Data Engineer",
-    "MS Computer Science Student at Northeastern University, Boston",
+    "MS Computer Science Student at Northeastern University, Boston, MA",
     "AI & Machine Learning Enthusiast",
   ];
 

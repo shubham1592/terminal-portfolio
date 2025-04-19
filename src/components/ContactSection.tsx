@@ -145,7 +145,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="min-h-[80vh] flex flex-col items-center justify-center pt-4 pb-16 px-4 sm:px-6 lg:px-8 bg-black text-green-500">
+    <section id="contact" className="min-h-[80vh] flex flex-col items-center justify-center pt-8 pb-16 px-4 sm:px-6 lg:px-8 bg-black text-green-500">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
