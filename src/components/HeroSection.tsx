@@ -15,8 +15,8 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
   const textLines = [
     "Hi, I'm ",
     "Shubham Kumar",
-    "Former Senior Data Engineer",
-    "MS Computer Science Student at Northeastern University, Boston, MA",
+    "MS Computer Science @ Northeastern University, Boston",
+    "Ex-Senior Data Engineer",
     "AI & Machine Learning Enthusiast",
   ];
 
@@ -52,10 +52,10 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-black text-white font-mono relative">
-      {/* Background scanline effect */}
+      {/* Background scanline effect
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="w-full h-full bg-[linear-gradient(transparent_50%,rgba(0,255,0,0.02)_50%)] bg-[length:100%_4px]"></div>
-      </div>
+      </div> */}
 
       <div className="w-full max-w-[800px] px-4 sm:px-6 lg:px-8">
         {!bootingComplete ? (
