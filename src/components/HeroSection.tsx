@@ -135,8 +135,8 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div 
-        className="absolute bottom-24 left-1/2 transform -translate-x-1/2 text-green-500"
+      {/* <motion.div 
+        className="absolute bottom-40 left-1/2 transform -translate-x-1/2 text-green-500"
         initial={{ opacity: 0, y: -10 }}
         animate={{ 
           opacity: [0, 1, 1, 0],
@@ -149,7 +149,27 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
         }}
       >
         <ChevronDown className="h-6 w-6" />
-      </motion.div>
+      </motion.div> */}
+
+<motion.div 
+  className="absolute bottom-44 left-1/2 transform -translate-x-1/2 text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.7)]"
+  initial={{ opacity: 0, y: -10 }}
+  animate={{ 
+    opacity: [0, 1, 1, 0],
+    y: [-20, 0, 10, -5]
+  }}
+  transition={{ 
+    duration: 2,
+    repeat: Infinity,
+    delay: 9,
+    repeatDelay: 0.5,
+    ease: "easeInOut"
+  }}
+>
+  <ChevronDown className="h-8 w8" />
+</motion.div>
+
+
     </section>
   );
 };
