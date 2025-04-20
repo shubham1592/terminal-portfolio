@@ -17,7 +17,7 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
     "Shubham Kumar",
     "MS Computer Science @ Northeastern University, Boston",
     "Ex-Senior Data Engineer",
-    "AI & Machine Learning Enthusiast",
+    "AI & Machine Learning Expert",
   ];
 
   // Boot animation

@@ -85,25 +85,27 @@ const BeyondCodeSection = () => {
               From Rock to Lo-fi, I vibe with guitar, Indie, and everything in
               between
             </p>
-            <iframe
-              style={{ borderRadius: "12px" }}
-              src="https://open.spotify.com/embed/playlist/5zSppxuqmXYMOaEkGZWnWO?si=Ii_wZZOGSJqJ1oRXEVYHqg&compact=1"
-              width="100%"
-              height="160"
-              frameBorder="0"
-              allowFullScreen
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-              className="mt-2"
-            ></iframe>
-            <motion.p
-              className="text-center mt-3 text-sm font-medium"
-              whileHover={{ scale: 1.05 }}
-            >
-              <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
-                Click to expand player ↕
-              </span>
-            </motion.p>
+            <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+              <iframe
+                style={{ borderRadius: "12px" }}
+                src="https://open.spotify.com/embed/playlist/5zSppxuqmXYMOaEkGZWnWO?si=Ii_wZZOGSJqJ1oRXEVYHqg&compact=1"
+                width="100%"
+                height="160"
+                frameBorder="0"
+                allowFullScreen
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                className="mt-2"
+              ></iframe>
+              <motion.p
+                className="text-center mt-3 text-sm font-medium"
+                whileHover={{ scale: 1.05 }}
+              >
+                <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
+                  Click to expand player ↕
+                </span>
+              </motion.p>
+            </div>
           </div>
         </motion.div>
 
@@ -123,26 +125,30 @@ const BeyondCodeSection = () => {
               <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
                 I play chess for almost two hours daily (Rated 1600+ on Lichess)
               </p>
-              <div className="flex-grow flex items-center justify-center">
-                <div className="w-full max-w-[188px] aspect-square">
-                  <iframe
-                    src="https://lichess.org/tv/frame?theme=brown&bg=dark"
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    allowTransparency={true}
-                    className="rounded-md"
-                  ></iframe>
+              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+                <div className="flex-grow flex items-center justify-center">
+                  <div className="flex flex-col items-center">
+                    <div className="w-full max-w-[188px] aspect-square">
+                      <iframe
+                        src="https://lichess.org/tv/frame?theme=brown&bg=dark"
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        allowTransparency={true}
+                        className="rounded-md"
+                      ></iframe>
+                    </div>
+                    <motion.p
+                      className="text-center mt-3 text-sm font-medium"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
+                        Click to visit my Lichess ↗
+                      </span>
+                    </motion.p>
+                  </div>
                 </div>
               </div>
-              <motion.p
-                className="text-center mt-3 text-sm font-medium"
-                whileHover={{ scale: 1.05 }}
-              >
-                <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
-                  Click to visit my profile ↗
-                </span>
-              </motion.p>
             </div>
           </div>
         </a>
@@ -232,9 +238,14 @@ const BeyondCodeSection = () => {
                 <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
                   Medium: 20,000+ views, 200+ followers
                 </p>
-                <p className="text-gray-400 text-xs md:text-sm break-words">
-                  Click to visit profile ↗
-                </p>
+                <motion.p
+                  className="text-center mt-3 text-sm font-medium"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
+                    Click to visit my Medium ↗
+                  </span>
+                </motion.p>
               </div>
             </div>
           </div>

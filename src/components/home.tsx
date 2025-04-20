@@ -40,8 +40,9 @@ const Home = () => {
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
-          $ cat about-me.txt
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
+          <span className="whitespace-nowrap">$ cat</span>{" "}
+          <span className="whitespace-nowrap">about-me.txt</span>
         </h2>
         <div className="space-y-4 text-lg text-gray-200 pl-8 pt-10">
           <motion.p
@@ -131,8 +132,9 @@ const Home = () => {
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-10 border-b border-green-500 pb-2 inline-block">
-          $ cat experience/all | grep "work"
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-10 border-b border-green-500 pb-2">
+          <span className="whitespace-nowrap">$ cat experience/all</span>{" "}
+          <span className="whitespace-normal">| grep "work"</span>
         </h2>
         <ExperienceSection />
       </motion.section>
@@ -146,8 +148,9 @@ const Home = () => {
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
-          $ ls -la projects/all | grep "featured"
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
+          <span className="whitespace-nowrap">$ ls -la projects/all</span>{" "}
+          <span className="whitespace-normal">| grep "featured"</span>
         </h2>
         <ProjectsSection />
       </motion.section>
@@ -161,8 +164,9 @@ const Home = () => {
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
-          $ major-tech-stack --list-all
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
+          <span className="whitespace-nowrap">$ major-tech-stack</span>{" "}
+          <span className="whitespace-normal">--list-all</span>
         </h2>
         <TechStackSection />
       </motion.section>
@@ -176,8 +180,9 @@ const Home = () => {
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
-          $ cat beyond-code/life | grep "fun"
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
+          <span className="whitespace-nowrap">$ cat beyond-code/life</span>{" "}
+          <span className="whitespace-normal">| grep "fun"</span>
         </h2>
         <BeyondCodeSection />
       </motion.section>
@@ -191,8 +196,9 @@ const Home = () => {
         viewport={{ once: true, amount: 0.1 }}
         variants={sectionVariants}
       >
-        <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
-          $ contact-me --send-message
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
+          <span className="whitespace-nowrap">$ contact-me</span>{" "}
+          <span className="whitespace-normal">--send-message</span>
         </h2>
         <ContactSection />
       </motion.section>
