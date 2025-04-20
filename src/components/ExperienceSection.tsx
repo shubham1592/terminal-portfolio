@@ -83,7 +83,7 @@ const ExperienceSection = () => {
                   title="Senior Data Engineer"
                   date="July 2024 - August 2025"
                   items={[
-                    <>Developed <span className="text-green-400">AI-powered PDF pipeline</span> with <span className="text-green-400">OCR + DMS API</span>; enabled structured insights from <span className="text-green-400">100K+ documents</span>.</>,
+                    <>Developed <span className="text-green-400">AI-powered PDF pipeline</span> with <span className="text-green-400">OCR + DMS API</span>, enabled structured insights from <span className="text-green-400">100K+ documents</span>.</>,
                     <>Led <span className="text-green-400">automation</span> of month-end workflows, reducing processing time by <span className="text-green-400">67%</span> and eliminating manual intervention.</>,
                     <>Built <span className="text-green-400">SENSEI</span>: A <span className="text-green-400">Gen AI-powered KT platform</span> for personalized learning paths, accelerating onboarding by <span className="text-green-400">80%</span>.</>,
                     <>Developed <span className="text-green-400">"Green Room"</span>: a data compliance project enhancing data security by over <span className="text-green-400">95%</span>.</>
