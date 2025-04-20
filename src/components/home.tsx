@@ -116,7 +116,7 @@ const Home = () => {
                 chess player
               </span>
               .
-            </span>
+            </span> 
           </motion.p>
         </div>
       </motion.section>
