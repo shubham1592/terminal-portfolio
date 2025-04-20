@@ -33,7 +33,7 @@ const Home = () => {
       {/* About Me Section */}
       <motion.section
         id="about"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto" // Updated to match other sections
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -42,80 +42,87 @@ const Home = () => {
         <h2 className="text-3xl md:text-4xl mb-6 border-b border-green-500 pb-2 inline-block">
           $ cat about-me.txt
         </h2>
-        <div className="space-y-4 text-lg text-gray-200 pl-8 pt-10"> {/* Added pl-8 for indentation */}
+        <div className="space-y-4 text-lg text-gray-200 pl-8 pt-10">
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
           >
-            I'm a{" "}
+            Currently focused on{" "}
             <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              Senior Data Engineer
+              AI & ML systems
             </span>{" "}
-            turned{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              MS in Computer Science
-            </span>{" "}
-            student.
+            to simplify decisions and tackle real-world mess.
           </motion.p>
+
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
           >
-            I build scalable systems powered by{" "}
+            Specialized in engineering{" "}
+            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
+              scalable data solutions
+            </span>{" "}
+            that actually work in production.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0, duration: 0.6 }}
+          >
+            Building something ambitious with{" "}
             <span className="terminal-keyword text-green-400 font-bold shadow-glow">
               AI
             </span>{" "}
-            and{" "}
+            or{" "}
             <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              Machine Learning
+              data
             </span>
-            .
+            ? Let’s connect — always up for meaningful challenges.
           </motion.p>
+
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.0, duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4, duration: 0.6 }}
+            className="flex items-center"
           >
-            I enjoy simplifying complexity through{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              clean code
+            <span>
+              Open to{" "}
+              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
+                Summer 2026 Internships
+              </span>
+              .
             </span>
-            .
           </motion.p>
+
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.4, duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 0.6 }}
           >
-            Outside work, I'm a{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              guitarist
+            <span>
+              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
+                Guitarist
+              </span>
+              ,{" "}
+              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
+                blogger
+              </span>
+              , and a pretty decent{" "}
+              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
+                chess player
+              </span>
+              .
             </span>
-            ,{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              blogger
-            </span>
-            , and{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              chess player
-            </span>
-            .
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.8, duration: 0.8 }}
-          >
-            I believe good tech should feel like{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              magic
-            </span>
-            .
           </motion.p>
         </div>
       </motion.section>
+
+
+
 
       {/* Projects Section */}
       <motion.section
