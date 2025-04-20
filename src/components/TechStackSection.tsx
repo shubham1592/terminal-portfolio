@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/tooltip";
 import { Card, CardContent } from "@/components/ui/card";
 import "devicon/devicon.min.css";
-import { Database, Cloud, Server, BarChart3, Library, Code2, Brain, Globe, Tool } from "lucide-react";
+import { Database, Cloud, Server, BarChart3, Brain } from "lucide-react";
 
-interface TechItem {
+interface TechItem {  
   name: string;
   command: string;
   icon: string | React.ReactNode;
