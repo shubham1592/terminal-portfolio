@@ -29,10 +29,15 @@ const ExperienceRole: React.FC<ExperienceRoleProps> = ({ title, date, items, bad
     </AccordionTrigger>
     <AccordionContent>
       <motion.div 
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "auto" }}
-        exit={{ opacity: 0, height: 0 }}
-        transition={{ duration: 0.2 }}
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ 
+          type: "spring",
+          stiffness: 100,
+          damping: 15,
+          mass: 0.5
+        }}
         className="pl-7 ml-2 border-l border-green-900/30 mt-1 mb-2"
       >
         <ul className="list-none space-y-3 text-white/90 text-base">
