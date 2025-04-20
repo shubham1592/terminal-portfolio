@@ -2,26 +2,36 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const BeyondCodeSection = () => {
+  const [isSpotifyExpanded, setIsSpotifyExpanded] = useState(false);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       {/* Spotify Playlist Card */}
-      <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
+      <div 
+        className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform cursor-pointer"
+        onClick={() => setIsSpotifyExpanded(!isSpotifyExpanded)}
+      >
         <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
           <span>$ Music Taste</span>
           <span>♫</span>
         </div>
-        <div className="p-3 sm:p-4 flex flex-col min-h-[450px]">
+        <div className={`p-3 sm:p-4 flex flex-col ${isSpotifyExpanded ? 'min-h-[450px]' : 'min-h-[250px]'}`}>
           <iframe 
             style={{borderRadius: '12px'}}
-            src="https://open.spotify.com/embed/playlist/5zSppxuqmXYMOaEkGZWnWO?si=Ii_wZZOGSJqJ1oRXEVYHqg" 
+            src={`https://open.spotify.com/embed/playlist/5zSppxuqmXYMOaEkGZWnWO?si=Ii_wZZOGSJqJ1oRXEVYHqg${isSpotifyExpanded ? '' : '&compact=1'}`}
             width="100%" 
-            height="380" 
+            height={isSpotifyExpanded ? "380" : "80"} 
             frameBorder="0" 
             allowFullScreen
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
             className="mt-2"
           ></iframe>
+          {!isSpotifyExpanded && (
+            <p className="text-green-400 text-xs text-center mt-2">
+              Click to expand player ↕
+            </p>
+          )}
         </div>
       </div>
 
@@ -41,15 +51,17 @@ const BeyondCodeSection = () => {
             <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
               I play chess for almost two hours daily (Rated 1600+ on Lichess)
             </p>
-            <iframe 
-              src="https://lichess.org/@/Riighley/mini" 
-              width="100%" 
-              height="226" 
-              frameBorder="0"
-              className="mb-2"
-              allowTransparency={true}
-            ></iframe>
-            <div className="bg-black p-2 rounded-md mt-auto">
+            <div className="flex justify-center items-center flex-grow">
+              <iframe 
+                src="https://lichess.org/tv/frame?theme=brown&bg=dark" 
+                width="100%" 
+                height="226" 
+                frameBorder="0"
+                allowTransparency={true}
+                className="max-w-[400px]"
+              ></iframe>
+            </div>
+            <div className="bg-black p-2 rounded-md mt-3">
               <p className="text-gray-400 text-xs md:text-sm break-words">
                 Click to visit my profile ↗
               </p>
