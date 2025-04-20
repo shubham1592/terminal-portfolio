@@ -19,12 +19,14 @@ interface ExperienceRoleProps {
 const ExperienceRole: React.FC<ExperienceRoleProps> = ({ title, date, items, badges, value }) => (
   <AccordionItem value={value} className="border-none">
     <AccordionTrigger className="hover:no-underline group py-2 transition-all duration-300">
-      <div className="flex items-baseline space-x-2 text-lg w-full">
-        <span className={`text-green-500 shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-90`}>&gt;</span>
-        <span className="text-green-500 shrink-0">$</span>
-        <span className="text-green-500 shrink-0">ls</span>
-        <span className="text-white/90 group-hover:text-green-300">{title}</span>
-        <span className="text-green-500/70 text-base ml-1">//{" "}{date}</span>
+      <div className="flex flex-col sm:flex-row sm:items-baseline w-full gap-1 sm:gap-2">
+        <div className="flex items-baseline space-x-2">
+          <span className={`text-green-500 shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-90`}>&gt;</span>
+          <span className="text-green-500 shrink-0">$</span>
+          <span className="text-green-500 shrink-0">ls</span>
+          <span className="text-white/90 group-hover:text-green-300 break-normal">{title}</span>
+        </div>
+        <span className="text-green-500/70 text-sm sm:text-base sm:ml-1 break-normal">//{" "}{date}</span>
       </div>
     </AccordionTrigger>
     <AccordionContent>
@@ -71,12 +73,14 @@ const ExperienceSection = () => {
       <Accordion type="single" className="space-y-4" defaultValue="bajaj-finserv">
         <AccordionItem value="bajaj-finserv" className="border-none">
           <AccordionTrigger className="hover:no-underline group py-2">
-            <div className="flex items-baseline space-x-2 text-lg w-full">
-              <span className="text-green-500 shrink-0">▼</span>
-              <span className="text-green-500 shrink-0">$</span>
-              <span className="text-green-500 shrink-0">cd</span>
-              <span className="text-white/90 group-hover:text-green-300">Bajaj Finserv Ltd.</span>
-              <span className="text-green-500/70 text-base ml-1">//  January 2022 - August 2025</span>
+            <div className="flex flex-col sm:flex-row sm:items-baseline w-full gap-1 sm:gap-2">
+              <div className="flex items-baseline space-x-2">
+                <span className="text-green-500 shrink-0">▼</span>
+                <span className="text-green-500 shrink-0">$</span>
+                <span className="text-green-500 shrink-0">cd</span>
+                <span className="text-white/90 group-hover:text-green-300 break-normal">Bajaj Finserv Ltd.</span>
+              </div>
+              <span className="text-green-500/70 text-sm sm:text-base sm:ml-1 break-normal">//  January 2022 - August 2025</span>
             </div>
           </AccordionTrigger>
 
