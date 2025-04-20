@@ -5,6 +5,7 @@ import ProjectsSection from "./ProjectsSection";
 import TechStackSection from "./TechStackSection";
 import ContactSection from "./ContactSection";
 import BeyondCodeSection from "./BeyondCodeSection";
+import ExperienceSection from "./ExperienceSection";
 
 const Home = () => {
   // Animation variants for sections
@@ -121,8 +122,20 @@ const Home = () => {
         </div>
       </motion.section>
 
-
-
+      {/* Experience Section */}
+      <motion.section
+        id="experience"
+        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={sectionVariants}
+      >
+        <h2 className="text-3xl md:text-4xl mb-10 border-b border-green-500 pb-2 inline-block">
+          $ cat experience/all | grep "work"
+        </h2>
+        <ExperienceSection />
+      </motion.section>
 
       {/* Projects Section */}
       <motion.section
@@ -224,6 +237,20 @@ const Home = () => {
               className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
             >
               About
+            </a>
+          </li>
+          <li>
+            <a
+              href="#experience"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("experience")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
+            >
+              Experience
             </a>
           </li>
           <li>
