@@ -34,7 +34,7 @@ export const Destructive = {
         <ExclamationTriangleIcon className="h-4 w-4" />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>
-          Your session has expired. Please log in again.
+          Your session has been expired. Please log in again. 
         </AlertDescription>
       </Alert>
     );
