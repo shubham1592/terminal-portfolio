@@ -39,11 +39,13 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 
 ## 🖥️ Live Demo
 
-You can view the live version of this portfolio at:  
+You can view the live version of this portfolio at:
+
 - to be added later
 
 ## 🧩 Sections Overview
 
+- **Exoerience**: Expandable-Collapsible experiences in detail.
 - **Projects**: Includes 6 key projects (3 academic + 3 professional), like:
   - Sensei: AI-powered onboarding assistant built with GPT-4o and LangChain
   - Data Lake Optimizer: Cost-saving Spark framework
@@ -54,22 +56,26 @@ You can view the live version of this portfolio at:
 
 ## 📝 How to Use / Run Locally
 
-1. Clone the repository  
+1. Clone the repository
+
    ```bash
    git clone https://github.com/shubham1592/terminal-portfolio.git
    ```
 
 2. Navigate to the project folder
+
    ```bash
    cd terminal-portfolio
    ```
 
 3. Install dependencies
+
    ```bash
    npm install
    ```
 
 4. Create a .env file in the root directory with your Gmail credentials:
+
    ```
    GMAIL_USER="your-email@gmail.com"
    GMAIL_APP_PASSWORD="your-app-password"
@@ -79,11 +85,13 @@ You can view the live version of this portfolio at:
    ```
 
 5. Start the development server
+
    ```bash
    npm run dev
    ```
 
 6. Start the email server (in a separate terminal)
+
    ```bash
    node server.js
    ```
@@ -110,6 +118,7 @@ This project is configured for deployment on Render. To deploy:
 The `render.yaml` file is already configured with the necessary settings.
 
 ## 🙋‍♂️ Contact
+
 Feel free to connect with me:
 
 - Email: contact@example.com
