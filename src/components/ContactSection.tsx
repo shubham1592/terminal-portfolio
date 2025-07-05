@@ -7,13 +7,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Switch } from './ui/switch';
 import { Label } from './ui/label';
 import { Button } from './ui/button';
+import emailjs from '@emailjs/browser';
 
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://terminal-portfolio-9xqw.onrender.com/api/send-email'
-  : 'http://localhost:3000/api/send-email';
-
-const MAX_RETRIES = 3;
-const RETRY_DELAY = 1000; // 1 second
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = "service_xdhyszj";
+const EMAILJS_TEMPLATE_ID = "template_pygzv53";
+const EMAILJS_PUBLIC_KEY = "y1nlhj4WSG6l4oA9e";
 
 const ContactSection = () => {
   const [formState, setFormState] = useState({
@@ -78,41 +77,29 @@ const ContactSection = () => {
       return;
     }
 
-    let retries = 0;
-    while (retries < MAX_RETRIES) {
-      try {
-        console.log('Sending form data:', formState);
-        
-        const response = await fetch(API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-          body: JSON.stringify(formState),
-        });
+    try {
+      console.log('Sending form data via EmailJS:', formState);
+      
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: formState.name,
+        from_email: formState.email,
+        reason: formState.reason,
+        message: formState.message,
+        want_reply: formState.wantReply ? "Yes" : "No",
+      };
 
-        console.log('Response status:', response.status);
-        const responseText = await response.text();
-        console.log('Raw response:', responseText);
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
 
-        let data;
-        try {
-          data = JSON.parse(responseText);
-          console.log('Parsed response:', data);
-        } catch (parseError) {
-          console.error('Error parsing response:', parseError);
-          throw new Error(`Invalid response from server: ${responseText}`);
-        }
+      console.log('EmailJS response:', response);
 
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to send message');
-        }
-
-        if (!data.success) {
-          throw new Error(data.error || 'Failed to send message');
-        }
-
+      if (response.status === 200) {
         setIsSubmitted(true);
         setError('');
         
@@ -124,23 +111,14 @@ const ContactSection = () => {
           reason: '',
           wantReply: true,
         });
-        break;
-      } catch (err) {
-        console.error('Error in form submission:', err);
-        retries++;
-        
-        if (retries === MAX_RETRIES) {
-          setError(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
-        } else {
-          // Wait before retrying
-          await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
-          continue;
-        }
-      } finally {
-        if (retries === MAX_RETRIES) {
-          setIsLoading(false);
-        }
+      } else {
+        throw new Error('Failed to send message');
       }
+    } catch (err) {
+      console.error('Error in form submission:', err);
+      setError(err instanceof Error ? err.message : 'Failed to send message. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
   };
 

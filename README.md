@@ -12,10 +12,11 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 - Retro-styled code animations and typewriter text
 - Fully responsive layout
 - Embedded Spotify playlist
-- Interactive contact form with email functionality
+- Interactive contact form with EmailJS integration
 - Easter egg section ("Beyond Code") highlighting interests beyond tech
 - **NEW**: One-click resume download functionality
 - **NEW**: Smooth scroll to contact section from landing page
+- **NEW**: Fully static site - no backend dependencies
 
 ## 🚀 Features
 
@@ -24,11 +25,12 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 - **Projects**: Clickable project cards with animations
 - **Tech Stack**: Icons and categories styled in a retro grid
 - **Beyond Code**: Music, blog, hackathon, and personal fun facts
-- **Contact**: Interactive form with email functionality and hover-animated icons
+- **Contact**: Interactive form with EmailJS integration and hover-animated icons
 - **Smooth scrolling**: All navigation is smooth and fluid
 - **Fully responsive**: Optimized for all screen sizes
 - **Resume Download**: Direct download of PDF resume from Google Drive
 - **Quick Contact Access**: Instant smooth scroll to contact section from hero
+- **Static Site**: Zero backend dependencies, perfect for Netlify/Vercel deployment
 
 ## 🛠️ Tech Stack
 
@@ -37,7 +39,7 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 - Vite
 - Tailwind CSS
 - Framer Motion (for animations)
-- Nodemailer (for email functionality)
+- EmailJS (for contact form functionality)
 - Lucide Icons
 - Terminal-inspired custom CSS
 
@@ -60,7 +62,13 @@ You can view the live version of this portfolio at:
 
 ## 🆕 Latest Updates
 
-### Version 2.1.0 (Latest)
+### Version 3.0.0 (Latest) - Static Site Conversion
+- ✅ **EmailJS Integration**: Replaced backend with EmailJS frontend SDK
+- ✅ **Static Site**: Removed all backend dependencies (Express, Nodemailer, etc.)
+- ✅ **Netlify/Vercel Ready**: Perfect for static hosting with instant load speeds
+- ✅ **Simplified Deployment**: No server configuration required
+
+### Version 2.1.0
 - ✅ **Resume Download**: Added one-click resume download functionality from Google Drive
 - ✅ **Smooth Contact Navigation**: Enhanced "Contact Shubham" button with smooth scroll to contact section
 - ✅ **Updated Contact Information**: Fixed email address in contact icons section
@@ -86,48 +94,52 @@ You can view the live version of this portfolio at:
    npm install
    ```
 
-4. Create a .env file in the root directory with your Gmail credentials:
-
-   ```
-   GMAIL_USER="your-email@gmail.com"
-   GMAIL_APP_PASSWORD="your-app-password"
-   GITHUB_URL="your-github-profile-url"
-   LINKEDIN_URL="your-linkedin-profile-url"
-   NAME="Your Name"
-   ```
-
-5. Start the development server
+4. Start the development server
 
    ```bash
    npm run dev
    ```
 
-6. Start the email server (in a separate terminal)
-
-   ```bash
-   node server.js
-   ```
-
-7. Open your browser and visit:
+5. Open your browser and visit:
    - Local: http://localhost:5176
-   - Network: http://your-local-ip:5176 (for testing on other devices)
 
 ## 🚀 Deployment
 
-This project is configured for deployment on Render. To deploy:
+This project is now fully static and can be deployed on any static hosting platform:
 
+### Netlify Deployment
 1. Push your code to GitHub
-2. Create a new Web Service on Render
-3. Connect your GitHub repository
-4. Configure the following environment variables in Render:
-   - `GMAIL_USER`: Your Gmail address
-   - `GMAIL_APP_PASSWORD`: Your Gmail app password
-   - `GITHUB_URL`: Your GitHub profile URL
-   - `LINKEDIN_URL`: Your LinkedIn profile URL
-   - `NAME`: Your name
+2. Connect your repository to Netlify
+3. Build command: `npm run build`
+4. Publish directory: `dist`
 5. Deploy!
 
-The `render.yaml` file is already configured with the necessary settings.
+### Vercel Deployment
+1. Push your code to GitHub
+2. Import your repository to Vercel
+3. Framework preset: Vite
+4. Deploy!
+
+### GitHub Pages
+1. Push your code to GitHub
+2. Go to repository Settings > Pages
+3. Source: Deploy from a branch
+4. Branch: main, folder: /docs (build output)
+5. Deploy!
+
+## 📧 Contact Form Configuration
+
+The contact form uses EmailJS with the following configuration:
+- **Service ID**: `service_xdhyszj`
+- **Template ID**: `template_pygzv53`
+- **Public Key**: `y1nlhj4WSG6l4oA9e`
+
+Form fields are mapped as:
+- `name` → `from_name`
+- `email` → `from_email`
+- `reason` → `reason`
+- `message` → `message`
+- `wantReply` → `want_reply` (sends "Yes" or "No")
 
 ## 🙋‍♂️ Contact
 
