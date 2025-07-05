@@ -21,6 +21,7 @@ const ContactSection = () => {
     message: '',
     reason: '',
     wantReply: true,
+    date: new Date().toLocaleString(),
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -92,6 +93,7 @@ const ContactSection = () => {
         reason: formState.reason,
         message: formState.message,
         want_reply: formState.wantReply ? "Yes" : "No",
+        date: new Date().toLocaleString(),
       };
 
       // Send email using EmailJS
@@ -115,6 +117,7 @@ const ContactSection = () => {
           message: '',
           reason: '',
           wantReply: true,
+          date: new Date().toLocaleString(),
         });
       } else {
         throw new Error('Failed to send message');
