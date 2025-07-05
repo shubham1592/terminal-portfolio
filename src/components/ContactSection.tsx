@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Linkedin, Github, Mail } from 'lucide-react';
 import { Input } from './ui/input';
@@ -26,6 +26,11 @@ const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
