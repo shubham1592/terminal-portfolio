@@ -45,9 +45,19 @@ const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
   }, [bootingComplete, currentTextIndex]);
 
   const downloadResume = () => {
-    // Placeholder for resume download functionality
-    console.log("Downloading resume...");
-    // In a real implementation, this would trigger a file download
+    // Convert Google Drive view URL to direct download URL
+    const driveUrl = "https://drive.google.com/file/d/1HfyLaVnjly7GO4YZj_7VZrZBVZKVQ-V-/view?usp=sharing";
+    const fileId = "1HfyLaVnjly7GO4YZj_7VZrZBVZKVQ-V-";
+    const directDownloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    
+    // Create a temporary anchor element to trigger download
+    const link = document.createElement('a');
+    link.href = directDownloadUrl;
+    link.download = 'Shubham_Kumar_Resume.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (

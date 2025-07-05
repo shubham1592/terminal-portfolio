@@ -289,7 +289,7 @@ const ContactSection = () => {
             <Github className="h-8 w-8" />
           </a>
           <a 
-            href="mailto:contact@example.com" 
+            href="mailto:pi.shubham1592@gmail.com" 
             className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)]"
             aria-label="Email Contact"
           >

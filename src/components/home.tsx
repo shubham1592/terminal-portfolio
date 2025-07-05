@@ -21,6 +21,11 @@ const Home = () => {
     },
   };
 
+  // Function to handle smooth scrolling to contact section
+  const handleContactClick = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-black text-green-500 font-mono overflow-x-hidden">
       {/* Hero Section */}
@@ -28,7 +33,7 @@ const Home = () => {
         id="hero"
         className="min-h-screen flex items-center justify-center"
       >
-        <HeroSection />
+        <HeroSection onContactClick={handleContactClick} />
       </section>
 
       {/* About Me Section */}
@@ -82,7 +87,7 @@ const Home = () => {
             <span className="terminal-keyword text-green-400 font-bold shadow-glow">
               data
             </span>
-            ? Let’s connect — always up for meaningful challenges.
+            ? Let's connect — always up for meaningful challenges.
           </motion.p>
 
           <motion.p

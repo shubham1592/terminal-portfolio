@@ -14,10 +14,12 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 - Embedded Spotify playlist
 - Interactive contact form with email functionality
 - Easter egg section ("Beyond Code") highlighting interests beyond tech
+- **NEW**: One-click resume download functionality
+- **NEW**: Smooth scroll to contact section from landing page
 
 ## 🚀 Features
 
-- **Landing Page**: Terminal-style typewriter introduction
+- **Landing Page**: Terminal-style typewriter introduction with download resume and contact buttons
 - **About Me**: Animated, keyword-highlighted terminal lines
 - **Projects**: Clickable project cards with animations
 - **Tech Stack**: Icons and categories styled in a retro grid
@@ -25,6 +27,8 @@ This is a dynamic single-page portfolio website designed with a "retro terminal 
 - **Contact**: Interactive form with email functionality and hover-animated icons
 - **Smooth scrolling**: All navigation is smooth and fluid
 - **Fully responsive**: Optimized for all screen sizes
+- **Resume Download**: Direct download of PDF resume from Google Drive
+- **Quick Contact Access**: Instant smooth scroll to contact section from hero
 
 ## 🛠️ Tech Stack
 
@@ -45,7 +49,7 @@ You can view the live version of this portfolio at:
 
 ## 🧩 Sections Overview
 
-- **Exoerience**: Expandable-Collapsible experiences in detail.
+- **Experience**: Expandable-Collapsible experiences in detail.
 - **Projects**: Includes 6 key projects (3 academic + 3 professional), like:
   - Sensei: AI-powered onboarding assistant built with GPT-4o and LangChain
   - Data Lake Optimizer: Cost-saving Spark framework
@@ -53,6 +57,14 @@ You can view the live version of this portfolio at:
 - **Tech Stack**: Categorized view of tools and languages used professionally
 - **Beyond Code**: Includes Spotify playlist, blogs, guitar events, and hackathon history
 - **Contact**: Reach out for full-time opportunities, internships, collaborations, or feedback
+
+## 🆕 Latest Updates
+
+### Version 2.1.0 (Latest)
+- ✅ **Resume Download**: Added one-click resume download functionality from Google Drive
+- ✅ **Smooth Contact Navigation**: Enhanced "Contact Shubham" button with smooth scroll to contact section
+- ✅ **Updated Contact Information**: Fixed email address in contact icons section
+- ✅ **Improved User Experience**: Better navigation flow and accessibility
 
 ## 📝 How to Use / Run Locally
 
@@ -121,7 +133,7 @@ The `render.yaml` file is already configured with the necessary settings.
 
 Feel free to connect with me:
 
-- Email: contact@example.com
+- Email: pi.shubham1592@gmail.com
 - LinkedIn: https://www.linkedin.com/in/shubhamkumar1592/
 - GitHub: https://github.com/shubham1592
 
