@@ -3,7 +3,7 @@ import { experience } from "@/data/profile";
 import Rich from "./Rich";
 
 const ExperienceSection = () => (
-  <Accordion type="multiple" defaultValue={[experience[0].id]} className="space-y-4">
+  <Accordion type="multiple" defaultValue={experience.map((r) => r.id)} className="space-y-4">
     {experience.map((r) => (
       <AccordionItem key={r.id} value={r.id} className="border-b border-green-900">
         <AccordionTrigger className="hover:no-underline group py-3 text-left [&>svg]:text-green-500">

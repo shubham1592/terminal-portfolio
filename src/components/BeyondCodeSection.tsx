@@ -40,7 +40,7 @@ const BeyondCodeSection = () => {
             className="max-w-2xl mx-auto px-4"
           >
             <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden shadow-[0_0_30px_rgb(var(--p-500)/0.3)]">
-              <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
+              <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
                 <span>$ Music Taste</span>
                 <button
                   onClick={handleCloseClick}
@@ -76,7 +76,7 @@ const BeyondCodeSection = () => {
           onClick={handleSpotifyClick}
           layout
         >
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
+          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
             <span>$ Music Taste</span>
             <span aria-hidden="true">♫</span>
           </div>
@@ -117,7 +117,7 @@ const BeyondCodeSection = () => {
           className="block"
         >
           <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-            <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
+            <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
               <span>$ Chess Achievements</span>
               <span aria-hidden="true">♟</span>
             </div>
@@ -127,14 +127,16 @@ const BeyondCodeSection = () => {
               </p>
               <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
                 <div className="flex-grow flex items-center justify-center">
-                  <div className="flex flex-col items-center">
-                    <div className="w-full max-w-[188px] aspect-square">
+                  <div className="flex flex-col w-full">
+                    {/* Lichess sizes its board to (height - player bars); keep height = width + bars so the board fills the width. */}
+                    <div className="relative w-full" style={{ paddingBottom: "calc(100% + 46px)" }}>
                       <iframe
                         src="https://lichess.org/tv/frame?theme=brown&bg=dark"
                         width="100%"
                         height="100%"
                         frameBorder="0"
-                        className="rounded-md"
+                        title="Live chess game on Lichess TV"
+                        className="absolute inset-0"
                       ></iframe>
                     </div>
                     <motion.p
@@ -154,7 +156,7 @@ const BeyondCodeSection = () => {
 
         {/* Guitar Performances Card */}
         <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
+          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
             <span>$ Guitar Performances</span>
             <span aria-hidden="true">♪</span>
           </div>
@@ -187,7 +189,7 @@ const BeyondCodeSection = () => {
 
         {/* Hackathon Recognition Card */}
         <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
+          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
             <span>$ Hackathon Recognition</span>
             <span aria-hidden="true">★</span>
           </div>
@@ -221,7 +223,7 @@ const BeyondCodeSection = () => {
           className="block"
         >
           <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-            <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
+            <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
               <span>$ Blogs</span>
               <span aria-hidden="true">¶</span>
             </div>
@@ -252,7 +254,7 @@ const BeyondCodeSection = () => {
 
         {/* Certifications Card */}
         <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
+          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
             <span>$ Certifications</span>
             <span aria-hidden="true">§</span>
           </div>

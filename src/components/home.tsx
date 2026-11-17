@@ -94,9 +94,13 @@ const Home = () => {
   const closeShell = useCallback(() => setShellOpen(false), []);
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+    // The whole UI sits inside a CRT: bezel > curved screen > scrolling content.
+    // .screen has a transform, so `fixed` children (status bar, shell, modals) are pinned to the screen, not the window.
+    <div className="monitor">
+      <div className="screen text-white">
+      <div className="screen-scroll">
       <main aria-hidden={shellOpen}>
-        <section id="hero" className="min-h-screen flex items-center">
+        <section id="hero" className="min-h-[calc(100dvh-var(--bezel-top)-var(--bezel-bottom))] flex items-center">
           <HeroSection onContactClick={() => goto("contact")} onShellClick={() => setShellOpen(true)} />
         </section>
 
@@ -149,13 +153,14 @@ const Home = () => {
           </p>
         </footer>
       </main>
+      </div>
 
       {shellOpen && <Shell onClose={closeShell} onGoto={goto} setPhosphor={setPhosphor} setCrt={setCrt} />}
 
       {/* tmux-style status bar */}
       <nav
         aria-label="Sections"
-        className="fixed bottom-0 inset-x-0 z-[65] bg-green-500 text-black text-sm flex items-stretch [text-shadow:none]"
+        className="statusbar fixed bottom-0 inset-x-0 z-[65] bg-green-500 text-black text-sm flex items-stretch [text-shadow:none]"
       >
         <span className="px-3 py-1 bg-green-700 text-white shrink-0 hidden lg:block">[shubham]</span>
         <ul className="flex overflow-x-auto flex-1 min-w-0 [scrollbar-width:none]">
@@ -182,10 +187,11 @@ const Home = () => {
             className="px-2 py-1 hover:bg-green-300"
             title="Switch phosphor colour"
           >
-            [{phosphor}]
+            [<span className="sm:hidden">{phosphor[0]}</span>
+            <span className="hidden sm:inline">{phosphor}</span>]
           </button>
           <button onClick={() => setCrt(!crt)} className="px-2 py-1 hover:bg-green-300" title="Toggle scanlines and glow" aria-pressed={crt}>
-            [crt:{crt ? "on" : "off"}]
+            [crt<span className="hidden sm:inline">:{crt ? "on" : "off"}</span>]
           </button>
           <button
             onClick={() => setShellOpen((o) => !o)}
@@ -201,6 +207,12 @@ const Home = () => {
       </nav>
 
       <div className="crt" aria-hidden="true" />
+      <div className="glass" aria-hidden="true" />
+      </div>
+      <div className="bezel-badge" aria-hidden="true">
+        <span>SHUBHAM-OS</span>
+        <span className="led" />
+      </div>
     </div>
   );
 };

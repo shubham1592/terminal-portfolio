@@ -21,7 +21,8 @@ const HELP = `available commands:
   skills            tech stack
   contact           how to reach me
   resume            download my resume
-  cd <section>      jump to a section on the page (${SECTIONS.join(", ")})
+  cd <section>      jump to a section on the page
+                    sections: ${SECTIONS.join(" ")}
   theme green|amber switch phosphor colour
   crt on|off        toggle scanlines and glow
   clear             clear the screen

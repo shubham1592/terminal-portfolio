@@ -8,6 +8,7 @@ import { Switch } from './ui/switch';
 import { Label } from './ui/label';
 import { Button } from './ui/button';
 import emailjs from '@emailjs/browser';
+import { links } from '@/data/profile';
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = "service_xdhyszj";
@@ -254,7 +255,7 @@ const ContactSection = () => {
         
         <div className="mt-12 flex justify-center space-x-6">
           <a 
-            href="https://linkedin.com/in/shubhamkumar1592" 
+            href={links.linkedin} 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
@@ -263,7 +264,7 @@ const ContactSection = () => {
             <Linkedin className="h-8 w-8" />
           </a>
           <a 
-            href="https://github.com/shubham1592" 
+            href={links.github} 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
@@ -272,7 +273,7 @@ const ContactSection = () => {
             <Github className="h-8 w-8" />
           </a>
           <a 
-            href="mailto:pi.shubham1592@gmail.com" 
+            href={`mailto:${links.email}`} 
             className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
             aria-label="Email Contact"
           >

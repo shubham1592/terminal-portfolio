@@ -59,9 +59,10 @@
     @apply border-border;
   }
 
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-bottom: 3rem; /* keep anchors clear of the status bar */
+  html,
+  body {
+    height: 100%;
+    overflow: hidden; /* the page scrolls inside the CRT screen instead */
   }
 
   body {
@@ -93,15 +94,93 @@
   font-weight: 600;
 }
 
-/* ---- CRT glass: scanlines, vignette, a faint flicker. Purely decorative. ---- */
+/* ---- CRT monitor: plastic bezel around a curved glass screen ---- */
+.monitor {
+  --bezel-top: clamp(10px, 2.2vw, 30px);
+  --bezel-bottom: clamp(30px, 4.8vw, 58px);
+  --screen-r: clamp(18px, 4vmin, 48px);
+  position: fixed;
+  inset: 0;
+  padding: var(--bezel-top) var(--bezel-top) var(--bezel-bottom);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(255 255 255 / 0.18), transparent 60%),
+    linear-gradient(180deg, #cdc5af 0%, #bdb49c 55%, #a89f87 100%);
+}
+
+.screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--screen-r);
+  background: rgb(var(--screen));
+  transform: translateZ(0); /* makes position:fixed children pin to the screen */
+  /* dark gasket + recessed edge where the glass meets the bezel */
+  box-shadow:
+    0 0 0 clamp(4px, 0.7vw, 9px) #24231e,
+    0 0 0 calc(clamp(4px, 0.7vw, 9px) + 1px) rgb(0 0 0 / 0.35),
+    0 2px 0 calc(clamp(4px, 0.7vw, 9px) + 2px) rgb(255 255 255 / 0.35);
+}
+
+.screen-scroll {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-bottom: 3rem; /* keep anchors clear of the status bar */
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--p-700)) transparent;
+}
+
+/* Curvature: dark falloff toward the edges and a soft glare, drawn above the content. */
+.glass {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 71;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 60% 40% at 28% 12%, rgb(255 255 255 / 0.06), transparent 70%);
+  box-shadow:
+    inset 0 0 clamp(40px, 9vmin, 130px) rgb(0 0 0 / 0.8),
+    inset 0 0 4px 2px rgb(0 0 0 / 0.85);
+}
+
+.statusbar {
+  padding-inline: calc(var(--screen-r) * 0.6);
+}
+
+.bezel-badge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--bezel-bottom);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-family: VT323, monospace;
+  font-size: clamp(14px, 1.6vw, 20px);
+  letter-spacing: 0.3em;
+  color: #6d6754;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.45);
+  user-select: none;
+}
+.led {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgb(var(--p-500));
+  box-shadow: 0 0 6px 1px rgb(var(--p-500) / 0.8);
+}
+
+/* ---- CRT effects: scanlines and a faint flicker. Toggle with [crt]. ---- */
 .crt {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 70;
-  background:
-    repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.22) 2px 3px),
-    radial-gradient(ellipse at center, transparent 58%, rgb(0 0 0 / 0.55) 100%);
+  border-radius: inherit;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.22) 2px 3px);
   animation: crt-flicker 6s infinite steps(1);
 }
 :root[data-crt="off"] .crt {
@@ -135,5 +214,5 @@
 @media (prefers-reduced-motion: reduce) {
   .crt { animation: none; }
   .cursor::after { animation: none; }
-  html { scroll-behavior: auto; }
+  .screen-scroll { scroll-behavior: auto; }
 }

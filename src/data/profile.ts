@@ -3,7 +3,7 @@
 
 export const links = {
   email: "pi.shubham1592@gmail.com",
-  linkedin: "https://www.linkedin.com/in/shubhamkumar1592/",
+  linkedin: "https://www.linkedin.com/in/shubham1592/",
   github: "https://github.com/shubham1592",
   medium: "https://medium.com/@pi-shubham",
   lichess: "https://lichess.org/@/Riighley",
@@ -180,6 +180,8 @@ export const skills: { title: string; items: Skill[] }[] = [
       { name: "BigQuery", command: "bq query 'SELECT 1'", icon: "devicon-googlecloud-plain" },
       { name: "Docker", command: "docker compose up", icon: "devicon-docker-plain" },
       { name: "Kubernetes", command: "kubectl get pods", icon: "devicon-kubernetes-plain" },
+      { name: "Oracle", command: "sqlplus app@ORCL", icon: "devicon-oracle-original" },
+      { name: "Azure Data Factory", command: "az datafactory pipeline create-run" },
     ],
   },
   {
@@ -191,6 +193,18 @@ export const skills: { title: string; items: Skill[] }[] = [
       { name: "pandas", command: "import pandas as pd", icon: "devicon-pandas-plain" },
       { name: "LangChain", command: "pip install langchain" },
       { name: "RAG & LLM APIs", command: "retriever.invoke(query)" },
+      { name: "Vector DBs", command: "chromadb.Client().create_collection('docs')" },
+    ],
+  },
+  {
+    title: "Web & mobile",
+    items: [
+      { name: "React", command: "npm create vite@latest", icon: "devicon-react-original" },
+      { name: "Node.js", command: "node server.js", icon: "devicon-nodejs-plain" },
+      { name: "MongoDB", command: "mongosh", icon: "devicon-mongodb-plain" },
+      { name: "Kotlin", command: "./gradlew assembleDebug", icon: "devicon-kotlin-plain" },
+      { name: "Android", command: "adb install app.apk", icon: "devicon-android-plain" },
+      { name: "Firebase", command: "firebase deploy", icon: "devicon-firebase-plain" },
     ],
   },
   {
@@ -198,6 +212,7 @@ export const skills: { title: string; items: Skill[] }[] = [
     items: [
       { name: "Git", command: 'git commit -m "ship it"', icon: "devicon-git-plain" },
       { name: "CI/CD", command: "gh workflow run deploy", icon: "devicon-githubactions-plain" },
+      { name: "Power BI", command: "refresh dataset --all" },
       { name: "System design", command: "draw boxes --then arrows" },
       { name: "OOP & DSA", command: "make clean && make" },
     ],
