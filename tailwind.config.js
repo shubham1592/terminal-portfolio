@@ -17,46 +17,60 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        mono: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
+        display: ['VT323', '"IBM Plex Mono"', "monospace"],
+      },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        // Phosphor palette: every green/gray/white/black class follows the green/amber toggle.
+        green: Object.fromEntries([300, 400, 500, 600, 700, 800, 900].map((n) => [n, `rgb(var(--p-${n === 800 ? 900 : n}) / <alpha-value>)`])),
+        gray: {
+          200: "rgb(var(--fg) / <alpha-value>)",
+          300: "rgb(var(--fg) / <alpha-value>)",
+          400: "rgb(var(--dim) / <alpha-value>)",
+          500: "rgb(var(--dim) / <alpha-value>)",
+          700: "rgb(var(--p-700) / <alpha-value>)",
+          800: "rgb(var(--panel) / <alpha-value>)",
+          900: "rgb(var(--panel) / <alpha-value>)",
+        },
+        white: "rgb(var(--fg) / <alpha-value>)",
+        black: "rgb(var(--screen) / <alpha-value>)",
+        border: "rgb(var(--border) / <alpha-value>)",
+        input: "rgb(var(--input) / <alpha-value>)",
+        ring: "rgb(var(--ring) / <alpha-value>)",
+        background: "rgb(var(--background) / <alpha-value>)",
+        foreground: "rgb(var(--foreground) / <alpha-value>)",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "rgb(var(--primary) / <alpha-value>)",
+          foreground: "rgb(var(--primary-foreground) / <alpha-value>)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "rgb(var(--secondary) / <alpha-value>)",
+          foreground: "rgb(var(--secondary-foreground) / <alpha-value>)",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "rgb(var(--destructive) / <alpha-value>)",
+          foreground: "rgb(var(--destructive-foreground) / <alpha-value>)",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "rgb(var(--muted) / <alpha-value>)",
+          foreground: "rgb(var(--muted-foreground) / <alpha-value>)",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          foreground: "rgb(var(--accent-foreground) / <alpha-value>)",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "rgb(var(--popover) / <alpha-value>)",
+          foreground: "rgb(var(--popover-foreground) / <alpha-value>)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "rgb(var(--card) / <alpha-value>)",
+          foreground: "rgb(var(--card-foreground) / <alpha-value>)",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
+      // Square corners everywhere: terminals draw boxes, not pills.
+      borderRadius: { sm: "0px", md: "0px", lg: "0px", xl: "0px" },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

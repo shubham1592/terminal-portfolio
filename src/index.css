@@ -3,83 +3,137 @@
 @tailwind utilities;
 
 @layer base {
+  /* Phosphor palettes as RGB triplets; Tailwind green/gray/white/black map onto these (tailwind.config.js). */
+  :root,
+  :root[data-phosphor="green"] {
+    --p-300: 190 255 205;
+    --p-400: 120 255 160;
+    --p-500: 64 232 116;
+    --p-600: 44 184 88;
+    --p-700: 30 132 62;
+    --p-900: 14 52 26;
+    --fg: 196 238 206;
+    --dim: 112 164 124;
+    --panel: 8 22 12;
+    --screen: 3 10 5;
+  }
+  :root[data-phosphor="amber"] {
+    --p-300: 255 228 168;
+    --p-400: 255 204 102;
+    --p-500: 255 176 0;
+    --p-600: 214 140 0;
+    --p-700: 152 98 0;
+    --p-900: 58 36 0;
+    --fg: 255 226 186;
+    --dim: 184 142 92;
+    --panel: 22 14 4;
+    --screen: 10 6 1;
+  }
+
+  /* shadcn tokens, pointed at the phosphor palette */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --background: var(--screen);
+    --foreground: var(--fg);
+    --popover: var(--screen);
+    --popover-foreground: var(--fg);
+    --primary: var(--p-500);
+    --primary-foreground: var(--screen);
+    --secondary: var(--panel);
+    --secondary-foreground: var(--fg);
+    --muted: var(--panel);
+    --muted-foreground: var(--dim);
+    --card: var(--screen);
+    --card-foreground: var(--fg);
+    --destructive: 255 96 96;
+    --destructive-foreground: var(--screen);
+    --accent: var(--p-900);
+    --accent-foreground: var(--p-300);
+    --border: var(--p-700);
+    --input: var(--p-700);
+    --ring: var(--p-500);
+    --radius: 0px;
+    color-scheme: dark;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-bottom: 3rem; /* keep anchors clear of the status bar */
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
+    font-size: 17px;
+    line-height: 1.6;
+    /* phosphor bloom */
+    text-shadow: 0 0 1px rgb(var(--p-500) / 0.5), 0 0 6px rgb(var(--p-500) / 0.22);
+  }
+
+  ::selection {
+    background: rgb(var(--p-500));
+    color: rgb(var(--screen));
+    text-shadow: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--p-400));
+    outline-offset: 2px;
   }
 }
 
-.shadow-glow {
-  text-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+.font-display {
+  letter-spacing: 0.02em;
 }
 
-.terminal-keyword {
-  position: relative;
+.hl {
+  color: rgb(var(--p-400));
+  font-weight: 600;
+}
+
+/* ---- CRT glass: scanlines, vignette, a faint flicker. Purely decorative. ---- */
+.crt {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 70;
+  background:
+    repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.22) 2px 3px),
+    radial-gradient(ellipse at center, transparent 58%, rgb(0 0 0 / 0.55) 100%);
+  animation: crt-flicker 6s infinite steps(1);
+}
+:root[data-crt="off"] .crt {
+  display: none;
+}
+:root[data-crt="off"] body {
+  text-shadow: none;
+}
+
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  47% { opacity: 0.93; }
+  48% { opacity: 1; }
+  82% { opacity: 0.96; }
+}
+
+.cursor::after {
+  content: "";
   display: inline-block;
+  width: 0.6em;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: rgb(var(--p-500));
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt { animation: none; }
+  .cursor::after { animation: none; }
+  html { scroll-behavior: auto; }
 }

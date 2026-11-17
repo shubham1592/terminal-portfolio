@@ -39,7 +39,7 @@ const BeyondCodeSection = () => {
             exit={{ scale: 0.9, opacity: 0 }}
             className="max-w-2xl mx-auto px-4"
           >
-            <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden shadow-[0_0_30px_rgba(0,255,0,0.3)]">
+            <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden shadow-[0_0_30px_rgb(var(--p-500)/0.3)]">
               <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
                 <span>$ Music Taste</span>
                 <button
@@ -70,7 +70,7 @@ const BeyondCodeSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {/* Spotify Playlist Card */}
         <motion.div
-          className={`bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform cursor-pointer ${
+          className={`bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300 cursor-pointer ${
             isSpotifyExpanded ? "invisible" : ""
           }`}
           onClick={handleSpotifyClick}
@@ -78,7 +78,7 @@ const BeyondCodeSection = () => {
         >
           <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
             <span>$ Music Taste</span>
-            <span>♫</span>
+            <span aria-hidden="true">♫</span>
           </div>
           <div className="p-3 sm:p-4 flex flex-col min-h-[250px]">
             <p className="text-green-400 text-sm md:text-base mb-3">
@@ -101,7 +101,7 @@ const BeyondCodeSection = () => {
                 className="text-center mt-3 text-sm font-medium"
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
+                <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgb(var(--p-500)/0.2)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.4)] transition-all duration-300">
                   Click to expand player ↕
                 </span>
               </motion.p>
@@ -116,10 +116,10 @@ const BeyondCodeSection = () => {
           rel="noopener noreferrer"
           className="block"
         >
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Chess Achievements</span>
-              <span>♟</span>
+              <span aria-hidden="true">♟</span>
             </div>
             <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
               <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
@@ -134,7 +134,6 @@ const BeyondCodeSection = () => {
                         width="100%"
                         height="100%"
                         frameBorder="0"
-                        allowTransparency={true}
                         className="rounded-md"
                       ></iframe>
                     </div>
@@ -142,7 +141,7 @@ const BeyondCodeSection = () => {
                       className="text-center mt-3 text-sm font-medium"
                       whileHover={{ scale: 1.05 }}
                     >
-                      <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
+                      <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgb(var(--p-500)/0.2)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.4)] transition-all duration-300">
                         Click to visit my Lichess ↗
                       </span>
                     </motion.p>
@@ -154,10 +153,10 @@ const BeyondCodeSection = () => {
         </a>
 
         {/* Guitar Performances Card */}
-        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
+        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
           <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
             <span>$ Guitar Performances</span>
-            <span>🎸</span>
+            <span aria-hidden="true">♪</span>
           </div>
           <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
             <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
@@ -187,10 +186,10 @@ const BeyondCodeSection = () => {
         </div>
 
         {/* Hackathon Recognition Card */}
-        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
+        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
           <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
             <span>$ Hackathon Recognition</span>
-            <span>🏆</span>
+            <span aria-hidden="true">★</span>
           </div>
           <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
             <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
@@ -221,10 +220,10 @@ const BeyondCodeSection = () => {
           rel="noopener noreferrer"
           className="block"
         >
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
+          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
             <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
               <span>$ Blogs</span>
-              <span>✍️</span>
+              <span aria-hidden="true">¶</span>
             </div>
             <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
               <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
@@ -242,7 +241,7 @@ const BeyondCodeSection = () => {
                   className="text-center mt-3 text-sm font-medium"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgba(0,255,0,0.2)] hover:shadow-[0_0_15px_rgba(0,255,0,0.4)] transition-all duration-300">
+                  <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgb(var(--p-500)/0.2)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.4)] transition-all duration-300">
                     Click to visit my Medium ↗
                   </span>
                 </motion.p>
@@ -252,10 +251,10 @@ const BeyondCodeSection = () => {
         </a>
 
         {/* Certifications Card */}
-        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 hover:scale-105 hover:-translate-y-1 transform">
+        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
           <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center">
             <span>$ Certifications</span>
-            <span>🎓</span>
+            <span aria-hidden="true">§</span>
           </div>
           <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
             <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">

@@ -84,8 +84,6 @@ const ContactSection = () => {
     }
 
     try {
-      console.log('Sending form data via EmailJS:', formState);
-      
       // Prepare template parameters for EmailJS
       const templateParams = {
         from_name: formState.name,
@@ -104,7 +102,6 @@ const ContactSection = () => {
         EMAILJS_PUBLIC_KEY
       );
 
-      console.log('EmailJS response:', response);
 
       if (response.status === 200) {
         setIsSubmitted(true);
@@ -131,7 +128,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="min-h-[80vh] flex flex-col items-center justify-center pt-8 pb-16 px-4 sm:px-6 lg:px-8 bg-black text-green-500">
+    <div className="flex flex-col items-center text-green-500">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -170,7 +167,7 @@ const ContactSection = () => {
                 value={formState.name}
                 onChange={handleChange}
                 required
-                placeholder="John Doe"
+                placeholder="Ada Lovelace"
                 className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-green-500 focus:border-green-500 focus:ring-2 placeholder:text-green-700/50"
               />
             </div>
@@ -186,7 +183,7 @@ const ContactSection = () => {
                 value={formState.email}
                 onChange={handleChange}
                 required
-                placeholder="john@example.com"
+                placeholder="ada@example.com"
                 className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-green-500 focus:border-green-500 focus:ring-2 placeholder:text-green-700/50"
               />
             </div>
@@ -200,8 +197,8 @@ const ContactSection = () => {
                   <SelectValue placeholder="Select reason" />
                 </SelectTrigger>
                 <SelectContent className="bg-black border-green-500 text-green-400 font-mono">
-                  <SelectItem value="internship" className="focus:bg-green-900/30 focus:text-green-400">Internship</SelectItem>
                   <SelectItem value="full-time" className="focus:bg-green-900/30 focus:text-green-400">Full Time Opportunity</SelectItem>
+                  <SelectItem value="internship" className="focus:bg-green-900/30 focus:text-green-400">Internship / Co-op</SelectItem>
                   <SelectItem value="collaboration" className="focus:bg-green-900/30 focus:text-green-400">Collaboration</SelectItem>
                   <SelectItem value="feedback" className="focus:bg-green-900/30 focus:text-green-400">Feedback</SelectItem>
                   <SelectItem value="just-saying-hi" className="focus:bg-green-900/30 focus:text-green-400">Just Saying Hi</SelectItem>
@@ -239,7 +236,7 @@ const ContactSection = () => {
             <Button 
               type="submit" 
               disabled={isLoading}
-              className="w-full bg-green-500 text-black font-bold py-2 px-4 rounded-md hover:bg-green-600 transition-colors duration-200 cursor-pointer shadow-[0_0_10px_rgba(0,255,0,0.3)] hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-green-500 text-black font-bold py-2 px-4 rounded-md hover:bg-green-600 transition-colors duration-200 cursor-pointer shadow-[0_0_10px_rgb(var(--p-500)/0.3)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center">
@@ -260,7 +257,7 @@ const ContactSection = () => {
             href="https://linkedin.com/in/shubhamkumar1592" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)]"
+            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
             aria-label="LinkedIn Profile"
           >
             <Linkedin className="h-8 w-8" />
@@ -269,21 +266,21 @@ const ContactSection = () => {
             href="https://github.com/shubham1592" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)]"
+            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
             aria-label="GitHub Profile"
           >
             <Github className="h-8 w-8" />
           </a>
           <a 
             href="mailto:pi.shubham1592@gmail.com" 
-            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgba(0,255,0,0.5)]"
+            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
             aria-label="Email Contact"
           >
             <Mail className="h-8 w-8" />
           </a>
         </div>
       </motion.div>
-    </section>
+    </div>
   );
 };
 

@@ -1,327 +1,206 @@
-import React from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useState, type ReactNode } from "react";
 import HeroSection from "./HeroSection";
 import ProjectsSection from "./ProjectsSection";
 import TechStackSection from "./TechStackSection";
 import ContactSection from "./ContactSection";
 import BeyondCodeSection from "./BeyondCodeSection";
 import ExperienceSection from "./ExperienceSection";
+import Shell from "./Shell";
+import Rich from "./Rich";
+import { about, education } from "@/data/profile";
+
+type Phosphor = "green" | "amber";
+
+// Remembered per visitor; falls back to defaults when storage is blocked.
+const read = (k: string, d: string) => {
+  try {
+    return localStorage.getItem(k) ?? d;
+  } catch {
+    return d;
+  }
+};
+const write = (k: string, v: string) => {
+  try {
+    localStorage.setItem(k, v);
+  } catch {
+    /* ignore */
+  }
+};
+
+const NAV = [
+  { id: "hero", label: "home" },
+  { id: "about", label: "about" },
+  { id: "experience", label: "work" },
+  { id: "projects", label: "projects" },
+  { id: "stack", label: "stack" },
+  { id: "beyond", label: "beyond" },
+  { id: "contact", label: "contact" },
+];
+
+const Section = ({ id, cmd, children }: { id: string; cmd: string; children: ReactNode }) => (
+  <section id={id} className="py-16 px-4 sm:px-8 max-w-4xl mx-auto scroll-mt-4">
+    <h2 className="font-display text-3xl sm:text-4xl text-green-400 mb-8 border-b border-green-900 pb-2">
+      <span className="text-green-700">$ </span>
+      {cmd}
+    </h2>
+    {children}
+  </section>
+);
 
 const Home = () => {
-  // Animation variants for sections
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
+  const [phosphor, setPhosphorState] = useState<Phosphor>(() => (read("phosphor", "green") === "amber" ? "amber" : "green"));
+  const [crt, setCrtState] = useState(() => read("crt", "on") !== "off");
+  const [shellOpen, setShellOpen] = useState(false);
+  const [active, setActive] = useState("hero");
+  const [clock, setClock] = useState(() => new Date());
 
-  // Function to handle smooth scrolling to contact section
-  const handleContactClick = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
+  const setPhosphor = useCallback((p: Phosphor) => {
+    setPhosphorState(p);
+    write("phosphor", p);
+  }, []);
+  const setCrt = useCallback((on: boolean) => {
+    setCrtState(on);
+    write("crt", on ? "on" : "off");
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.phosphor = phosphor;
+    document.documentElement.dataset.crt = crt ? "on" : "off";
+  }, [phosphor, crt]);
+
+  useEffect(() => {
+    const t = setInterval(() => setClock(new Date()), 30_000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Highlight the section in view, like tmux marks the active window.
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    NAV.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
+
+  const goto = useCallback((id: string) => {
+    setShellOpen(false);
+    // wait a frame so the page is visible again before scrolling
+    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+  }, []);
+  const closeShell = useCallback(() => setShellOpen(false), []);
 
   return (
-    <div className="min-h-screen bg-black text-green-500 font-mono overflow-x-hidden">
-      {/* Hero Section */}
-      <section
-        id="hero"
-        className="min-h-screen flex items-center justify-center"
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <main aria-hidden={shellOpen}>
+        <section id="hero" className="min-h-screen flex items-center">
+          <HeroSection onContactClick={() => goto("contact")} onShellClick={() => setShellOpen(true)} />
+        </section>
+
+        <Section id="about" cmd="cat about.txt">
+          <div className="space-y-3 text-lg">
+            {about.map((p) => (
+              <p key={p}>
+                <Rich text={p} />
+              </p>
+            ))}
+          </div>
+          <h3 className="mt-10 mb-3 text-green-400">
+            <span className="text-green-700">$ </span>cat education.log
+          </h3>
+          <ul className="space-y-2">
+            {education.map((e) => (
+              <li key={e.degree}>
+                <span className="text-white">{e.degree}</span>
+                <span className="text-gray-400">, {e.school}</span>
+                <span className="text-green-700"> // {e.date}</span>
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section id="experience" cmd="history | grep work">
+          <ExperienceSection />
+        </Section>
+
+        <Section id="projects" cmd="ls -la ~/projects">
+          <ProjectsSection />
+        </Section>
+
+        <Section id="stack" cmd="lsmod | grep skills">
+          <TechStackSection />
+        </Section>
+
+        <Section id="beyond" cmd="cat /proc/life">
+          <BeyondCodeSection />
+        </Section>
+
+        <Section id="contact" cmd="mail shubham">
+          <ContactSection />
+        </Section>
+
+        <footer className="py-8 pb-16 px-4 text-center text-sm text-gray-400 border-t border-green-900">
+          <p>© {new Date().getFullYear()} Shubham Kumar</p>
+          <p className="mt-1">
+            Prefer typing? <button onClick={() => setShellOpen(true)} className="underline underline-offset-4 text-green-400">Open the shell</button>
+          </p>
+        </footer>
+      </main>
+
+      {shellOpen && <Shell onClose={closeShell} onGoto={goto} setPhosphor={setPhosphor} setCrt={setCrt} />}
+
+      {/* tmux-style status bar */}
+      <nav
+        aria-label="Sections"
+        className="fixed bottom-0 inset-x-0 z-[65] bg-green-500 text-black text-sm flex items-stretch [text-shadow:none]"
       >
-        <HeroSection onContactClick={handleContactClick} />
-      </section>
-
-      {/* About Me Section */}
-      <motion.section
-        id="about"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
-          <span className="whitespace-nowrap">$ cat</span>{" "}
-          <span className="whitespace-nowrap">about-me.txt</span>
-        </h2>
-        <div className="space-y-4 text-lg text-gray-200 pl-8 pt-10">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
-            Currently focused on{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              AI & ML systems
-            </span>{" "}
-            to simplify decisions and tackle real-world mess.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-          >
-            Specialized in engineering{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              scalable data solutions
-            </span>{" "}
-            that actually work in production.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
-          >
-            Building something ambitious with{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              AI
-            </span>{" "}
-            or{" "}
-            <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-              data
-            </span>
-            ? Let's connect — always up for meaningful challenges.
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
-            className="flex items-center"
-          >
-            <span>
-              Open to{" "}
-              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-                Summer 2026 Internships
-              </span>
-              .
-            </span>
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.8, duration: 0.6 }}
-          >
-            <span>
-              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-                Guitarist
-              </span>
-              ,{" "}
-              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-                blogger
-              </span>
-              , and a pretty decent{" "}
-              <span className="terminal-keyword text-green-400 font-bold shadow-glow">
-                chess player
-              </span>
-              .
-            </span> 
-          </motion.p>
-        </div>
-      </motion.section>
-
-      {/* Experience Section */}
-      <motion.section
-        id="experience"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-10 border-b border-green-500 pb-2">
-          <span className="whitespace-nowrap">$ cat experience/all</span>{" "}
-          <span className="whitespace-normal">| grep "work"</span>
-        </h2>
-        <ExperienceSection />
-      </motion.section>
-
-      {/* Projects Section */}
-      <motion.section
-        id="projects"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
-          <span className="whitespace-nowrap">$ ls -la projects/all</span>{" "}
-          <span className="whitespace-normal">| grep "featured"</span>
-        </h2>
-        <ProjectsSection />
-      </motion.section>
-
-      {/* Tech Stack Section */}
-      <motion.section
-        id="tech-stack"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
-          <span className="whitespace-nowrap">$ major-tech-stack</span>{" "}
-          <span className="whitespace-normal">--list-all</span>
-        </h2>
-        <TechStackSection />
-      </motion.section>
-
-      {/* Beyond the Code Section */}
-      <motion.section
-        id="beyond-code"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
-          <span className="whitespace-nowrap">$ cat beyond-code/life</span>{" "}
-          <span className="whitespace-normal">| grep "fun"</span>
-        </h2>
-        <BeyondCodeSection />
-      </motion.section>
-
-      {/* Contact Section */}
-      <motion.section
-        id="contact"
-        className="py-16 px-4 md:px-8 lg:px-16 max-w-6xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={sectionVariants}
-      >
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-6 border-b border-green-500 pb-2">
-          <span className="whitespace-nowrap">$ contact-me</span>{" "}
-          <span className="whitespace-normal">--send-message</span>
-        </h2>
-        <ContactSection />
-      </motion.section>
-
-      {/* Footer */}
-      <footer className="py-6 px-4 text-center text-sm text-green-400 border-t border-green-900">
-        <p>© {new Date().getFullYear()} Shubham Kumar. All rights reserved.</p>
-        <p className="mt-2">
-          Built with React, Tailwind CSS, and Framer Motion
-        </p>
-      </footer>
-
-      {/* Spacer to prevent dock from covering footer */}
-      <div className="h-16"></div>
-
-      {/* Fixed Navigation */}
-      <nav className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-900 border border-green-500 rounded-full px-2 sm:px-4 py-2 z-50 hover:shadow-[0_0_15px_rgba(0,255,0,0.3)] transition-all duration-300 max-w-[90vw] overflow-x-auto group hover:scale-105 hover:py-3">
-        <ul className="flex space-x-2 sm:space-x-4 text-xs sm:text-sm whitespace-nowrap">
-          <li>
-            <a
-              href="#hero"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("hero")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              href="#about"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("about")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href="#experience"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("experience")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
-            >
-              Experience
-            </a>
-          </li>
-          <li>
-            <a
-              href="#projects"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("projects")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
-            >
-              Projects
-            </a>
-          </li>
-          <li>
-            <a
-              href="#tech-stack"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("tech-stack")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
-            >
-              Tech
-            </a>
-          </li>
-          <li>
-            <a
-              href="#beyond-code"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("beyond-code")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
-            >
-              Beyond
-            </a>
-          </li>
-          <li>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("contact")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="hover:text-green-300 hover:shadow-[0_0_8px_rgba(0,255,0,0.5)] transition-all duration-200 ease-in-out hover:transform hover:-translate-y-1 hover:scale-125 inline-block px-1 rounded cursor-pointer"
-            >
-              Contact
-            </a>
-          </li>
+        <span className="px-3 py-1 bg-green-700 text-white shrink-0 hidden lg:block">[shubham]</span>
+        <ul className="flex overflow-x-auto flex-1 min-w-0 [scrollbar-width:none]">
+          {NAV.map(({ id, label }, i) => (
+            <li key={id} className="shrink-0">
+              <a
+                href={`#${id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  goto(id);
+                }}
+                aria-current={active === id ? "location" : undefined}
+                className={`block px-2 py-1 hover:bg-green-300 ${active === id ? "bg-black text-green-400" : ""}`}
+              >
+                {i}:{label}
+                {active === id ? "*" : ""}
+              </a>
+            </li>
+          ))}
         </ul>
+        <div className="flex shrink-0">
+          <button
+            onClick={() => setPhosphor(phosphor === "green" ? "amber" : "green")}
+            className="px-2 py-1 hover:bg-green-300"
+            title="Switch phosphor colour"
+          >
+            [{phosphor}]
+          </button>
+          <button onClick={() => setCrt(!crt)} className="px-2 py-1 hover:bg-green-300" title="Toggle scanlines and glow" aria-pressed={crt}>
+            [crt:{crt ? "on" : "off"}]
+          </button>
+          <button
+            onClick={() => setShellOpen((o) => !o)}
+            className="px-2 py-1 hover:bg-green-300"
+            aria-pressed={shellOpen}
+          >
+            [{shellOpen ? "page" : "shell"}]
+          </button>
+          <span className="px-3 py-1 bg-green-700 text-white hidden lg:block">
+            {clock.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          </span>
+        </div>
       </nav>
+
+      <div className="crt" aria-hidden="true" />
     </div>
   );
 };

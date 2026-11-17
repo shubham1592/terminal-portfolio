@@ -1,187 +1,121 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Download, Send, ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Download, Send, TerminalSquare } from "lucide-react";
+import { hero, links } from "@/data/profile";
 
 interface HeroSectionProps {
-  onContactClick?: () => void;
+  onContactClick: () => void;
+  onShellClick: () => void;
 }
 
-const HeroSection = ({ onContactClick = () => {} }: HeroSectionProps) => {
-  const [bootingComplete, setBootingComplete] = useState(false);
-  const [typingComplete, setTypingComplete] = useState(false);
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+const BOOT_LOG = [
+  "[    0.000000] Linux version 6.17.0-shubham (kumar@northeastern) #2026 SMP",
+  "[    0.000000] Command line: BOOT_IMAGE=/portfolio ro quiet phosphor=on",
+  "[    0.004112] BIOS-e820: usable memory 640K (ought to be enough for anybody)",
+  "[    0.118020] loading module vit_btech.ko: B.Tech Computer Science",
+  "[    0.231877] loading module bajaj_finance.ko: data engineering, 3 years",
+  "[    0.402113] loading module northeastern_mscs.ko: MS Computer Science",
+  "[    0.588402] loading module lg_es_vertech.ko: software engineer co-op",
+  "[  OK  ] Mounted /home/shubham",
+  "[  OK  ] Started portfolio.service",
+  "[  OK  ] Reached target graphical.target",
+];
 
-  const textLines = [
-    "Hi, I'm ",
-    "Shubham Kumar",
-    "MS Computer Science @ Northeastern University, Boston",
-    "Ex-Senior Data Engineer",
-    "AI & Machine Learning Expert",
-  ];
+const BOOT_KEY = "booted";
 
-  // Boot animation
+const alreadyBooted = () => {
+  try {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
+    return sessionStorage.getItem(BOOT_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
+const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
+  const [shown, setShown] = useState(() => (alreadyBooted() ? BOOT_LOG.length : 0));
+  const booted = shown >= BOOT_LOG.length;
+
   useEffect(() => {
-    const bootTimer = setTimeout(() => {
-      setBootingComplete(true);
-    }, 2000);
-
-    return () => clearTimeout(bootTimer);
-  }, []);
-
-  // Typewriter effect
-  useEffect(() => {
-    if (!bootingComplete) return;
-
-    if (currentTextIndex < textLines.length) {
-      const timer = setTimeout(() => {
-        setCurrentTextIndex((prev) => prev + 1);
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    } else {
-      setTypingComplete(true);
+    if (booted) {
+      try {
+        sessionStorage.setItem(BOOT_KEY, "1");
+      } catch {
+        /* storage blocked: boot plays again next visit, harmless */
+      }
+      return;
     }
-  }, [bootingComplete, currentTextIndex]);
+    const t = setTimeout(() => setShown((n) => n + 1), shown === 0 ? 300 : 110);
+    return () => clearTimeout(t);
+  }, [shown, booted]);
 
-  const downloadResume = () => {
-    // Convert Google Drive view URL to direct download URL
-    const driveUrl = "https://drive.google.com/file/d/1HfyLaVnjly7GO4YZj_7VZrZBVZKVQ-V-/view?usp=sharing";
-    const fileId = "1HfyLaVnjly7GO4YZj_7VZrZBVZKVQ-V-";
-    const directDownloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-    
-    // Create a temporary anchor element to trigger download
-    const link = document.createElement('a');
-    link.href = directDownloadUrl;
-    link.download = 'Shubham_Kumar_Resume.pdf';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // Any key or click skips the boot log.
+  useEffect(() => {
+    if (booted) return;
+    const skip = () => setShown(BOOT_LOG.length);
+    window.addEventListener("keydown", skip);
+    window.addEventListener("pointerdown", skip);
+    return () => {
+      window.removeEventListener("keydown", skip);
+      window.removeEventListener("pointerdown", skip);
+    };
+  }, [booted]);
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-black text-white font-mono relative">
-      {/* Background scanline effect
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="w-full h-full bg-[linear-gradient(transparent_50%,rgba(0,255,0,0.02)_50%)] bg-[length:100%_4px]"></div>
-      </div> */}
-
-      <div className="w-full max-w-[800px] px-4 sm:px-6 lg:px-8">
-        {!bootingComplete ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-green-500"
-          >
-            <p className="text-lg sm:text-xl">Authenticating...</p>
-            <p className="mt-2 text-sm sm:text-base">Booting Portfolio System...</p>
-            <div className="mt-4 h-1 w-full bg-gray-800 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-green-500"
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 2 }}
-              />
-            </div>
-          </motion.div>
-        ) : (
-          <div className="space-y-4 text-left">
-            <div className="space-y-1">
-              {textLines.map((line, index) => {
-                if (index <= currentTextIndex) {
-                  return (
-                    <motion.p
-                      key={index}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className={`text-base sm:text-lg md:text-xl ${index === 1 ? "text-green-500 font-bold" : "text-white"}`}
-                    >
-                      {index === 0 ? "> " : ""}
-                      {line}
-                    </motion.p>
-                  );
-                }
-                return null;
-              })}
-
-              {/* Blinking cursor */}
-              {!typingComplete && currentTextIndex < textLines.length && (
-                <motion.span
-                  className="inline-block w-2 h-4 sm:w-3 sm:h-5 bg-green-500"
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{ repeat: Infinity, duration: 1 }}
-                />
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-8 py-16">
+      {!booted ? (
+        <div className="text-sm sm:text-base text-gray-400 space-y-0.5" aria-live="polite">
+          {BOOT_LOG.slice(0, shown).map((line) => (
+            <p key={line} className="whitespace-pre-wrap break-words">
+              {line.startsWith("[  OK  ]") ? (
+                <>
+                  [  <span className="text-green-400">OK</span>  ]{line.slice(8)}
+                </>
+              ) : (
+                line
               )}
-            </div>
+            </p>
+          ))}
+          <p className="pt-4 text-green-700 text-sm">press any key to skip</p>
+        </div>
+      ) : (
+        <div>
+          <p className="text-gray-400 text-sm sm:text-base">
+            shubham-os login: <span className="text-white">guest</span>
+          </p>
+          <p className="text-gray-400 text-sm sm:text-base mb-6">Last login: just now on tty1</p>
 
-            {typingComplete && (
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 mt-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <Button
-                  onClick={downloadResume}
-                  className="w-full sm:w-auto bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300 text-sm sm:text-base"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  <span>&gt; download-resume</span>
-                </Button>
+          <h1 className="font-display text-green-400 leading-none text-[clamp(3.5rem,13vw,8.5rem)]">
+            {hero.name}
+          </h1>
 
-                <Button
-                  onClick={onContactClick}
-                  className="w-full sm:w-auto bg-black border border-green-500 text-green-500 hover:bg-green-900/20 hover:scale-110 hover:shadow-[0_0_15px_rgba(0,255,0,0.5)] transition-all duration-300 text-sm sm:text-base"
-                >
-                  <Send className="mr-2 h-4 w-4" />
-                  <span>&gt; contact-shubham</span>
-                </Button>
-              </motion.div>
-            )}
+          <div className="mt-6 space-y-1 text-base sm:text-lg">
+            {hero.lines.map((l) => (
+              <p key={l} className="text-white">
+                <span className="text-green-500">&gt; </span>
+                {l}
+              </p>
+            ))}
+            <p className="text-green-500 cursor pt-1" aria-hidden="true">$</p>
           </div>
-        )}
-      </div>
 
-      {/* Scroll Indicator */}
-      {/* <motion.div 
-        className="absolute bottom-40 left-1/2 transform -translate-x-1/2 text-green-500"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ 
-          opacity: [0, 1, 1, 0],
-          y: [-10, 0, 0, 10]
-        }}
-        transition={{ 
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <ChevronDown className="h-6 w-6" />
-      </motion.div> */}
-
-<motion.div 
-  className="absolute bottom-44 left-1/2 transform -translate-x-1/2 text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.7)]"
-  initial={{ opacity: 0, y: -10 }}
-  animate={{ 
-    opacity: [0, 1, 1, 0],
-    y: [-20, 0, 10, -5]
-  }}
-  transition={{ 
-    duration: 2,
-    repeat: Infinity,
-    delay: 9,
-    repeatDelay: 0.5,
-    ease: "easeInOut"
-  }}
->
-  <ChevronDown className="h-8 w8" />
-</motion.div>
-
-
-    </section>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 mt-10">
+            <a href={links.resume} download="Shubham_Kumar_Resume.pdf" className={btn}>
+              <Download className="h-4 w-4" /> download-resume
+            </a>
+            <button onClick={onContactClick} className={btn}>
+              <Send className="h-4 w-4" /> contact
+            </button>
+            <button onClick={onShellClick} className={btn}>
+              <TerminalSquare className="h-4 w-4" /> open-shell
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
+
+const btn =
+  "inline-flex items-center justify-center gap-2 border border-green-500 px-4 py-2 text-green-400 hover:bg-green-500 hover:text-black transition-colors";
 
 export default HeroSection;
