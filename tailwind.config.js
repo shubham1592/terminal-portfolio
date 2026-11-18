@@ -33,6 +33,7 @@ module.exports = {
           800: "rgb(var(--panel) / <alpha-value>)",
           900: "rgb(var(--panel) / <alpha-value>)",
         },
+        status: "rgb(var(--status) / <alpha-value>)", // amber accent for status words
         white: "rgb(var(--fg) / <alpha-value>)",
         black: "rgb(var(--screen) / <alpha-value>)",
         border: "rgb(var(--border) / <alpha-value>)",

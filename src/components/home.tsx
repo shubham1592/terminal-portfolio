@@ -6,10 +6,13 @@ import ContactSection from "./ContactSection";
 import BeyondCodeSection from "./BeyondCodeSection";
 import ExperienceSection from "./ExperienceSection";
 import Shell from "./Shell";
+import CrtWarp from "./CrtWarp";
 import Rich from "./Rich";
 import { about, education } from "@/data/profile";
 
 type Phosphor = "green" | "amber";
+
+const DESKTOP = "(min-width: 768px) and (pointer: fine)";
 
 // Remembered per visitor; falls back to defaults when storage is blocked.
 const read = (k: string, d: string) => {
@@ -53,6 +56,16 @@ const Home = () => {
   const [shellOpen, setShellOpen] = useState(false);
   const [active, setActive] = useState("hero");
   const [clock, setClock] = useState(() => new Date());
+  // Warp only on desktop pointers: on phones it costs battery and shrinks already-small text.
+  const [desktop, setDesktop] = useState(() => window.matchMedia(DESKTOP).matches);
+  const warp = crt && desktop;
+
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP);
+    const on = () => setDesktop(mq.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
 
   const setPhosphor = useCallback((p: Phosphor) => {
     setPhosphorState(p);
@@ -94,13 +107,13 @@ const Home = () => {
   const closeShell = useCallback(() => setShellOpen(false), []);
 
   return (
-    // The whole UI sits inside a CRT: bezel > curved screen > scrolling content.
-    // .screen has a transform, so `fixed` children (status bar, shell, modals) are pinned to the screen, not the window.
-    <div className="monitor">
-      <div className="screen text-white">
+    // Full-bleed CRT: the warped screen holds the page and the shell; the status bar and
+    // overlays sit outside the warp so the bar's click targets line up exactly with what you see.
+    <div className="crt-root">
+      <div className={`screen text-white ${warp ? "warp" : ""}`}>
       <div className="screen-scroll">
       <main aria-hidden={shellOpen}>
-        <section id="hero" className="min-h-[calc(100dvh-var(--bezel-top)-var(--bezel-bottom))] flex items-center">
+        <section id="hero" className="min-h-[100dvh] flex items-center">
           <HeroSection onContactClick={() => goto("contact")} onShellClick={() => setShellOpen(true)} />
         </section>
 
@@ -156,13 +169,14 @@ const Home = () => {
       </div>
 
       {shellOpen && <Shell onClose={closeShell} onGoto={goto} setPhosphor={setPhosphor} setCrt={setCrt} />}
+      </div>
 
       {/* tmux-style status bar */}
       <nav
         aria-label="Sections"
-        className="statusbar fixed bottom-0 inset-x-0 z-[65] bg-green-500 text-black text-sm flex items-stretch [text-shadow:none]"
+        className="fixed bottom-0 inset-x-0 z-[65] bg-gray-900 border-t border-green-700 text-green-500 text-sm flex items-stretch px-2"
       >
-        <span className="px-3 py-1 bg-green-700 text-white shrink-0 hidden lg:block">[shubham]</span>
+        <span className="px-3 py-1 text-gray-400 shrink-0 hidden lg:block">[shubham]</span>
         <ul className="flex overflow-x-auto flex-1 min-w-0 [scrollbar-width:none]">
           {NAV.map(({ id, label }, i) => (
             <li key={id} className="shrink-0">
@@ -173,7 +187,7 @@ const Home = () => {
                   goto(id);
                 }}
                 aria-current={active === id ? "location" : undefined}
-                className={`block px-2 py-1 hover:bg-green-300 ${active === id ? "bg-black text-green-400" : ""}`}
+                className={`block px-2 py-1 ${active === id ? "bg-status text-black [text-shadow:none]" : "hover:text-green-300"}`}
               >
                 {i}:{label}
                 {active === id ? "*" : ""}
@@ -184,35 +198,31 @@ const Home = () => {
         <div className="flex shrink-0">
           <button
             onClick={() => setPhosphor(phosphor === "green" ? "amber" : "green")}
-            className="px-2 py-1 hover:bg-green-300"
+            className="px-2 py-1 text-status hover:text-green-300"
             title="Switch phosphor colour"
           >
             [<span className="sm:hidden">{phosphor[0]}</span>
             <span className="hidden sm:inline">{phosphor}</span>]
           </button>
-          <button onClick={() => setCrt(!crt)} className="px-2 py-1 hover:bg-green-300" title="Toggle scanlines and glow" aria-pressed={crt}>
+          <button onClick={() => setCrt(!crt)} className="px-2 py-1 text-status hover:text-green-300" title="Toggle scanlines and glow" aria-pressed={crt}>
             [crt<span className="hidden sm:inline">:{crt ? "on" : "off"}</span>]
           </button>
           <button
             onClick={() => setShellOpen((o) => !o)}
-            className="px-2 py-1 hover:bg-green-300"
+            className="px-2 py-1 text-status hover:text-green-300"
             aria-pressed={shellOpen}
           >
             [{shellOpen ? "page" : "shell"}]
           </button>
-          <span className="px-3 py-1 bg-green-700 text-white hidden lg:block">
+          <span className="px-3 py-1 text-status hidden lg:block">
             {clock.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </span>
         </div>
       </nav>
 
       <div className="crt" aria-hidden="true" />
-      <div className="glass" aria-hidden="true" />
-      </div>
-      <div className="bezel-badge" aria-hidden="true">
-        <span>SHUBHAM-OS</span>
-        <span className="led" />
-      </div>
+      <div className="vignette" aria-hidden="true" />
+      <CrtWarp enabled={warp} />
     </div>
   );
 };

@@ -4,18 +4,21 @@
 
 @layer base {
   /* Phosphor palettes as RGB triplets; Tailwind green/gray/white/black map onto these (tailwind.config.js). */
+  /* Sampled from the reference: mint text, desaturated labels, amber status, near-white emphasis. */
   :root,
   :root[data-phosphor="green"] {
-    --p-300: 190 255 205;
-    --p-400: 120 255 160;
-    --p-500: 64 232 116;
-    --p-600: 44 184 88;
-    --p-700: 30 132 62;
-    --p-900: 14 52 26;
-    --fg: 196 238 206;
-    --dim: 112 164 124;
-    --panel: 8 22 12;
-    --screen: 3 10 5;
+    --p-300: 222 255 234; /* emphasis, near-white with a green tint */
+    --p-400: 155 232 184; /* #9be8b8 headings */
+    --p-500: 127 217 168; /* #7fd9a8 prompts, borders */
+    --p-600: 98 178 136;
+    --p-700: 56 110 82;
+    --p-900: 20 44 32;
+    --fg: 140 214 172; /* body text */
+    --dim: 82 134 106; /* labels like nav0 / vis0 */
+    --panel: 10 24 17;
+    --screen: 5 13 9;
+    --screen-hi: 14 32 22;
+    --status: 232 163 61; /* #e8a33d amber: OK / READY / LINK */
   }
   :root[data-phosphor="amber"] {
     --p-300: 255 228 168;
@@ -28,6 +31,8 @@
     --dim: 184 142 92;
     --panel: 22 14 4;
     --screen: 10 6 1;
+    --screen-hi: 24 15 4;
+    --status: 255 236 186;
   }
 
   /* shadcn tokens, pointed at the phosphor palette */
@@ -69,8 +74,11 @@
     @apply bg-background text-foreground font-mono;
     font-size: 17px;
     line-height: 1.6;
-    /* phosphor bloom */
-    text-shadow: 0 0 1px rgb(var(--p-500) / 0.5), 0 0 6px rgb(var(--p-500) / 0.22);
+    /* phosphor bloom in each element's own colour */
+    text-shadow:
+      0 0 calc(1px * var(--crt-glow)) color-mix(in srgb, currentColor 60%, transparent),
+      0 0 calc(5px * var(--crt-glow)) color-mix(in srgb, currentColor 50%, transparent),
+      0 0 calc(14px * var(--crt-glow)) color-mix(in srgb, currentColor 22%, transparent);
   }
 
   ::selection {
@@ -90,35 +98,35 @@
 }
 
 .hl {
-  color: rgb(var(--p-400));
+  color: rgb(var(--p-300));
   font-weight: 600;
 }
 
-/* ---- CRT monitor: plastic bezel around a curved glass screen ---- */
-.monitor {
-  --bezel-top: clamp(10px, 2.2vw, 30px);
-  --bezel-bottom: clamp(30px, 4.8vw, 58px);
-  --screen-r: clamp(18px, 4vmin, 48px);
+/* ---- CRT screen (full-bleed). Tweak these three to taste: ---- */
+:root {
+  --crt-curve: 0.035; /* barrel distortion strength; 0 = flat, ~0.06 = strong */
+  --crt-glow: 1; /* phosphor bloom multiplier; 0 = none */
+  --crt-vignette: 0.92; /* corner darkness, 0..1 */
+  --crt-soft: 0.6px; /* soft focus on the warped screen */
+}
+
+.crt-root {
   position: fixed;
   inset: 0;
-  padding: var(--bezel-top) var(--bezel-top) var(--bezel-bottom);
-  background:
-    radial-gradient(ellipse at 50% 0%, rgb(255 255 255 / 0.18), transparent 60%),
-    linear-gradient(180deg, #cdc5af 0%, #bdb49c 55%, #a89f87 100%);
+  background: #000; /* shows through where the warp bends the corners inward */
 }
 
 .screen {
-  position: relative;
-  height: 100%;
+  position: fixed;
+  inset: 0;
   overflow: hidden;
-  border-radius: var(--screen-r);
-  background: rgb(var(--screen));
-  transform: translateZ(0); /* makes position:fixed children pin to the screen */
-  /* dark gasket + recessed edge where the glass meets the bezel */
-  box-shadow:
-    0 0 0 clamp(4px, 0.7vw, 9px) #24231e,
-    0 0 0 calc(clamp(4px, 0.7vw, 9px) + 1px) rgb(0 0 0 / 0.35),
-    0 2px 0 calc(clamp(4px, 0.7vw, 9px) + 2px) rgb(255 255 255 / 0.35);
+  background: radial-gradient(ellipse at 50% 45%, rgb(var(--screen-hi)) 0%, rgb(var(--screen)) 70%);
+}
+/* Warp only once the filter exists (a missing url() filter hides the element in some browsers).
+   The CSS blur runs on the GPU: it smooths the 1px steps the displacement leaves on curves and
+   gives CRT soft focus. filter also makes position:fixed children (shell, modals) pin to the screen. */
+.crt-root:has(#crt-warp) .screen.warp {
+  filter: url(#crt-warp) blur(var(--crt-soft));
 }
 
 .screen-scroll {
@@ -131,59 +139,32 @@
   scrollbar-color: rgb(var(--p-700)) transparent;
 }
 
-/* Curvature: dark falloff toward the edges and a soft glare, drawn above the content. */
-.glass {
+/* Overlays live outside the warped layer so their animation never re-runs the filter. */
+.vignette {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 71;
-  border-radius: inherit;
-  background: radial-gradient(ellipse 60% 40% at 28% 12%, rgb(255 255 255 / 0.06), transparent 70%);
-  box-shadow:
-    inset 0 0 clamp(40px, 9vmin, 130px) rgb(0 0 0 / 0.8),
-    inset 0 0 4px 2px rgb(0 0 0 / 0.85);
+  background:
+    radial-gradient(ellipse 55% 35% at 30% 18%, rgb(255 255 255 / 0.035), transparent 70%),
+    radial-gradient(
+      ellipse at center,
+      transparent 48%,
+      rgb(0 0 0 / calc(var(--crt-vignette) * 0.45)) 75%,
+      rgb(0 0 0 / var(--crt-vignette)) 100%
+    );
 }
 
-.statusbar {
-  padding-inline: calc(var(--screen-r) * 0.6);
-}
-
-.bezel-badge {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: var(--bezel-bottom);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  font-family: VT323, monospace;
-  font-size: clamp(14px, 1.6vw, 20px);
-  letter-spacing: 0.3em;
-  color: #6d6754;
-  text-shadow: 0 1px 0 rgb(255 255 255 / 0.45);
-  user-select: none;
-}
-.led {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgb(var(--p-500));
-  box-shadow: 0 0 6px 1px rgb(var(--p-500) / 0.8);
-}
-
-/* ---- CRT effects: scanlines and a faint flicker. Toggle with [crt]. ---- */
 .crt {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 70;
-  border-radius: inherit;
-  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0) 0 2px, rgb(0 0 0 / 0.22) 2px 3px);
-  animation: crt-flicker 6s infinite steps(1);
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.13) 2px 3px);
+  animation: crt-flicker 7s infinite steps(1);
 }
-:root[data-crt="off"] .crt {
+:root[data-crt="off"] .crt,
+:root[data-crt="off"] .vignette {
   display: none;
 }
 :root[data-crt="off"] body {
@@ -192,9 +173,22 @@
 
 @keyframes crt-flicker {
   0%, 100% { opacity: 1; }
-  47% { opacity: 0.93; }
-  48% { opacity: 1; }
-  82% { opacity: 0.96; }
+  46% { opacity: 0.94; }
+  47% { opacity: 1; }
+  81% { opacity: 0.97; }
+}
+
+/* dot leaders for boot/status lines */
+.leader {
+  flex: 1;
+  min-width: 2ch;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-inline: 0.5ch;
+}
+.leader::before {
+  content: "··························································································";
+  color: rgb(var(--dim));
 }
 
 .cursor::after {
