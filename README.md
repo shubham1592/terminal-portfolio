@@ -1,6 +1,6 @@
 # terminal-portfolio
 
-My personal site, styled as a vintage CRT terminal: kernel boot log, green or amber phosphor, scanlines, and an optional interactive shell.
+My personal site, styled as a vintage CRT terminal: kernel boot log, curved phosphor-green screen with amber status accents, scanlines, and an optional interactive shell.
 
 **Live:** https://shubham1592.github.io/terminal-portfolio/
 

@@ -22,7 +22,7 @@ module.exports = {
         display: ['VT323', '"IBM Plex Mono"', "monospace"],
       },
       colors: {
-        // Phosphor palette: every green/gray/white/black class follows the green/amber toggle.
+        // Phosphor palette: every green/gray/white/black class maps onto the CSS variables in index.css.
         green: Object.fromEntries([300, 400, 500, 600, 700, 800, 900].map((n) => [n, `rgb(var(--p-${n === 800 ? 900 : n}) / <alpha-value>)`])),
         gray: {
           200: "rgb(var(--fg) / <alpha-value>)",

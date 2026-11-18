@@ -6,7 +6,6 @@ export const SECTIONS = ["about", "experience", "projects", "stack", "beyond", "
 interface ShellProps {
   onClose: () => void;
   onGoto: (section: string) => void;
-  setPhosphor: (p: "green" | "amber") => void;
   setCrt: (on: boolean) => void;
 }
 
@@ -23,7 +22,6 @@ const HELP = `available commands:
   resume            download my resume
   cd <section>      jump to a section on the page
                     sections: ${SECTIONS.join(" ")}
-  theme green|amber switch phosphor colour
   crt on|off        toggle scanlines and glow
   clear             clear the screen
   exit              back to the page          (or press Esc)`;
@@ -34,7 +32,7 @@ const A = ({ href, children }: { href: string; children: ReactNode }) => (
   </a>
 );
 
-const Shell = ({ onClose, onGoto, setPhosphor, setCrt }: ShellProps) => {
+const Shell = ({ onClose, onGoto, setCrt }: ShellProps) => {
   const [lines, setLines] = useState<Line[]>([
     { kind: "out", text: `shubham-os 2026.11 tty2\nType "help" to see what you can do here.` },
   ]);
@@ -118,10 +116,6 @@ const Shell = ({ onClose, onGoto, setPhosphor, setCrt }: ShellProps) => {
         if (!(SECTIONS as readonly string[]).includes(arg)) return `cd: no such section: ${arg}`;
         onGoto(arg);
         return null;
-      case "theme":
-        if (arg !== "green" && arg !== "amber") return "usage: theme green|amber";
-        setPhosphor(arg);
-        return `phosphor set to ${arg}`;
       case "crt":
         if (arg !== "on" && arg !== "off") return "usage: crt on|off";
         setCrt(arg === "on");

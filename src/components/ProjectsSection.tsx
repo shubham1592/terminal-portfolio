@@ -39,7 +39,7 @@ const Group = ({ title, kind }: { title: string; kind: Project["kind"] }) => (
       <span className="text-green-700">./</span>
       {title}
     </h3>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       {projects
         .filter((p) => p.kind === kind)
         .map((p) => (

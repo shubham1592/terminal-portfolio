@@ -142,31 +142,30 @@ export const projects: Project[] = [
 export interface Skill {
   name: string;
   command: string;
-  icon?: string; // devicon class; items without one fall back to a text glyph
 }
 
 export const skills: { title: string; items: Skill[] }[] = [
   {
     title: "Languages",
     items: [
-      { name: "Java", command: "javac Main.java", icon: "devicon-java-plain" },
-      { name: "Python", command: "python3 -m venv .venv", icon: "devicon-python-plain" },
-      { name: "SQL", command: "SELECT * FROM telemetry;", icon: "devicon-postgresql-plain" },
-      { name: "C/C++", command: "g++ -O2 main.cpp", icon: "devicon-cplusplus-plain" },
-      { name: "TypeScript", command: "tsc --noEmit", icon: "devicon-typescript-plain" },
-      { name: "JavaScript", command: "node index.js", icon: "devicon-javascript-plain" },
-      { name: "Scala", command: "sbt compile", icon: "devicon-scala-plain" },
+      { name: "Java", command: "javac Main.java" },
+      { name: "Python", command: "python3 -m venv .venv" },
+      { name: "SQL", command: "SELECT * FROM telemetry;" },
+      { name: "C/C++", command: "g++ -O2 main.cpp" },
+      { name: "TypeScript", command: "tsc --noEmit" },
+      { name: "JavaScript", command: "node index.js" },
+      { name: "Scala", command: "sbt compile" },
     ],
   },
   {
     title: "Backend & distributed systems",
     items: [
-      { name: "FastAPI", command: "uvicorn app:app", icon: "devicon-fastapi-plain" },
-      { name: "Flask", command: "flask run", icon: "devicon-flask-original" },
-      { name: "Kafka", command: "kafka-console-consumer --topic events", icon: "devicon-apachekafka-original" },
-      { name: "Spark", command: "spark-submit job.py", icon: "devicon-apachespark-original" },
-      { name: "Airflow", command: "airflow dags trigger etl", icon: "devicon-apacheairflow-plain" },
-      { name: "Hadoop", command: "hdfs dfs -ls /", icon: "devicon-hadoop-plain" },
+      { name: "FastAPI", command: "uvicorn app:app" },
+      { name: "Flask", command: "flask run" },
+      { name: "Kafka", command: "kafka-console-consumer --topic events" },
+      { name: "Spark", command: "spark-submit job.py" },
+      { name: "Airflow", command: "airflow dags trigger etl" },
+      { name: "Hadoop", command: "hdfs dfs -ls /" },
       { name: "Snowflake", command: "snowsql -q 'SHOW WAREHOUSES'" },
       { name: "Databricks", command: "databricks jobs run-now" },
     ],
@@ -174,23 +173,23 @@ export const skills: { title: string; items: Skill[] }[] = [
   {
     title: "Cloud & databases",
     items: [
-      { name: "AWS", command: "aws s3 sync ./data s3://bucket", icon: "devicon-amazonwebservices-plain-wordmark" },
-      { name: "Postgres", command: "psql -d app", icon: "devicon-postgresql-plain" },
-      { name: "Azure Data Lake", command: "az storage fs create", icon: "devicon-azure-plain" },
-      { name: "BigQuery", command: "bq query 'SELECT 1'", icon: "devicon-googlecloud-plain" },
-      { name: "Docker", command: "docker compose up", icon: "devicon-docker-plain" },
-      { name: "Kubernetes", command: "kubectl get pods", icon: "devicon-kubernetes-plain" },
-      { name: "Oracle", command: "sqlplus app@ORCL", icon: "devicon-oracle-original" },
+      { name: "AWS", command: "aws s3 sync ./data s3://bucket" },
+      { name: "Postgres", command: "psql -d app" },
+      { name: "Azure Data Lake", command: "az storage fs create" },
+      { name: "BigQuery", command: "bq query 'SELECT 1'" },
+      { name: "Docker", command: "docker compose up" },
+      { name: "Kubernetes", command: "kubectl get pods" },
+      { name: "Oracle", command: "sqlplus app@ORCL" },
       { name: "Azure Data Factory", command: "az datafactory pipeline create-run" },
     ],
   },
   {
     title: "Machine learning & AI",
     items: [
-      { name: "PyTorch", command: "torch.compile(model)", icon: "devicon-pytorch-original" },
-      { name: "scikit-learn", command: "pip install scikit-learn", icon: "devicon-scikitlearn-plain" },
-      { name: "NumPy", command: "import numpy as np", icon: "devicon-numpy-plain" },
-      { name: "pandas", command: "import pandas as pd", icon: "devicon-pandas-plain" },
+      { name: "PyTorch", command: "torch.compile(model)" },
+      { name: "scikit-learn", command: "pip install scikit-learn" },
+      { name: "NumPy", command: "import numpy as np" },
+      { name: "pandas", command: "import pandas as pd" },
       { name: "LangChain", command: "pip install langchain" },
       { name: "RAG & LLM APIs", command: "retriever.invoke(query)" },
       { name: "Vector DBs", command: "chromadb.Client().create_collection('docs')" },
@@ -199,19 +198,19 @@ export const skills: { title: string; items: Skill[] }[] = [
   {
     title: "Web & mobile",
     items: [
-      { name: "React", command: "npm create vite@latest", icon: "devicon-react-original" },
-      { name: "Node.js", command: "node server.js", icon: "devicon-nodejs-plain" },
-      { name: "MongoDB", command: "mongosh", icon: "devicon-mongodb-plain" },
-      { name: "Kotlin", command: "./gradlew assembleDebug", icon: "devicon-kotlin-plain" },
-      { name: "Android", command: "adb install app.apk", icon: "devicon-android-plain" },
-      { name: "Firebase", command: "firebase deploy", icon: "devicon-firebase-plain" },
+      { name: "React", command: "npm create vite@latest" },
+      { name: "Node.js", command: "node server.js" },
+      { name: "MongoDB", command: "mongosh" },
+      { name: "Kotlin", command: "./gradlew assembleDebug" },
+      { name: "Android", command: "adb install app.apk" },
+      { name: "Firebase", command: "firebase deploy" },
     ],
   },
   {
     title: "Practices & tools",
     items: [
-      { name: "Git", command: 'git commit -m "ship it"', icon: "devicon-git-plain" },
-      { name: "CI/CD", command: "gh workflow run deploy", icon: "devicon-githubactions-plain" },
+      { name: "Git", command: 'git commit -m "ship it"' },
+      { name: "CI/CD", command: "gh workflow run deploy" },
       { name: "Power BI", command: "refresh dataset --all" },
       { name: "System design", command: "draw boxes --then arrows" },
       { name: "OOP & DSA", command: "make clean && make" },

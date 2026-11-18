@@ -3,10 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  /* Phosphor palettes as RGB triplets; Tailwind green/gray/white/black map onto these (tailwind.config.js). */
+  /* Phosphor palette as RGB triplets; Tailwind green/gray/white/black map onto these (tailwind.config.js). */
   /* Sampled from the reference: mint text, desaturated labels, amber status, near-white emphasis. */
-  :root,
-  :root[data-phosphor="green"] {
+  :root {
     --p-300: 222 255 234; /* emphasis, near-white with a green tint */
     --p-400: 155 232 184; /* #9be8b8 headings */
     --p-500: 127 217 168; /* #7fd9a8 prompts, borders */
@@ -20,21 +19,6 @@
     --screen-hi: 14 32 22;
     --status: 232 163 61; /* #e8a33d amber: OK / READY / LINK */
   }
-  :root[data-phosphor="amber"] {
-    --p-300: 255 228 168;
-    --p-400: 255 204 102;
-    --p-500: 255 176 0;
-    --p-600: 214 140 0;
-    --p-700: 152 98 0;
-    --p-900: 58 36 0;
-    --fg: 255 226 186;
-    --dim: 184 142 92;
-    --panel: 22 14 4;
-    --screen: 10 6 1;
-    --screen-hi: 24 15 4;
-    --status: 255 236 186;
-  }
-
   /* shadcn tokens, pointed at the phosphor palette */
   :root {
     --background: var(--screen);
@@ -178,6 +162,13 @@
   81% { opacity: 0.97; }
 }
 
+/* Page container: wide for grids and cards; paragraphs set their own reading width (max-w-3xl/4xl). */
+.wrap {
+  max-width: 1520px;
+  margin-inline: auto;
+  padding-inline: max(1rem, 4.5vw);
+}
+
 /* dot leaders for boot/status lines */
 .leader {
   flex: 1;
@@ -209,4 +200,40 @@
   .crt { animation: none; }
   .cursor::after { animation: none; }
   .screen-scroll { scroll-behavior: auto; }
+}
+
+/* ---- Brand logos (BrandIcon): phosphor green at rest, brand colour on hover / focus / tap ---- */
+.brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(var(--p-500));
+  filter: drop-shadow(0 0 calc(3px * var(--crt-glow)) rgb(var(--p-500) / 0.55));
+  transition: color 250ms ease, filter 250ms ease;
+}
+.brand-icon svg {
+  width: 100%;
+  height: 100%;
+}
+/* thin logos: trace the outline so fine strokes survive the small size and the CRT blur */
+.brand-bold svg path {
+  stroke: currentColor;
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+}
+/* devicon SVGs have their fills stripped; SVG fill defaults to black, so point it at the text colour */
+.brand-dev svg {
+  fill: currentColor;
+}
+.brand-host:hover .brand-icon,
+.brand-host:focus-visible .brand-icon,
+.brand-host:active .brand-icon {
+  color: var(--brand);
+  filter: drop-shadow(0 0 calc(6px * var(--crt-glow)) var(--brand));
+}
+:root[data-crt="off"] .brand-icon {
+  filter: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-icon { transition: none; }
 }

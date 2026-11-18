@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Linkedin, Github, Mail } from 'lucide-react';
+import BrandIcon from './BrandIcon';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
@@ -253,32 +253,23 @@ const ContactSection = () => {
           </form>
         )}
         
-        <div className="mt-12 flex justify-center space-x-6">
-          <a 
-            href={links.linkedin} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
-            aria-label="LinkedIn Profile"
-          >
-            <Linkedin className="h-8 w-8" />
-          </a>
-          <a 
-            href={links.github} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
-            aria-label="GitHub Profile"
-          >
-            <Github className="h-8 w-8" />
-          </a>
-          <a 
-            href={`mailto:${links.email}`} 
-            className="text-green-500 hover:text-green-400 transition-colors duration-300 hover:shadow-[0_0_10px_rgb(var(--p-500)/0.5)]"
-            aria-label="Email Contact"
-          >
-            <Mail className="h-8 w-8" />
-          </a>
+        <div className="mt-12 flex justify-center gap-6">
+          {[
+            { name: "LinkedIn", href: links.linkedin, label: "LinkedIn profile" },
+            { name: "GitHub", href: links.github, label: "GitHub profile" },
+            { name: "Email", href: `mailto:${links.email}`, label: `Email ${links.email}` },
+          ].map((c) => (
+            <a
+              key={c.name}
+              href={c.href}
+              {...(c.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="brand-host p-2"
+              aria-label={c.label}
+              title={c.label}
+            >
+              <BrandIcon name={c.name} className="h-9 w-9" />
+            </a>
+          ))}
         </div>
       </motion.div>
     </div>

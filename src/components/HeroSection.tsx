@@ -90,7 +90,7 @@ const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
   }, [booted]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-8 py-16">
+    <div className="wrap w-full py-16">
       {!booted ? (
         <div className="text-sm sm:text-base max-w-2xl" aria-live="polite">
           <Header>Boston node{"   "}tty1{"   "}Northeastern University</Header>

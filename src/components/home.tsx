@@ -10,8 +10,6 @@ import CrtWarp from "./CrtWarp";
 import Rich from "./Rich";
 import { about, education } from "@/data/profile";
 
-type Phosphor = "green" | "amber";
-
 const DESKTOP = "(min-width: 768px) and (pointer: fine)";
 
 // Remembered per visitor; falls back to defaults when storage is blocked.
@@ -30,6 +28,13 @@ const write = (k: string, v: string) => {
   }
 };
 
+// The green/amber theme toggle was removed; drop the preference it used to store.
+try {
+  localStorage.removeItem("phosphor");
+} catch {
+  /* storage blocked */
+}
+
 const NAV = [
   { id: "hero", label: "home" },
   { id: "about", label: "about" },
@@ -41,7 +46,7 @@ const NAV = [
 ];
 
 const Section = ({ id, cmd, children }: { id: string; cmd: string; children: ReactNode }) => (
-  <section id={id} className="py-16 px-4 sm:px-8 max-w-4xl mx-auto scroll-mt-4">
+  <section id={id} className="wrap py-16 scroll-mt-4">
     <h2 className="font-display text-3xl sm:text-4xl text-green-400 mb-8 border-b border-green-900 pb-2">
       <span className="text-green-700">$ </span>
       {cmd}
@@ -51,7 +56,6 @@ const Section = ({ id, cmd, children }: { id: string; cmd: string; children: Rea
 );
 
 const Home = () => {
-  const [phosphor, setPhosphorState] = useState<Phosphor>(() => (read("phosphor", "green") === "amber" ? "amber" : "green"));
   const [crt, setCrtState] = useState(() => read("crt", "on") !== "off");
   const [shellOpen, setShellOpen] = useState(false);
   const [active, setActive] = useState("hero");
@@ -67,19 +71,14 @@ const Home = () => {
     return () => mq.removeEventListener("change", on);
   }, []);
 
-  const setPhosphor = useCallback((p: Phosphor) => {
-    setPhosphorState(p);
-    write("phosphor", p);
-  }, []);
   const setCrt = useCallback((on: boolean) => {
     setCrtState(on);
     write("crt", on ? "on" : "off");
   }, []);
 
   useEffect(() => {
-    document.documentElement.dataset.phosphor = phosphor;
     document.documentElement.dataset.crt = crt ? "on" : "off";
-  }, [phosphor, crt]);
+  }, [crt]);
 
   useEffect(() => {
     const t = setInterval(() => setClock(new Date()), 30_000);
@@ -118,7 +117,7 @@ const Home = () => {
         </section>
 
         <Section id="about" cmd="cat about.txt">
-          <div className="space-y-3 text-lg">
+          <div className="space-y-3 text-lg max-w-3xl">
             {about.map((p) => (
               <p key={p}>
                 <Rich text={p} />
@@ -168,7 +167,7 @@ const Home = () => {
       </main>
       </div>
 
-      {shellOpen && <Shell onClose={closeShell} onGoto={goto} setPhosphor={setPhosphor} setCrt={setCrt} />}
+      {shellOpen && <Shell onClose={closeShell} onGoto={goto} setCrt={setCrt} />}
       </div>
 
       {/* tmux-style status bar */}
@@ -196,14 +195,6 @@ const Home = () => {
           ))}
         </ul>
         <div className="flex shrink-0">
-          <button
-            onClick={() => setPhosphor(phosphor === "green" ? "amber" : "green")}
-            className="px-2 py-1 text-status hover:text-green-300"
-            title="Switch phosphor colour"
-          >
-            [<span className="sm:hidden">{phosphor[0]}</span>
-            <span className="hidden sm:inline">{phosphor}</span>]
-          </button>
           <button onClick={() => setCrt(!crt)} className="px-2 py-1 text-status hover:text-green-300" title="Toggle scanlines and glow" aria-pressed={crt}>
             [crt<span className="hidden sm:inline">:{crt ? "on" : "off"}</span>]
           </button>

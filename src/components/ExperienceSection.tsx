@@ -18,7 +18,7 @@ const ExperienceSection = () => (
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          <ul className="pl-4 ml-1 border-l border-green-900 space-y-3 text-base text-white">
+          <ul className="pl-4 ml-1 border-l border-green-900 space-y-3 text-base text-white max-w-4xl">
             {r.items.map((item) => (
               <li key={item} className="flex gap-2">
                 <span className="text-green-500 shrink-0">▹</span>
