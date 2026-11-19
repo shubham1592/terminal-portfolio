@@ -47,8 +47,8 @@ const NAV = [
 
 const Section = ({ id, cmd, children }: { id: string; cmd: string; children: ReactNode }) => (
   <section id={id} className="wrap py-16 scroll-mt-4">
-    <h2 className="font-display text-3xl sm:text-4xl text-green-400 mb-8 border-b border-green-900 pb-2">
-      <span className="text-green-700">$ </span>
+    <h2 className="accent font-display text-3xl sm:text-4xl mb-8 border-b border-green-900 pb-2">
+      <span className="opacity-60">$ </span>
       {cmd}
     </h2>
     {children}
@@ -98,6 +98,11 @@ const Home = () => {
     return () => obs.disconnect();
   }, []);
 
+  // On narrow screens the tab list scrolls sideways; keep the active tab visible.
+  useEffect(() => {
+    document.querySelector(".statusbar [aria-current]")?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, [active]);
+
   const goto = useCallback((id: string) => {
     setShellOpen(false);
     // wait a frame so the page is visible again before scrolling
@@ -124,8 +129,8 @@ const Home = () => {
               </p>
             ))}
           </div>
-          <h3 className="mt-10 mb-3 text-green-400">
-            <span className="text-green-700">$ </span>cat education.log
+          <h3 className="accent subhead mt-10">
+            <span className="opacity-60">$ </span>cat education.log
           </h3>
           <ul className="space-y-2">
             {education.map((e) => (
@@ -161,7 +166,7 @@ const Home = () => {
         <footer className="py-8 pb-16 px-4 text-center text-sm text-gray-400 border-t border-green-900">
           <p>© {new Date().getFullYear()} Shubham Kumar</p>
           <p className="mt-1">
-            Prefer typing? <button onClick={() => setShellOpen(true)} className="underline underline-offset-4 text-green-400">Open the shell</button>
+            Prefer typing? <button onClick={() => setShellOpen(true)} className="underline underline-offset-4 text-green-400 hover:text-status">Open the shell</button>
           </p>
         </footer>
       </main>
@@ -171,11 +176,8 @@ const Home = () => {
       </div>
 
       {/* tmux-style status bar */}
-      <nav
-        aria-label="Sections"
-        className="fixed bottom-0 inset-x-0 z-[65] bg-gray-900 border-t border-green-700 text-green-500 text-sm flex items-stretch px-2"
-      >
-        <span className="px-3 py-1 text-gray-400 shrink-0 hidden lg:block">[shubham]</span>
+      <nav aria-label="Sections" className="statusbar">
+        <span className="sb-label shrink-0 hidden lg:block">[shubham]</span>
         <ul className="flex overflow-x-auto flex-1 min-w-0 [scrollbar-width:none]">
           {NAV.map(({ id, label }, i) => (
             <li key={id} className="shrink-0">
@@ -186,7 +188,7 @@ const Home = () => {
                   goto(id);
                 }}
                 aria-current={active === id ? "location" : undefined}
-                className={`block px-2 py-1 ${active === id ? "bg-status text-black [text-shadow:none]" : "hover:text-green-300"}`}
+                className="sb-item"
               >
                 {i}:{label}
                 {active === id ? "*" : ""}
@@ -195,17 +197,17 @@ const Home = () => {
           ))}
         </ul>
         <div className="flex shrink-0">
-          <button onClick={() => setCrt(!crt)} className="px-2 py-1 text-status hover:text-green-300" title="Toggle scanlines and glow" aria-pressed={crt}>
+          <button onClick={() => setCrt(!crt)} className="sb-item" title="Toggle CRT effects" aria-pressed={crt}>
             [crt<span className="hidden sm:inline">:{crt ? "on" : "off"}</span>]
           </button>
           <button
             onClick={() => setShellOpen((o) => !o)}
-            className="px-2 py-1 text-status hover:text-green-300"
+            className="sb-item"
             aria-pressed={shellOpen}
           >
             [{shellOpen ? "page" : "shell"}]
           </button>
-          <span className="px-3 py-1 text-status hidden lg:block">
+          <span className="sb-label sb-clock hidden lg:block">
             {clock.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           </span>
         </div>

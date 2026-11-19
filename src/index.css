@@ -17,7 +17,12 @@
     --panel: 10 24 17;
     --screen: 5 13 9;
     --screen-hi: 14 32 22;
-    --status: 232 163 61; /* #e8a33d amber: OK / READY / LINK */
+    --status: 232 163 61; /* #e8a33d amber accent: headings, emphasis, status words, hover */
+    /* amber glow, used by .accent and the active status-bar tab */
+    --accent-glow:
+      0 0 1px rgb(var(--status) / 0.8),
+      0 0 7px rgb(var(--status) / 0.5),
+      0 0 18px rgb(var(--status) / 0.22);
   }
   /* shadcn tokens, pointed at the phosphor palette */
   :root {
@@ -72,7 +77,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--p-400));
+    outline: 2px solid rgb(var(--status));
     outline-offset: 2px;
   }
 }
@@ -81,9 +86,22 @@
   letter-spacing: 0.02em;
 }
 
+/* Amber accent: section and subsection headings, bold/highlighted words. Body text stays green. */
+.accent,
 .hl {
-  color: rgb(var(--p-300));
+  color: rgb(var(--status));
+  text-shadow: var(--accent-glow);
+}
+.hl {
   font-weight: 600;
+}
+:root[data-crt="off"] .accent,
+:root[data-crt="off"] .hl {
+  text-shadow: none;
+}
+/* subsection headings: ">> Languages", "./personal", "$ cat education.log" */
+.subhead {
+  margin-bottom: 1rem;
 }
 
 /* ---- CRT screen (full-bleed). Tweak these three to taste: ---- */
@@ -133,8 +151,8 @@
     radial-gradient(ellipse 55% 35% at 30% 18%, rgb(255 255 255 / 0.035), transparent 70%),
     radial-gradient(
       ellipse at center,
-      transparent 48%,
-      rgb(0 0 0 / calc(var(--crt-vignette) * 0.45)) 75%,
+      transparent 55%,
+      rgb(0 0 0 / calc(var(--crt-vignette) * 0.4)) 80%,
       rgb(0 0 0 / var(--crt-vignette)) 100%
     );
 }
@@ -160,6 +178,58 @@
   46% { opacity: 0.94; }
   47% { opacity: 1; }
   81% { opacity: 0.97; }
+}
+
+/* ---- tmux-style status bar: above the vignette/scanlines so it stays readable, but with its own
+   scanlines and phosphor halo so it still looks like part of the tube ---- */
+.statusbar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 75;
+  display: flex;
+  align-items: stretch;
+  padding-inline: 0.5rem;
+  font-size: 0.875rem;
+  color: rgb(var(--p-400));
+  border-top: 1px solid rgb(var(--p-700));
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.18) 2px 3px),
+    rgb(var(--panel) / 0.96);
+  box-shadow: 0 -6px 18px rgb(var(--p-500) / 0.1);
+}
+:root[data-crt="off"] .statusbar {
+  background: rgb(var(--panel));
+  box-shadow: none;
+}
+.sb-item {
+  display: block;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  transition: color 150ms, background-color 150ms;
+}
+.sb-item:hover,
+.sb-item:focus-visible {
+  color: rgb(var(--status));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sb-item:focus-visible {
+  outline-offset: -2px;
+}
+.sb-item[aria-current] {
+  background: rgb(var(--status));
+  color: rgb(var(--screen));
+  text-shadow: none;
+  text-decoration: none;
+  box-shadow: 0 0 12px rgb(var(--status) / 0.55);
+}
+.sb-label {
+  padding: 0.25rem 0.75rem;
+  color: rgb(var(--p-600));
+}
+.sb-clock {
+  color: rgb(var(--status));
 }
 
 /* Page container: wide for grids and cards; paragraphs set their own reading width (max-w-3xl/4xl). */
@@ -199,6 +269,7 @@
 @media (prefers-reduced-motion: reduce) {
   .crt { animation: none; }
   .cursor::after { animation: none; }
+  .sb-item { transition: none; }
   .screen-scroll { scroll-behavior: auto; }
 }
 

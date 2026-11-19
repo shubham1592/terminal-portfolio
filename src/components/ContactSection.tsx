@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import BrandIcon from './BrandIcon';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Switch } from './ui/switch';
 import { Label } from './ui/label';
 import { Button } from './ui/button';
 import emailjs from '@emailjs/browser';
@@ -21,8 +19,6 @@ const ContactSection = () => {
     email: '',
     message: '',
     reason: '',
-    wantReply: true,
-    date: new Date().toLocaleString(),
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -41,10 +37,6 @@ const ContactSection = () => {
 
   const handleSelectChange = (value: string) => {
     setFormState(prev => ({ ...prev, reason: value }));
-  };
-
-  const handleSwitchChange = (checked: boolean) => {
-    setFormState(prev => ({ ...prev, wantReply: checked }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,7 +83,6 @@ const ContactSection = () => {
         from_email: formState.email,
         reason: formState.reason,
         message: formState.message,
-        want_reply: formState.wantReply ? "Yes" : "No",
         date: new Date().toLocaleString(),
       };
 
@@ -114,8 +105,6 @@ const ContactSection = () => {
           email: '',
           message: '',
           reason: '',
-          wantReply: true,
-          date: new Date().toLocaleString(),
         });
       } else {
         throw new Error('Failed to send message');
@@ -130,26 +119,14 @@ const ContactSection = () => {
 
   return (
     <div className="flex flex-col items-center text-green-500">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="w-full max-w-3xl"
-      >
+      <div className="w-full max-w-3xl">
         {isSubmitted ? (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="p-6 border border-green-500 rounded-md text-center mb-8 bg-black"
-          >
-            <p className="font-mono text-xl">
-              <span className="text-green-400">&gt;</span> Message transmitted successfully.
+          <div className="p-6 border border-green-500 text-center mb-8 bg-black" role="status">
+            <p className="text-xl text-white">
+              <span className="text-status">&gt;</span> Message transmitted successfully.
             </p>
-            <p className="font-mono mt-2 text-green-300 opacity-80">
-              <span className="inline-block animate-pulse">_</span>
-            </p>
-          </motion.div>
+            <p className="mt-2 text-green-500 cursor" aria-hidden="true" />
+          </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
@@ -160,7 +137,7 @@ const ContactSection = () => {
             
             <div className="space-y-2">
               <Label htmlFor="name" className="font-mono text-green-400">
-                <span className="text-green-400">&gt;</span> name:
+                <span className="text-status">&gt;</span> name:
               </Label>
               <Input
                 id="name"
@@ -169,13 +146,13 @@ const ContactSection = () => {
                 onChange={handleChange}
                 required
                 placeholder="Ada Lovelace"
-                className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-green-500 focus:border-green-500 focus:ring-2 placeholder:text-green-700/50"
+                className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-status/40 focus:border-status focus:ring-2 placeholder:text-green-700/50"
               />
             </div>
             
             <div className="space-y-2">
               <Label htmlFor="email" className="font-mono text-green-400">
-                <span className="text-green-400">&gt;</span> email:
+                <span className="text-status">&gt;</span> email:
               </Label>
               <Input
                 id="email"
@@ -185,16 +162,16 @@ const ContactSection = () => {
                 onChange={handleChange}
                 required
                 placeholder="ada@example.com"
-                className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-green-500 focus:border-green-500 focus:ring-2 placeholder:text-green-700/50"
+                className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-status/40 focus:border-status focus:ring-2 placeholder:text-green-700/50"
               />
             </div>
             
             <div className="space-y-2">
               <Label htmlFor="reason" className="font-mono text-green-400">
-                <span className="text-green-400">&gt;</span> reason-for-contact:
+                <span className="text-status">&gt;</span> reason-for-contact:
               </Label>
               <Select onValueChange={handleSelectChange} value={formState.reason}>
-                <SelectTrigger className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-green-500 focus:border-green-500 focus:ring-2">
+                <SelectTrigger className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-status/40 focus:border-status focus:ring-2">
                   <SelectValue placeholder="Select reason" />
                 </SelectTrigger>
                 <SelectContent className="bg-black border-green-500 text-green-400 font-mono">
@@ -209,7 +186,7 @@ const ContactSection = () => {
             
             <div className="space-y-2">
               <Label htmlFor="message" className="font-mono text-green-400">
-                <span className="text-green-400">&gt;</span> message:
+                <span className="text-status">&gt;</span> message:
               </Label>
               <Textarea
                 id="message"
@@ -218,26 +195,14 @@ const ContactSection = () => {
                 onChange={handleChange}
                 required
                 placeholder="Type your message here..."
-                className="w-full min-h-[150px] bg-black border-green-500 text-green-400 font-mono focus:ring-green-500 focus:border-green-500 focus:ring-2 placeholder:text-green-700/50"
+                className="w-full min-h-[150px] bg-black border-green-500 text-green-400 font-mono focus:ring-status/40 focus:border-status focus:ring-2 placeholder:text-green-700/50"
               />
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              <Switch 
-                id="want-reply" 
-                checked={formState.wantReply}
-                onCheckedChange={handleSwitchChange}
-                className="data-[state=checked]:bg-green-500"
-              />
-              <Label htmlFor="want-reply" className="font-mono text-green-400">
-                Would you like a reply?
-              </Label>
             </div>
             
             <Button 
               type="submit" 
               disabled={isLoading}
-              className="w-full bg-green-500 text-black font-bold py-2 px-4 rounded-md hover:bg-green-600 transition-colors duration-200 cursor-pointer shadow-[0_0_10px_rgb(var(--p-500)/0.3)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.5)] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-green-500 text-black font-bold py-2 px-4 hover:bg-status focus-visible:bg-status transition-colors duration-200 [text-shadow:none] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center">
@@ -271,7 +236,7 @@ const ContactSection = () => {
             </a>
           ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

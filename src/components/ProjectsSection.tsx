@@ -3,16 +3,16 @@ import { projects, type Project } from "@/data/profile";
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
-const linkCls = "inline-flex items-center gap-1 text-green-400 hover:text-green-300 underline underline-offset-4";
+const linkCls = "inline-flex items-center gap-1 text-green-400 hover:text-status underline underline-offset-4";
 
 const ProjectCard = ({ p }: { p: Project }) => (
-  <article className="border border-green-900 hover:border-green-500 transition-colors flex flex-col">
+  <article className="border border-green-900 hover:border-status transition-colors flex flex-col">
     <header className="border-b border-green-900 bg-gray-900 px-4 py-2 text-xs text-gray-400 flex justify-between gap-2">
       <span className="truncate">drwxr-xr-x {slug(p.name)}/</span>
       {p.date && <span className="shrink-0">{p.date}</span>}
     </header>
     <div className="p-4 flex flex-col flex-1">
-      <h4 className="text-green-400 font-semibold">{p.name}</h4>
+      <h4 className="hl">{p.name}</h4>
       <p className="mt-2 text-sm text-white flex-1">{p.description}</p>
       <p className="mt-4 text-xs text-gray-400">{p.tech.join(" / ")}</p>
       {(p.code || p.demo) && (
@@ -35,8 +35,8 @@ const ProjectCard = ({ p }: { p: Project }) => (
 
 const Group = ({ title, kind }: { title: string; kind: Project["kind"] }) => (
   <div>
-    <h3 className="text-green-400 mb-4">
-      <span className="text-green-700">./</span>
+    <h3 className="accent subhead">
+      <span className="opacity-60">./</span>
       {title}
     </h3>
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">

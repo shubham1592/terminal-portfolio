@@ -27,7 +27,7 @@ const HELP = `available commands:
   exit              back to the page          (or press Esc)`;
 
 const A = ({ href, children }: { href: string; children: ReactNode }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 text-green-300">
+  <a href={href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 text-green-300 hover:text-status">
     {children}
   </a>
 );
@@ -161,7 +161,7 @@ const Shell = ({ onClose, onGoto, setCrt }: ShellProps) => {
       <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8 pb-24 text-sm sm:text-base">
         <div className="flex justify-between text-gray-400 border-b border-green-900 pb-2 mb-4">
           <span>guest@shubham-os: ~</span>
-          <button onClick={onClose} className="hover:text-green-300">
+          <button onClick={onClose} className="hover:text-status">
             [ exit ]
           </button>
         </div>

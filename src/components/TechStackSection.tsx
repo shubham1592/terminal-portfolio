@@ -7,8 +7,8 @@ const TechStackSection = () => (
     <div className="space-y-10">
       {skills.map((cat) => (
         <div key={cat.title}>
-          <h3 className="text-green-400 mb-4">
-            <span className="text-green-700">&gt;&gt; </span>
+          <h3 className="accent subhead">
+            <span className="opacity-60">&gt;&gt; </span>
             {cat.title}
           </h3>
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 sm:gap-3">

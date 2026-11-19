@@ -39,12 +39,12 @@ const BeyondCodeSection = () => {
             exit={{ scale: 0.9, opacity: 0 }}
             className="max-w-2xl mx-auto px-4"
           >
-            <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden shadow-[0_0_30px_rgb(var(--p-500)/0.3)]">
-              <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
+            <div className="bg-black border border-status">
+              <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
                 <span>$ Music Taste</span>
                 <button
                   onClick={handleCloseClick}
-                  className="text-black hover:text-gray-700 transition-colors"
+                  className="text-green-400 hover:text-status transition-colors"
                 >
                   ✕
                 </button>
@@ -67,25 +67,25 @@ const BeyondCodeSection = () => {
         </motion.div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Spotify Playlist Card */}
         <motion.div
-          className={`bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300 cursor-pointer ${
+          className={`h-full flex flex-col group border border-green-900 hover:border-status transition-colors cursor-pointer ${
             isSpotifyExpanded ? "invisible" : ""
           }`}
           onClick={handleSpotifyClick}
           layout
         >
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
+          <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
             <span>$ Music Taste</span>
             <span aria-hidden="true">♫</span>
           </div>
           <div className="p-3 sm:p-4 flex flex-col min-h-[250px]">
-            <p className="text-green-400 text-sm md:text-base mb-3">
+            <p className="text-white text-sm mb-3">
               From Rock to Lo-fi, I vibe with guitar, Indie, and everything in
               between
             </p>
-            <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+            <div className="bg-black p-2 sm:p-3 mt-auto">
               <iframe
                 style={{ borderRadius: "12px" }}
                 src="https://open.spotify.com/embed/playlist/5zSppxuqmXYMOaEkGZWnWO?si=Ii_wZZOGSJqJ1oRXEVYHqg&compact=1"
@@ -97,14 +97,11 @@ const BeyondCodeSection = () => {
                 loading="lazy"
                 className="mt-2"
               ></iframe>
-              <motion.p
-                className="text-center mt-3 text-sm font-medium"
-                whileHover={{ scale: 1.05 }}
-              >
-                <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgb(var(--p-500)/0.2)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.4)] transition-all duration-300">
+              <p className="text-center mt-3 text-sm">
+                <span className="inline-block px-4 py-2 border border-green-700 text-green-400 group-hover:border-status group-hover:text-status transition-colors">
                   Click to expand player ↕
                 </span>
-              </motion.p>
+              </p>
             </div>
           </div>
         </motion.div>
@@ -116,20 +113,20 @@ const BeyondCodeSection = () => {
           rel="noopener noreferrer"
           className="block"
         >
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-            <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
+          <div className="h-full flex flex-col group border border-green-900 hover:border-status transition-colors">
+            <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
               <span>$ Chess Achievements</span>
               <span aria-hidden="true">♟</span>
             </div>
             <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
-              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+              <p className="text-white text-sm mb-2 sm:mb-3">
                 I play chess for almost two hours daily (Rated 1600+ on Lichess)
               </p>
-              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
+              <div className="bg-black p-2 sm:p-3 mt-auto">
                 <div className="flex-grow flex items-center justify-center">
-                  <div className="flex flex-col w-full">
+                  <div className="flex flex-col w-full max-w-[280px] mx-auto">
                     {/* Lichess sizes its board to (height - player bars); keep height = width + bars so the board fills the width. */}
-                    <div className="relative w-full" style={{ paddingBottom: "calc(100% + 46px)" }}>
+                    <div className="relative w-full" style={{ paddingBottom: "calc(100% + 40px)" }}>
                       <iframe
                         src="https://lichess.org/tv/frame?theme=brown&bg=dark"
                         width="100%"
@@ -139,14 +136,11 @@ const BeyondCodeSection = () => {
                         className="absolute inset-0"
                       ></iframe>
                     </div>
-                    <motion.p
-                      className="text-center mt-3 text-sm font-medium"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgb(var(--p-500)/0.2)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.4)] transition-all duration-300">
+                    <p className="text-center mt-3 text-sm">
+                      <span className="inline-block px-4 py-2 border border-green-700 text-green-400 group-hover:border-status group-hover:text-status transition-colors">
                         Click to visit my Lichess ↗
                       </span>
-                    </motion.p>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -155,21 +149,21 @@ const BeyondCodeSection = () => {
         </a>
 
         {/* Guitar Performances Card */}
-        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
+        <div className="h-full flex flex-col group border border-green-900 hover:border-status transition-colors">
+          <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
             <span>$ Guitar Performances</span>
             <span aria-hidden="true">♪</span>
           </div>
           <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
-            <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+            <p className="text-white text-sm mb-2 sm:mb-3">
               Music is to life what autoplay is to YouTube — suddenly, it's 3 AM
             </p>
-            <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
-              <p className="text-green-300 text-xs md:text-sm">
+            <div className="bg-black p-2 sm:p-3 mt-auto">
+              <p className="text-green-500 text-sm">
                 $ guitar --venues
               </p>
 
-              <div className="mt-1 sm:mt-4 text-gray-400 text-sm md:text-base space-y-2">
+              <div className="mt-1 sm:mt-4 text-gray-400 text-sm space-y-2">
                 <p className="flex items-start gap-2">
                   <span className="text-base text-gray-500">{">"}</span>
                   Symbiosis Design School Fest --Pune -2024, 2023
@@ -188,27 +182,27 @@ const BeyondCodeSection = () => {
         </div>
 
         {/* Hackathon Recognition Card */}
-        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
+        <div className="h-full flex flex-col group border border-green-900 hover:border-status transition-colors">
+          <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
             <span>$ Hackathon Recognition</span>
             <span aria-hidden="true">★</span>
           </div>
           <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
-            <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+            <p className="text-white text-sm mb-2 sm:mb-3">
               Overnight = (Caffeine + Code + Mild Panic) &gt; Wild Ideas &gt;
               Debugging &gt; Innovation (maybe)
             </p>
-            <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
-              <p className="text-green-300 text-xs md:text-sm">
+            <div className="bg-black p-2 sm:p-3 mt-auto">
+              <p className="text-green-500 text-sm">
                 $ hackathon --list-achievements
               </p>
-              <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+              <p className="text-gray-400 mt-1 sm:mt-2 text-sm break-words">
                 Microsoft ChatGPT Hackathon Recognition
               </p>
-              <p className="text-gray-400 text-xs md:text-sm break-words">
+              <p className="text-gray-400 text-sm break-words">
                 ACM-VIT Top 10 Teams
               </p>
-              <p className="text-gray-400 text-xs md:text-sm break-words">
+              <p className="text-gray-400 text-sm break-words">
                 Venture-city Technical Head
               </p>
             </div>
@@ -222,58 +216,55 @@ const BeyondCodeSection = () => {
           rel="noopener noreferrer"
           className="block"
         >
-          <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-            <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
+          <div className="h-full flex flex-col group border border-green-900 hover:border-status transition-colors">
+            <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
               <span>$ Blogs</span>
               <span aria-hidden="true">¶</span>
             </div>
             <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
-              <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+              <p className="text-white text-sm mb-2 sm:mb-3">
                 This is where my thoughts go from whispers to headlines, one
                 word at a time
               </p>
-              <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
-                <p className="text-green-300 text-xs md:text-sm">
+              <div className="bg-black p-2 sm:p-3 mt-auto">
+                <p className="text-green-500 text-sm">
                   $ open medium-profile
                 </p>
-                <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+                <p className="text-gray-400 mt-1 sm:mt-2 text-sm break-words">
                   Medium: 20,000+ views, 200+ followers
                 </p>
-                <motion.p
-                  className="text-center mt-3 text-sm font-medium"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <span className="inline-block px-4 py-2 rounded-md bg-green-500/10 text-green-400 shadow-[0_0_10px_rgb(var(--p-500)/0.2)] hover:shadow-[0_0_15px_rgb(var(--p-500)/0.4)] transition-all duration-300">
+                <p className="text-center mt-3 text-sm">
+                  <span className="inline-block px-4 py-2 border border-green-700 text-green-400 group-hover:border-status group-hover:text-status transition-colors">
                     Click to visit my Medium ↗
                   </span>
-                </motion.p>
+                </p>
               </div>
             </div>
           </div>
         </a>
 
         {/* Certifications Card */}
-        <div className="bg-gray-900 border border-green-500 rounded-md overflow-hidden hover:shadow-[0_0_15px_rgb(var(--p-500)/0.3)] transition-all duration-300">
-          <div className="bg-green-500 text-black px-4 py-2 font-bold flex justify-between items-center gap-2">
+        <div className="h-full flex flex-col group border border-green-900 hover:border-status transition-colors">
+          <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
             <span>$ Certifications</span>
             <span aria-hidden="true">§</span>
           </div>
           <div className="p-3 sm:p-4 min-h-[200px] sm:min-h-[250px] flex flex-col">
-            <p className="text-green-400 text-sm md:text-base mb-2 sm:mb-3">
+            <p className="text-white text-sm mb-2 sm:mb-3">
               Took tests, earned badges, and still google things — but now I do
               it with authority
             </p>
-            <div className="bg-black p-2 sm:p-3 rounded-md mt-auto">
-              <p className="text-green-300 text-xs md:text-sm">
+            <div className="bg-black p-2 sm:p-3 mt-auto">
+              <p className="text-green-500 text-sm">
                 $ cert --list-all
               </p>
-              <p className="text-gray-400 mt-1 sm:mt-2 text-xs md:text-sm break-words">
+              <p className="text-gray-400 mt-1 sm:mt-2 text-sm break-words">
                 Azure Data Engineer Associate
               </p>
-              <p className="text-gray-400 text-xs md:text-sm break-words">
+              <p className="text-gray-400 text-sm break-words">
                 ML Specialization
               </p>
-              <p className="text-gray-400 text-xs md:text-sm break-words">
+              <p className="text-gray-400 text-sm break-words">
                 Google Cloud ML Engineer
               </p>
             </div>
