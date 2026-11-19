@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Download, Send, TerminalSquare } from "lucide-react";
 import { hero, links, projects } from "@/data/profile";
+import HeroArt from "./HeroArt";
 
 interface HeroSectionProps {
   onContactClick: () => void;
@@ -106,13 +107,14 @@ const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
           <p className="pt-6 text-gray-400 text-sm">press any key to skip</p>
         </div>
       ) : (
-        <div>
+        <div className="lg:flex lg:items-center lg:justify-between gap-12">
+        <div className="min-w-0">
           <p className="text-gray-400 text-sm sm:text-base">
             shubham-os login: <span className="text-white">guest</span>
           </p>
           <p className="text-gray-400 text-sm sm:text-base mb-6">Last login: just now on tty1</p>
 
-          <h1 className="font-display text-green-400 leading-none text-[clamp(3.5rem,13vw,8.5rem)]">
+          <h1 className="font-display text-green-400 leading-none text-[clamp(3.5rem,13vw,8.5rem)] lg:text-[clamp(3.5rem,6.5vw,8rem)] lg:whitespace-nowrap">
             {hero.name}
           </h1>
 
@@ -143,6 +145,8 @@ const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
             </button>
           </div>
           <p className="mt-6 text-green-500 cursor" aria-hidden="true">guest@shubham-os:~$</p>
+        </div>
+        <HeroArt className="mt-12 lg:mt-0 lg:mr-[2vw] shrink-0" />
         </div>
       )}
     </div>

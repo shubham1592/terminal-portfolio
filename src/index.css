@@ -284,6 +284,13 @@
   max-width: 115ch;
 }
 
+/* ASCII portrait in the hero: sized in px so its 54 columns stay a fixed shape */
+.hero-art {
+  font-size: clamp(9.5px, 1.02vw, 17px);
+  line-height: 1.15;
+  white-space: pre;
+}
+
 /* dot leaders for boot/status lines */
 .leader {
   flex: 1;
