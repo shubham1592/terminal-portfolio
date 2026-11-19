@@ -229,11 +229,18 @@
   background:
     repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / 0.18) 2px 3px),
     rgb(var(--panel) / 0.96);
-  box-shadow: 0 -6px 18px rgb(var(--p-500) / 0.1);
 }
 :root[data-crt="off"] .statusbar {
   background: rgb(var(--panel));
-  box-shadow: none;
+}
+
+/* Black outside the curved tube (CrtWarp.tsx): above the glare/beam/scanlines, below the status bar. */
+.tube-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 74;
+  pointer-events: none;
+  background-size: 100% 100%;
 }
 .sb-item {
   display: block;
