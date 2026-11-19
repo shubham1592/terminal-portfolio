@@ -19,10 +19,7 @@
     --screen-hi: 14 32 22;
     --status: 232 163 61; /* #e8a33d amber accent: headings, emphasis, status words, hover */
     /* amber glow, used by .accent and the active status-bar tab */
-    --accent-glow:
-      0 0 1px rgb(var(--status) / 0.8),
-      0 0 7px rgb(var(--status) / 0.5),
-      0 0 18px rgb(var(--status) / 0.22);
+    --accent-glow: 0 0 7px rgb(var(--status) / 0.6);
   }
   /* shadcn tokens, pointed at the phosphor palette */
   :root {
@@ -63,11 +60,9 @@
     @apply bg-background text-foreground font-mono;
     font-size: 17px;
     line-height: 1.6;
-    /* phosphor bloom in each element's own colour */
-    text-shadow:
-      0 0 calc(1px * var(--crt-glow)) color-mix(in srgb, currentColor 60%, transparent),
-      0 0 calc(5px * var(--crt-glow)) color-mix(in srgb, currentColor 50%, transparent),
-      0 0 calc(14px * var(--crt-glow)) color-mix(in srgb, currentColor 22%, transparent);
+    /* phosphor bloom in each element's own colour. One layer on purpose: measured with the warp on,
+       two or three stacked shadows doubled scroll frame time (7ms -> 14ms at 1440px). */
+    text-shadow: 0 0 calc(5px * var(--crt-glow)) color-mix(in srgb, currentColor 55%, transparent);
   }
 
   ::selection {
@@ -110,6 +105,8 @@
   --crt-glow: 1; /* phosphor bloom multiplier; 0 = none */
   --crt-vignette: 0.92; /* corner darkness, 0..1 */
   --crt-soft: 0.6px; /* soft focus on the warped screen */
+  --beam-strength: 0.1; /* electron-beam glow intensity, 0..~0.2 */
+  --beam-size: 520px; /* larger costs extra blend work per frame while scrolling */
 }
 
 .crt-root {
@@ -180,6 +177,42 @@
   81% { opacity: 0.97; }
 }
 
+/* ---- Electron-beam glow (Beam.tsx): screen-blended so it lifts text and scanlines, never covers them.
+   Above the scanlines and vignette, below the status bar. Moved only via transform. ---- */
+.beam {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--beam-size);
+  height: var(--beam-size);
+  z-index: 72;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgb(var(--p-400) / var(--beam-strength)) 0%,
+    rgb(var(--p-500) / calc(var(--beam-strength) * 0.45)) 35%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 700ms ease;
+  will-change: transform, opacity;
+}
+.beam[data-on] {
+  opacity: 1;
+}
+.beam[data-mode="static"] {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  transition: none;
+}
+:root[data-crt="off"] .beam {
+  display: none;
+}
+
 /* ---- tmux-style status bar: above the vignette/scanlines so it stays readable, but with its own
    scanlines and phosphor halo so it still looks like part of the tube ---- */
 .statusbar {
@@ -232,11 +265,16 @@
   color: rgb(var(--status));
 }
 
-/* Page container: wide for grids and cards; paragraphs set their own reading width (max-w-3xl/4xl). */
+/* Page container: wide for grids and cards; running text is capped by .measure. */
 .wrap {
   max-width: 1520px;
   margin-inline: auto;
   padding-inline: max(1rem, 4.5vw);
+}
+
+/* Reading width for paragraphs and bullet lists: long lines, but capped so they stay readable. */
+.measure {
+  max-width: 115ch;
 }
 
 /* dot leaders for boot/status lines */

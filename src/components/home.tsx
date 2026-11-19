@@ -7,6 +7,7 @@ import BeyondCodeSection from "./BeyondCodeSection";
 import ExperienceSection from "./ExperienceSection";
 import Shell from "./Shell";
 import CrtWarp from "./CrtWarp";
+import Beam from "./Beam";
 import Rich from "./Rich";
 import { about, education } from "@/data/profile";
 
@@ -122,7 +123,7 @@ const Home = () => {
         </section>
 
         <Section id="about" cmd="cat about.txt">
-          <div className="space-y-3 text-lg max-w-3xl">
+          <div className="measure space-y-3 text-lg">
             {about.map((p) => (
               <p key={p}>
                 <Rich text={p} />
@@ -132,7 +133,7 @@ const Home = () => {
           <h3 className="accent subhead mt-10">
             <span className="opacity-60">$ </span>cat education.log
           </h3>
-          <ul className="space-y-2">
+          <ul className="measure space-y-2">
             {education.map((e) => (
               <li key={e.degree}>
                 <span className="text-white">{e.degree}</span>
@@ -166,7 +167,7 @@ const Home = () => {
         <footer className="py-8 pb-16 px-4 text-center text-sm text-gray-400 border-t border-green-900">
           <p>© {new Date().getFullYear()} Shubham Kumar</p>
           <p className="mt-1">
-            Prefer typing? <button onClick={() => setShellOpen(true)} className="underline underline-offset-4 text-green-400 hover:text-status">Open the shell</button>
+            Prefer typing? <button onClick={() => setShellOpen(true)} className="inline-block py-3 underline underline-offset-4 text-green-400 hover:text-status">Open the shell</button>
           </p>
         </footer>
       </main>
@@ -215,6 +216,7 @@ const Home = () => {
 
       <div className="crt" aria-hidden="true" />
       <div className="vignette" aria-hidden="true" />
+      <Beam />
       <CrtWarp enabled={warp} />
     </div>
   );

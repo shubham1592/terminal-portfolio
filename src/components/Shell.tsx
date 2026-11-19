@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { about, education, experience, links, plain, projects, skills, hero } from "@/data/profile";
+import MatrixRain, { STATIC_RAIN } from "./MatrixRain";
+import { cowsay, top, uptime } from "./shellFun";
 
 export const SECTIONS = ["about", "experience", "projects", "stack", "beyond", "contact"] as const;
 
@@ -24,7 +26,10 @@ const HELP = `available commands:
                     sections: ${SECTIONS.join(" ")}
   crt on|off        toggle scanlines and glow
   clear             clear the screen
-  exit              back to the page          (or press Esc)`;
+  exit              back to the page          (or press Esc)
+
+just for fun:
+  matrix · cowsay <text> · top · uptime · play chess`;
 
 const A = ({ href, children }: { href: string; children: ReactNode }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 text-green-300 hover:text-status">
@@ -34,11 +39,13 @@ const A = ({ href, children }: { href: string; children: ReactNode }) => (
 
 const Shell = ({ onClose, onGoto, setCrt }: ShellProps) => {
   const [lines, setLines] = useState<Line[]>([
-    { kind: "out", text: `shubham-os 2026.11 tty2\nType "help" to see what you can do here.` },
+    { kind: "out", text: `shubham-os 2026.11 tty2\nType "help" to see what you can do here, or try "matrix".` },
   ]);
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [hIdx, setHIdx] = useState(-1);
+  const [raining, setRaining] = useState(false);
+  const stopRain = useCallback(() => setRaining(false), []);
   const inputRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -57,6 +64,7 @@ const Shell = ({ onClose, onGoto, setCrt }: ShellProps) => {
   const run = (raw: string): ReactNode | null => {
     const [cmd, ...args] = raw.trim().split(/\s+/);
     const arg = args.join(" ").toLowerCase();
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     switch (cmd?.toLowerCase()) {
       case "":
       case undefined:
@@ -124,10 +132,24 @@ const Shell = ({ onClose, onGoto, setCrt }: ShellProps) => {
       case "logout":
         onClose();
         return null;
+      case "matrix":
+        if (reducedMotion) return STATIC_RAIN;
+        setRaining(true);
+        return "wake up, guest... (press any key to stop)";
+      case "play":
+        if (arg !== "chess") return "usage: play chess";
+        window.open(links.lichess, "_blank", "noopener");
+        return "opening lichess... good luck.";
+      case "cowsay":
+        return cowsay(args.join(" "));
+      case "top":
+        return top();
+      case "uptime":
+        return uptime();
       case "sudo":
         return "guest is not in the sudoers file. This incident will be reported.";
       default:
-        return `${cmd}: command not found. Type "help".`;
+        return `${cmd}: command not found. Type "help" for the list (there are a few hidden ones too).`;
     }
   };
 
@@ -195,6 +217,7 @@ const Shell = ({ onClose, onGoto, setCrt }: ShellProps) => {
         </form>
         <div ref={endRef} />
       </div>
+      {raining && <MatrixRain onDone={stopRain} />}
     </div>
   );
 };

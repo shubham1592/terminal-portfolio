@@ -21,11 +21,11 @@ export const hero = {
 
 export const about = [
   "I build **backend and data systems** that hold up in production: APIs, pipelines and the plumbing between them.",
-  "Right now I'm a **Software Engineer Co-op at LG Energy Solution Vertech**, building FastAPI services over telemetry data with **43M+ rows per site**.",
-  "Before grad school I spent three years as a **data engineer at Bajaj Finance**, moving a **500TB** database to a cloud data lake and shipping a **RAG** search over 10,000+ documents.",
-  "Studying for an **MS in Computer Science at Northeastern**, graduating May 2027.",
+  "Right now I'm a Software Engineer Co-op at **LG Energy Solution Vertech**, building FastAPI services over telemetry data with **43M+ rows per site**.",
+  "Before grad school I spent three years as a data engineer at **Bajaj Finance**, moving a **500TB** database to a cloud data lake and shipping a RAG search over 10,000+ documents.",
+  "Studying for an MS in Computer Science at **Northeastern**, graduating May 2027.",
   "Looking for **full-time software engineering roles** starting 2027.",
-  "**Guitarist**, **blogger**, and a pretty decent **chess player**.",
+  "Guitarist, blogger, and a pretty decent chess player.",
 ];
 
 export const education = [
@@ -51,7 +51,7 @@ export const experience: Role[] = [
     place: "Westborough, MA",
     date: "June 2026 – December 2026",
     items: [
-      "Designed hierarchical **REST APIs with FastAPI** for a multi-service platform, replacing static data structures with scoped endpoints, parallelizing **AWS S3** ingestion over a 20-thread pool, and adding throttles to protect 3GB runtime containers.",
+      "Designed hierarchical **REST APIs with FastAPI** for a multi-service platform, replacing static data structures with scoped endpoints, parallelizing AWS S3 ingestion over a 20-thread pool, and adding throttles to protect 3GB runtime containers.",
       "Moved aggregation logic for telemetry reporting (**43M+ rows per site**) into SQL workflows, removing the memory overhead and bringing processing latency **under 1 minute**.",
       "Made the platform stable under concurrent load with a **thread-safe connection pool** that health-checks and replaces sessions, plus bounded frontend caches that cut redundant API calls.",
       "Built a **Python data quality framework** that tracks telemetry completeness across metadata hierarchies, giving model validation teams an end-to-end view of system integrity.",
@@ -66,7 +66,7 @@ export const experience: Role[] = [
     date: "July 2022 – August 2025",
     items: [
       "Migrated a **500TB** legacy production database to a cloud data lake and designed custom partitioning, cutting query latency by **40%**.",
-      "Built backend pipelines in **Java, Python and Spark** for high-throughput financial data, with **CI/CD** deployments that cut pipeline failures by **60%** and compute by **50%**.",
+      "Built backend pipelines in Java, Python and Spark for high-throughput financial data, with CI/CD deployments that cut pipeline failures by **60%** and compute by **50%**.",
       "Worked with data scientists and product managers on feature pipelines and experiment tracking to ship **3 production ML services**.",
       "Designed and deployed a production **RAG application** with LangChain, vector stores and LLM APIs over 10,000+ documents, speeding up query resolution by **65%**.",
     ],

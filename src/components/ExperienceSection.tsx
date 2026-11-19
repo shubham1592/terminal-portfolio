@@ -3,7 +3,8 @@ import { experience } from "@/data/profile";
 import Rich from "./Rich";
 
 const ExperienceSection = () => (
-  <Accordion type="multiple" defaultValue={experience.map((r) => r.id)} className="space-y-4">
+  // .measure on the whole list so the right-aligned dates line up with the end of the bullet text
+  <Accordion type="multiple" defaultValue={experience.map((r) => r.id)} className="measure space-y-4">
     {experience.map((r) => (
       <AccordionItem key={r.id} value={r.id} className="border-b border-green-900">
         <AccordionTrigger className="hover:no-underline group py-3 text-left gap-4 [&>svg]:text-green-500">
@@ -23,8 +24,7 @@ const ExperienceSection = () => (
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          {/* two columns on wide screens keep each bullet at a comfortable line length */}
-          <ul className="pl-4 ml-1 border-l border-green-900 grid xl:grid-cols-2 gap-x-12 gap-y-3 text-base text-white">
+          <ul className="pl-4 ml-1 border-l border-green-900 space-y-3 text-base text-white">
             {r.items.map((item) => (
               <li key={item} className="flex gap-2">
                 <span className="text-green-500 shrink-0">▹</span>

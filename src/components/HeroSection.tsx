@@ -116,7 +116,7 @@ const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
             {hero.name}
           </h1>
 
-          <div className="mt-6 space-y-1 text-base sm:text-lg">
+          <div className="measure mt-6 space-y-1 text-base sm:text-lg">
             {hero.lines.map((l) => (
               <p key={l} className="text-white">
                 <span className="text-status">&gt; </span>
