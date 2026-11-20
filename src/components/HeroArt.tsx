@@ -1,34 +1,46 @@
 import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 
 /**
- * ASCII self-portrait for the hero: me behind a laptop, glasses peeking over the lid.
- * Generated as a fixed 54-column grid. Markers: «…» = amber, L / R = left / right pupil cell.
+ * ASCII self-portrait for the hero: chibi me with round glasses, typing on a laptop (Ubuntu logo on the lid).
+ * Hand-drawn on a fixed 65-column grid. Markers: «…» = amber (glasses frames, Ubuntu logo), L / R = left / right pupil cell.
  * Rendered as real text so it gets the scanlines, warp and glow like everything else.
  * The eyes are the only live part: each lens interior is a 9-char span whose text is swapped.
  */
 export const ART = [
-  "                        _.,-~~-.._                    ",
-  "                   .-'/,'//'/,'/~~-._                 ",
-  "               .-'//'/,/'//'/,'//'/'/~-.              ",
-  "             .'/,'//'/,/'//'/,'//'/'//`\\.             ",
-  "            |//'/,/'//''''''''''''''`\\\\'\\\\|           ",
-  "            |/'                      `\\\\\\|            ",
-  "            |   #######        #######   |            ",
-  "            | .=========.    .=========. |            ",
-  "           (==|    L    |-==-|    R    |==)           ",
-  "            \\ '========='    '=========' /            ",
-  "   _.-.«========================================».-._   ",
-  " .'  _|                                        |_  '. ",
-  "/  .' |                                        | '.  \\",
-  "|  |  |                                        |  |  |",
-  "|  |  |                                        |  |  |",
-  "|  |  |                .------.                |  |  |",
-  "|  |  |                |  «SK»  |                |  |  |",
-  "|  |  |                '------'                |  |  |",
-  "|  |  |                                        |  |  |",
-  "|  |  |                                        |  |  |",
-  "|  (__|________________________________________|__)  |",
-  "'----------------------------------------------------'",
+  "                                            ,",
+  "                                      ,   /(  ,/(",
+  "                                  \\`.)\\/(/  )/ / ,/",
+  "                            _.&%#%(@@%#&%##/%#%#@@%)&%-.",
+  "                          ,''/##&%#%#'@%#&%##&'#%#@@%#)'`.",
+  "                     __(%#'@%#&%/#&'#%#@(%#&'##&%\\%#@'%#&)##&%._",
+  "                      `.'#(#@@%#&'#/&%#%#@'(#&%##&%'\\#@@%#&%'#&,'",
+  "                    _.%##&%#%(@@%#&%##/%#%#@@%)&%##&%#%\\@@%# (",
+  "                     `.&/##&%#%#(@%#&%##&/#%#@@%#)%##&%#%#\\@%#`.",
+  "                    ,-' #&%/#&' `#@(%#& `#&%\\%#'`%#&)##&% %# /",
+  "                     `./#%%/ /\\  `%%/ /\\ `%%/ /\\ `%%%/ \\#\\' (",
+  "                      /#%/ /  \\ /\\`/ /  \\ /\\`/ /  \\ /\\`/ /\\\\ `.",
+  "                     |#%/  `=#==--..__        __..--==#=`  )",
+  "                      \\|  «.-=======-.»    «.-=======-.»  ` \\\\/",
+  "                       |«=((»  .---.  «))--((»  .---.  «))=====»(\\",
+  "                       | «((»    L    «))»  «((»    R    «))»     ) )",
+  "                       |  «'-=======-'»    «'-=======-'»     (_/",
+  "                        \\    ///         .       ///     /",
+  "                         \\_              .-.          _/",
+  "                           `--.__               __.--'",
+  "  .__________________________.   `----.....----'   \\",
+  "  |                          |\\   ____.-'   `-.____/ `--.._",
+  "  |                          | \\ /::;::;::;::;::;::;::;::;:`.",
+  "   \\                          \\ \\::;::;::;::;::;::;::;::;::;:\\",
+  "   |                          |  \\;::;::;::;::;::;::;::;::;::;\\",
+  "   |          «.--.» «o»          |   |::;::;::;::;::;::;::;::;::;:|",
+  "   \\         «/»    «\\»           \\  .--.;::;::;::;::;::;::;::;::;::|",
+  "    |       «o|»    «|»           |(((  \\.::;::;::;::;::;::;::;::;:|",
+  "    |        «\\»    «/»           | \\   ___\\_.::;::;::;::;::;::;::;|",
+  "    \\         «'--'» «o»          \\  `-(((   \\___;::;::;::;::;::;::|",
+  "     |                         |=====\\_____  `-;::;::;::;::;::;|",
+  "     |                         |=============`--.__::;::;::;:::/",
+  "     \\_________________________\\===================`---------'",
+  "                                \\_________________/",
 ];
 
 const LENS = 9; // lens interior width; the pupil sits at index 4 when centred
@@ -40,10 +52,10 @@ const CENTRE: Gaze = { dx: 0, dy: 0, closed: false };
 export const lens = ({ dx, dy, closed }: Gaze) => {
   if (closed) return "   ---   ";
   const cells = Array(LENS).fill(" ");
-  cells[4 + dx * 3] = dy < 0 ? "°" : dy > 0 ? "." : "o";
+  cells[4 + dx * 3] = dy < 0 ? "°" : dy > 0 ? "." : "@";
   return cells.join("");
 };
-console.assert(lens(CENTRE) === "    o    " && lens({ dx: 1, dy: -1, closed: false }) === "       ° ", "lens");
+console.assert(lens(CENTRE) === "    @    " && lens({ dx: 1, dy: -1, closed: false }) === "       ° ", "lens");
 
 /** 8 directions + centre from the vector eyes -> pointer. Within `dead` px the eyes look straight ahead. */
 export const gazeToward = (vx: number, vy: number, dead = 70): Gaze => {
@@ -161,7 +173,7 @@ const HeroArt = ({ className = "" }: { className?: string }) => {
   return (
     <div className={className}>
       <span className="sr-only">
-        ASCII drawing of Shubham: short black hair swept up, rectangular glasses, working behind a laptop with an SK sticker.
+        ASCII drawing of Shubham as a cartoon: messy black hair, big round glasses, focused expression, typing on a laptop with an Ubuntu logo.
       </span>
       <pre aria-hidden="true" className="hero-art text-green-500 select-none">
         {ART.map((line, i) => (

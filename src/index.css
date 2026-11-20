@@ -286,7 +286,7 @@
 
 /* ASCII portrait in the hero: sized in px so its 54 columns stay a fixed shape */
 .hero-art {
-  font-size: clamp(9.5px, 1.02vw, 17px);
+  font-size: clamp(8.5px, 0.92vw, 15px); /* 65 columns: fits a 390px phone, clears the name at 1440/1920 */
   line-height: 1.15;
   white-space: pre;
 }
