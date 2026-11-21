@@ -2,7 +2,7 @@ import { useEffect, useRef, type ReactNode, type RefObject } from "react";
 
 /**
  * ASCII self-portrait for the hero: chibi me with round glasses, typing on a laptop (Ubuntu logo on the lid).
- * Hand-drawn on a fixed 65-column grid. Markers: «…» = amber (glasses frames, Ubuntu logo), L / R = left / right pupil cell.
+ * Hand-drawn on a fixed 66-column grid. Markers: «…» = amber (glasses frames, Ubuntu logo), L / R = left / right pupil cell.
  * Rendered as real text so it gets the scanlines, warp and glow like everything else.
  * The eyes are the only live part: each lens interior is a 9-char span whose text is swapped.
  */
@@ -19,43 +19,44 @@ export const ART = [
   "                      |  |  |      /                         | |",
   "                      \\  |  /     /                         | |",
   "                       \\    \\_/\\   /\\_/\\   /\\__/\\   /\\_     | |",
-  "                        \\  `=#==--..__        __..--==#=`  )",
-  "                      \\|  «.-=======-.»    «.-=======-.»  ` \\\\/",
-  "                       |«=((»  .---.  «))--((»  .---.  «))=====»(\\",
-  "                       | «((»    L    «))»  «((»    R    «))»     ) )",
-  "                       |  «'-=======-'»    «'-=======-'»     (_/",
-  "                        \\    ///         .       ///     /",
-  "                         \\_              .-.          _/",
-  "                           `--.__               __.--'",
-  "     .___________________________.  /-'`   ____     .._.",
-  "    /                           /|  / ---''   :''--   :'--.   :",
-  "   |                           | | /:   :   :   :   :   :  '\\   :",
-  "   |           «_.--.»   «o»       | ||   :   :   :   :   :   :  \\:",
-  "   |         «.'»                | || :   :   :   :   :   :   : \\ :",
-  "   |        «/»         «\\»        | ||   :   :   :   :   :   /   :\\",
-  "   |       «o»           «|»       | || :   :   :   :   :   :/  :   \\",
-  "   |        «\\»         «/»        | | \\(\\\\\\\\     ////)   .-/ :   : |",
-  "   |         «`.»                | |______________________:   :   :|",
-  "   |           «`--'»   «o»        | /[][][][][][][][][][]/   :   :  |",
-  "   '._________________________.' /[][][][][][][][][][]/ :   :   :|",
-  "    ============================/_____________________/   :   :  |",
-  "                                                        :   :   :|",
+  "                        \\  `=#==--..__        __..--==#=`    )",
+  "                       \\| «.=============.»  «.=============.»  \\\\/",
+  "                        | «||»  .-----.  «||--||»  .-----.  «||===»(\\",
+  "                        | «||»     L     «||»  «||»     R     «||»   ) )",
+  "                        | «||»  '-----'  «||»  «||»  '-----'  «||»  (_/",
+  "                        | «'============='»  «'============='» /",
+  "                         \\   ///          .          ///   /",
+  "                          \\_              .-.              _/",
+  "                            `--.__                     __.--'",
+  "     .___________________________.   __               _.__",
+  "    /                           /|/-'  '-._       _.-'    '-.",
+  "   |                           | |     ''-._'---''_.-'  .   \\.",
+  "   |           «_.--.»   «o»       | |    .    |''--'|   .    .   \\.",
+  "   |         «.'»                | |      .  | .   |.    .    .  \\",
+  "   |        «/»         «\\»        | |        .o   . o  .    ./   . \\",
+  "   |       «o»           «|»       | |\\    .    .    .    .  / .    |",
+  "   |        «\\»         «/»        | |\\[|||]          [|||]-/    .   |",
+  "   |         «`.»                | |____(\\\\\\\\___////)_____  .    . |",
+  "   |           «`--'»   «o»        | /[][]`--' ][]`--'[][]/     .    |",
+  "   '._________________________.' /[][][][][][][][][][]/  .    .  |",
+  "    ============================/_____________________/    .    .|",
+  "                                                             .   |",
   "",
 ];
 
-const LENS = 9; // lens interior width; the pupil sits at index 4 when centred
+const LENS = 9; // live cells inside each iris; the 3-char pupil sits at 3-5 when centred
 
 type Gaze = { dx: -1 | 0 | 1; dy: -1 | 0 | 1; closed: boolean };
 const CENTRE: Gaze = { dx: 0, dy: 0, closed: false };
 
-/** The 9 characters inside one lens for a gaze. Up/down change the pupil glyph, left/right move it. */
+/** The 9 live cells inside one iris. The pupil is 3 chars wide and moves in steps of 3; up/down change its shape. */
 export const lens = ({ dx, dy, closed }: Gaze) => {
-  if (closed) return "   ---   ";
-  const cells = Array(LENS).fill(" ");
-  cells[4 + dx * 3] = dy < 0 ? "°" : dy > 0 ? "." : "@";
-  return cells.join("");
+  if (closed) return "  -----  ";
+  const pupil = dy < 0 ? "'@'" : dy > 0 ? ".@." : "(@)";
+  const at = 3 + dx * 3;
+  return " ".repeat(at) + pupil + " ".repeat(LENS - at - 3);
 };
-console.assert(lens(CENTRE) === "    @    " && lens({ dx: 1, dy: -1, closed: false }) === "       ° ", "lens");
+console.assert(lens(CENTRE) === "   (@)   " && lens({ dx: 1, dy: -1, closed: false }) === "      '@'" && lens({ dx: -1, dy: 1, closed: false }) === ".@.      ", "lens");
 
 /** 8 directions + centre from the vector eyes -> pointer. Within `dead` px the eyes look straight ahead. */
 export const gazeToward = (vx: number, vy: number, dead = 70): Gaze => {
@@ -173,7 +174,7 @@ const HeroArt = ({ className = "" }: { className?: string }) => {
   return (
     <div className={className}>
       <span className="sr-only">
-        ASCII drawing of Shubham as a cartoon: neat swept-up hair, big round glasses, focused expression, typing on a laptop with an Ubuntu logo.
+        ASCII drawing of Shubham as a cartoon: neat swept-up hair, big square glasses, focused expression, wearing a hoodie and typing on a laptop with an Ubuntu logo.
       </span>
       <pre aria-hidden="true" className="hero-art text-green-500 select-none">
         {ART.map((line, i) => (
