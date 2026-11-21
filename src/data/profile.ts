@@ -52,7 +52,7 @@ export const experience: Role[] = [
     date: "June 2026 – December 2026",
     items: [
       "Designed hierarchical **REST APIs with FastAPI** for a multi-service platform, replacing static data structures with scoped endpoints, parallelizing AWS S3 ingestion over a 20-thread pool, and adding throttles to protect 3GB runtime containers.",
-      "Moved aggregation logic for telemetry reporting (**43M+ rows per site**) into SQL workflows, removing the memory overhead and bringing processing latency **under 1 minute**.",
+      "Moved aggregation logic for telemetry reporting (**43M+ rows per site**) into SQL workflows, removing the memory overhead and bringing processing latency **under 1 second**.",
       "Made the platform stable under concurrent load with a **thread-safe connection pool** that health-checks and replaces sessions, plus bounded frontend caches that cut redundant API calls.",
       "Built a **Python data quality framework** that tracks telemetry completeness across metadata hierarchies, giving model validation teams an end-to-end view of system integrity.",
     ],
