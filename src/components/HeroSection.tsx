@@ -92,8 +92,12 @@ const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
 
   return (
     <div className="wrap w-full py-16">
-      {!booted ? (
-        <div className="text-sm sm:text-base max-w-2xl" aria-live="polite">
+      {/* The hero is laid out from the start; the boot log sits on top of it, top-aligned, so neither
+          the log growing nor the log going away shifts the page (CLS) or delays the main paint (LCP). */}
+      {!booted && (
+        <div className="screen-bg absolute inset-0 z-10">
+        <div className="wrap w-full pt-[18vh] text-sm sm:text-base" aria-live="polite">
+        <div className="max-w-2xl">
           <Header>Boston node{"   "}tty1{"   "}Northeastern University</Header>
           {BOOT.slice(0, shown).map((b) => (
             <Line key={b.label} {...b} />
@@ -106,8 +110,10 @@ const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
           )}
           <p className="pt-6 text-gray-400 text-sm">press any key to skip</p>
         </div>
-      ) : (
-        <div className="lg:flex lg:items-center lg:justify-between gap-12">
+        </div>
+        </div>
+      )}
+        <div className="lg:flex lg:items-center lg:justify-between gap-12" aria-hidden={!booted || undefined}>
         <div className="min-w-0">
           <p className="text-gray-400 text-sm sm:text-base">
             shubham-os login: <span className="text-white">guest</span>
@@ -146,9 +152,8 @@ const HeroSection = ({ onContactClick, onShellClick }: HeroSectionProps) => {
           </div>
           <p className="mt-6 text-green-500 cursor" aria-hidden="true">guest@shubham-os:~$</p>
         </div>
-        <HeroArt className="mt-12 lg:mt-0 lg:mr-[2vw] shrink-0" />
+        <HeroArt className="mt-12 lg:mt-0 lg:mr-[2vw] shrink-0 w-fit mx-auto lg:mx-0" />
         </div>
-      )}
     </div>
   );
 };

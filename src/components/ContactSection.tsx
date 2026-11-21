@@ -171,7 +171,7 @@ const ContactSection = () => {
                 <span className="text-status">&gt;</span> reason-for-contact:
               </Label>
               <Select onValueChange={handleSelectChange} value={formState.reason}>
-                <SelectTrigger className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-status/40 focus:border-status focus:ring-2">
+                <SelectTrigger id="reason" className="w-full bg-black border-green-500 text-green-400 font-mono focus:ring-status/40 focus:border-status focus:ring-2">
                   <SelectValue placeholder="Select reason" />
                 </SelectTrigger>
                 <SelectContent className="bg-black border-green-500 text-green-400 font-mono">

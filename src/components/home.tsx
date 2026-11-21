@@ -118,7 +118,7 @@ const Home = () => {
       <div className={`screen text-white ${warp ? "warp" : ""}`}>
       <div className="screen-scroll">
       <main aria-hidden={shellOpen}>
-        <section id="hero" className="min-h-[100dvh] flex items-center">
+        <section id="hero" className="relative min-h-[100dvh] flex items-center">
           <HeroSection onContactClick={() => goto("contact")} onShellClick={() => setShellOpen(true)} />
         </section>
 

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { links } from "@/data/profile";
 
 const BeyondCodeSection = () => {
   const [isSpotifyExpanded, setIsSpotifyExpanded] = useState(false);
@@ -15,6 +15,13 @@ const BeyondCodeSection = () => {
     setIsSpotifyExpanded(false);
   };
 
+  useEffect(() => {
+    if (!isSpotifyExpanded) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setIsSpotifyExpanded(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isSpotifyExpanded]);
+
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       setIsSpotifyExpanded(false);
@@ -25,25 +32,22 @@ const BeyondCodeSection = () => {
     <>
       {/* Backdrop overlay when Spotify is expanded */}
       {isSpotifyExpanded && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Music Taste playlist"
           onClick={handleBackdropClick}
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 overflow-y-auto py-10"
           style={{ backdropFilter: "blur(8px)" }}
         >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="max-w-2xl mx-auto px-4"
-          >
+          <div className="max-w-2xl mx-auto px-4">
             <div className="bg-black border border-status">
               <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
                 <span>$ Music Taste</span>
                 <button
                   onClick={handleCloseClick}
+                  aria-label="Close the playlist"
+                  autoFocus
                   className="text-green-400 hover:text-status transition-colors"
                 >
                   ✕
@@ -53,28 +57,33 @@ const BeyondCodeSection = () => {
                 <iframe
                   style={{ borderRadius: "12px" }}
                   src="https://open.spotify.com/embed/playlist/5zSppxuqmXYMOaEkGZWnWO?si=Ii_wZZOGSJqJ1oRXEVYHqg"
+                  title="Spotify playlist: MyVibe"
                   width="100%"
                   height="450"
                   frameBorder="0"
-                  allowFullScreen
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy"
                   className="mt-2"
                 ></iframe>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Spotify Playlist Card */}
-        <motion.div
-          className={`h-full flex flex-col group border border-green-900 hover:border-status transition-colors cursor-pointer ${
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label="Expand the Music Taste playlist"
+          className={`h-full flex flex-col group border border-green-900 hover:border-status focus-visible:border-status transition-colors cursor-pointer ${
             isSpotifyExpanded ? "invisible" : ""
           }`}
           onClick={handleSpotifyClick}
-          layout
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") handleSpotifyClick(e as unknown as React.MouseEvent);
+          }}
         >
           <div className="hl border-b border-green-900 bg-gray-900 px-4 py-2 flex justify-between items-center gap-2">
             <span>$ Music Taste</span>
@@ -89,10 +98,10 @@ const BeyondCodeSection = () => {
               <iframe
                 style={{ borderRadius: "12px" }}
                 src="https://open.spotify.com/embed/playlist/5zSppxuqmXYMOaEkGZWnWO?si=Ii_wZZOGSJqJ1oRXEVYHqg&compact=1"
+                title="Spotify playlist preview: MyVibe"
                 width="100%"
                 height="160"
                 frameBorder="0"
-                allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
                 className="mt-2"
@@ -104,11 +113,11 @@ const BeyondCodeSection = () => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Chess Achievements Card */}
         <a
-          href="https://lichess.org/@/Riighley"
+          href={links.lichess}
           target="_blank"
           rel="noopener noreferrer"
           className="block"
@@ -206,7 +215,7 @@ const BeyondCodeSection = () => {
 
         {/* Blogs Card */}
         <a
-          href="https://medium.com/@pi-shubham"
+          href={links.medium}
           target="_blank"
           rel="noopener noreferrer"
           className="block"

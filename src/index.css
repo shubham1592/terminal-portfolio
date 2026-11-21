@@ -119,6 +119,10 @@
   position: fixed;
   inset: 0;
   overflow: hidden;
+}
+/* the tube's glass colour; also used by the boot overlay so it matches what it covers */
+.screen,
+.screen-bg {
   background: radial-gradient(ellipse at 50% 45%, rgb(var(--screen-hi)) 0%, rgb(var(--screen)) 70%);
 }
 /* Warp only once the filter exists (a missing url() filter hides the element in some browsers).
