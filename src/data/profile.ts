@@ -1,3 +1,5 @@
+import type { BrandName } from "@/lib/brands";
+
 // Single source of truth for site content. The page and the interactive shell both read this.
 // Text wrapped in **double stars** is rendered as a highlight.
 
@@ -140,7 +142,7 @@ export const projects: Project[] = [
 ];
 
 export interface Skill {
-  name: string;
+  name: BrandName; // must have a logo in src/lib/brands.tsx
   command: string;
 }
 

@@ -220,9 +220,9 @@ const ContactSection = () => {
         
         <div className="mt-12 flex justify-center gap-6">
           {[
-            { name: "LinkedIn", href: links.linkedin, label: "LinkedIn profile" },
-            { name: "GitHub", href: links.github, label: "GitHub profile" },
-            { name: "Email", href: `mailto:${links.email}`, label: `Email ${links.email}` },
+            { name: "LinkedIn" as const, href: links.linkedin, label: "LinkedIn profile" },
+            { name: "GitHub" as const, href: links.github, label: "GitHub profile" },
+            { name: "Email" as const, href: `mailto:${links.email}`, label: `Email ${links.email}` },
           ].map((c) => (
             <a
               key={c.name}
@@ -232,7 +232,7 @@ const ContactSection = () => {
               aria-label={c.label}
               title={c.label}
             >
-              <BrandIcon name={c.name} className="h-9 w-9" />
+              <BrandIcon name={c.name} />
             </a>
           ))}
         </div>

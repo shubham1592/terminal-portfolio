@@ -92,7 +92,7 @@ const bold = (b: Brand): Brand => ({ ...b, bold: true });
 
 const generic = (svg: ReactNode): Brand => ({ color: "rgb(var(--status))", svg });
 
-export const brands: Record<string, Brand> = {
+export const brands = {
   // Languages
   Java: dev(javaSvg, "#ED8B00"), // Oracle Java brand orange
   Python: si(siPython),
@@ -155,4 +155,7 @@ export const brands: Record<string, Brand> = {
   GitHub: si(siGithub),
   LinkedIn: dev(linkedinSvg, "#0A66C2"), // LinkedIn blue
   Email: si(siGmail),
-};
+} satisfies Record<string, Brand>;
+
+/** Every logo name; a skill or contact link with an unknown name fails the typecheck (and the build), not the live page. */
+export type BrandName = keyof typeof brands;
