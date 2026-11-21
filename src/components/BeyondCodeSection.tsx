@@ -122,27 +122,22 @@ const BeyondCodeSection = () => {
               <p className="text-white text-sm mb-2 sm:mb-3">
                 I play chess for almost two hours daily (Rated 1600+ on Lichess)
               </p>
-              <div className="bg-black p-2 sm:p-3 mt-auto">
-                <div className="flex-grow flex items-center justify-center">
-                  <div className="flex flex-col w-full max-w-[280px] mx-auto">
-                    {/* Lichess sizes its board to (height - player bars); keep height = width + bars so the board fills the width. */}
-                    <div className="relative w-full" style={{ paddingBottom: "calc(100% + 40px)" }}>
-                      <iframe
-                        src="https://lichess.org/tv/frame?theme=brown&bg=dark"
-                        width="100%"
-                        height="100%"
-                        frameBorder="0"
-                        title="Live chess game on Lichess TV"
-                        className="absolute inset-0"
-                      ></iframe>
-                    </div>
-                    <p className="text-center mt-3 text-sm">
-                      <span className="inline-block px-4 py-2 border border-green-700 text-green-400 group-hover:border-status group-hover:text-status transition-colors">
-                        Click to visit my Lichess ↗
-                      </span>
-                    </p>
-                  </div>
+              {/* board beside the link (not above it) so this card is no taller than its neighbours */}
+              <div className="bg-black p-2 sm:p-3 mt-auto flex items-center gap-4">
+                {/* Lichess sizes its board to (height - player bars); keep height = width + bars so the board fills the width. */}
+                <div className="relative w-[136px] shrink-0" style={{ paddingBottom: "calc(136px + 40px)" }}>
+                  <iframe
+                    src="https://lichess.org/tv/frame?theme=brown&bg=dark"
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    title="Live chess game on Lichess TV"
+                    className="absolute inset-0"
+                  ></iframe>
                 </div>
+                <span className="text-sm px-3 py-2 border border-green-700 text-green-400 group-hover:border-status group-hover:text-status transition-colors">
+                  Visit my Lichess ↗
+                </span>
               </div>
             </div>
           </div>
